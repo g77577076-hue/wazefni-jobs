@@ -26,15 +26,15 @@
 <header class="top"><a class="brand" href="./">وظ<span>فني</span></a><nav><a href="./#jobs">الوظايف</a><a href="cv.html">اعمل CV</a><a href="tools.html">كل الأدوات</a></nav></header>
 <div class="wrap">
 <h1>فاحص الوظايف المضروبة</h1>
-<p class="lead">الصق نص إعلان الوظيفة أو رسالة الواتساب، وهنطلعلك علامات النصب اللي فيه وإيه اللي تعمله قبل ما تبعت أي حاجة.</p>
+<p class="lead">الصق لينك الإعلان أو نصه (أو الاتنين)، وهنطلعلك علامات النصب اللي فيه وإيه اللي تعمله قبل ما تبعت أي حاجة.</p>
 <div class="priv">🔒 الفحص جوه متصفحك. الإعلان مبيتبعتش ولا بيتخزن في أي مكان.</div>
 <div class="panel">
-  <label for="lnk">لينك الإعلان (اختياري)</label>
+  <label for="lnk">لينك الإعلان <span style="color:var(--mut);font-weight:400">(كفاية لوحده، أو مع النص)</span></label>
   <input id="lnk" type="url" inputmode="url" dir="ltr" placeholder="https://..." autocomplete="off">
   <div class="actions" style="margin:6px 0"><button class="btn ghost" id="rd" type="button">حاول أقرا الصفحة من اللينك</button></div>
   <p class="hint" id="rdmsg">فحص اللينك نفسه بيتم جوه متصفحك. زرار "أقرا الصفحة" بيبعت اللينك بس لخدمة قراءة مجانية (r.jina.ai) عشان يجيب النص، ومبنبعتش حاجة لوظفني. فيسبوك وواتساب وتيليجرام الخاص غالبًا مش بيتقروا، فالصق النص تحت.</p>
-  <label for="ad">نص الإعلان</label>
-  <textarea id="ad" placeholder="الصق هنا نص الوظيفة، ومعاه رقم الموبايل أو الإيميل أو اللينك لو موجودين."></textarea>
+  <label for="ad">نص الإعلان <span style="color:var(--mut);font-weight:400">(اختياري لو حطيت لينك)</span></label>
+  <textarea id="ad" placeholder="اختياري: الصق نص الوظيفة هنا لفحص أدق. لو معاك اللينك بس سيبه فاضي."></textarea>
   <div class="actions"><button class="btn amber" id="go" type="button">افحص الإعلان</button><button class="btn ghost" id="clr" type="button">مسح</button></div>
   <p class="hint">الفحص بيدور على علامات معروفة بس. ده مش حكم نهائي، والأهم تتأكد من الشركة بنفسك.</p>
 </div>
