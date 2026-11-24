@@ -96,7 +96,7 @@
     if(/(القاهره|الجيزه|الاسكندريه|المعادي|مدينه نصر|اكتوبر|التجمع|الشيخ زايد|cairo|giza|alexandria|عنوان|location|address)/.test(t)) good.push('مذكور مكان أو عنوان الشغل.');
     if(/(خبره|شهاده|مؤهل|مهارات|requirements|qualification|experience|degree|responsibilit|مسؤوليات)/.test(t)) good.push('فيه متطلبات ومسؤوليات محددة، وده شكل الإعلانات الحقيقية.');
     if(raw.trim().length<120) { sig.push({s:10,t:'إعلان قصير ومبهم',w:'مفيش تفاصيل كفاية عن الوظيفة. الإعلان الحقيقي بيوضح المسؤوليات والمتطلبات.'}); score+=10; }
-    score=Math.min(100,score);
+    score=Math.min(100,score); if(score>=60) good=[];
     return {score:score,sig:sig,good:good,emails:emails,links:links,phones:phones};
   }
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
