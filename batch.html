@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دفعة وظايف قناة واتساب | وظفني</title><meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://g77577076-hue.github.io/wazefni-jobs/batch.html">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400..800&display=swap" rel="stylesheet"><link rel="stylesheet" href="tools.css?v=1"></head><body>
+<header class="top"><a class="brand" href="./">وظ<span>فني</span></a><nav><a href="./">الرئيسية</a></nav></header>
+<div class="wrap"><h1>دفعة الوظايف لقناة واتساب</h1>
+<p class="lead">كل الوظايف المفتوحة دلوقتي بصيغة جاهزة للنسخ. انسخ وظيفة واحدة أو الدفعة كلها والصقها في القناة بإيدك. الصفحة دي للاستخدام الداخلي ومش بتتبعت لأي مكان.</p>
+<div class="actions"><button class="btn amber" id="all" type="button">انسخ الدفعة كلها</button><span id="st" class="note"></span></div>
+<div id="list"></div></div>
+<script src="jobs.js"></script><script src="fmt.js"></script>
+<script>
+var today=new Date().toISOString().slice(0,10),J=window.WZ_JOBS.filter(function(j){return j.expires>=today}).sort(function(x,y){return y.postedAt<x.postedAt?-1:1});
+function cp(t,m){var d=function(){document.getElementById('st').textContent=m};if(navigator.clipboard)navigator.clipboard.writeText(t).then(d,function(){prompt('انسخ:',t)});else prompt('انسخ:',t)}
+var box=document.getElementById('list');
+J.forEach(function(j,i){var t=window.WZ_fmt(j),p=document.createElement('div');p.className='panel';var h=document.createElement('h2');h.textContent=(i+1)+'. '+j.title;var o=document.createElement('div');o.className='out';o.textContent=t;var b=document.createElement('button');b.className='btn ghost';b.type='button';b.textContent='انسخ الوظيفة';b.style.marginTop='10px';b.onclick=function(){cp(t,'اتنسخت: '+j.title)};p.appendChild(h);p.appendChild(o);p.appendChild(b);box.appendChild(p)});
+document.getElementById('all').onclick=function(){var head='🔔 *وظايف جديدة على وظفني* ('+J.length+')\n\n';cp(head+J.map(window.WZ_fmt).join('\n\n━━━━━━━━━━\n\n'),'اتنسخت الدفعة كلها ('+J.length+' وظيفة)')};
+</script></body></html>
