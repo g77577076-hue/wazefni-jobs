@@ -79,7 +79,6 @@ textarea{min-height:84px;resize:vertical}
 .paper h1{font-size:28px;margin:0;color:var(--acc,#0b1f3a);line-height:1.2}
 .paper .role{font-size:16px;font-weight:700;color:#333;margin:2px 0 6px}
 .paper .contact{font-size:12.5px;color:#333;border-bottom:2px solid var(--acc,#0b1f3a);padding-bottom:10px;margin-bottom:6px}
-.paper .contact span+span::before{content:" | ";color:#999}
 .paper h2{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--acc,#0b1f3a);border-bottom:1px solid #ccd3de;padding-bottom:3px;margin:16px 0 8px}
 .paper.ar h2{letter-spacing:0;text-transform:none;font-size:15px}
 .paper .ent{margin-bottom:9px;break-inside:avoid}
@@ -233,13 +232,13 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
     var contact=[$('phone').value,$('email').value,$('city').value,$('link').value].map(function(x){return x.trim()}).filter(Boolean);
     var any=name||role||contact.length||$('summary').value.trim()||$('skills').value.trim()||S.exp.some(function(e){return e.title||e.co})||S.edu.some(function(e){return e.deg||e.sch});
     if(!any){ paper.innerHTML='<div class="empty">'+D.empty+'</div>'; fit(); return; }
-    var out='<h1>'+esc(name)+'</h1>'+(role?'<div class="role">'+esc(role)+'</div>':'')+(contact.length?'<div class="contact">'+contact.map(function(c){return '<span dir="auto">'+esc(c)+'</span>'}).join('')+'</div>':'');
+    var out='<h1>'+esc(name)+'</h1>'+(role?'<div class="role">'+esc(role)+'</div>':'')+(contact.length?'<div class="contact">'+contact.map(function(c){return '<bdi>'+esc(c)+'</bdi>'}).join(' &nbsp;|&nbsp; ')+'</div>':'');
     var secs={
       summary:function(){var s=$('summary').value.trim();return sec(D.summary,s?'<p>'+esc(s)+'</p>':'');},
       experience:function(){var h='';S.exp.forEach(function(e){ if(!(e.title||e.co)) return; var d=[e.from,e.to].filter(Boolean).join(' - ');
-        h+='<div class="ent"><div class="eh"><span>'+esc(e.title||'')+'</span><span class="d" dir="auto">'+esc(d)+'</span></div>'+(e.co?'<div class="sub">'+esc(e.co)+'</div>':'')+(lines(e.desc).length?'<ul>'+lines(e.desc).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'')+'</div>'; }); return sec(D.experience,h);},
+        h+='<div class="ent"><div class="eh"><span>'+esc(e.title||'')+'</span><bdi class="d">'+esc(d)+'</bdi></div>'+(e.co?'<div class="sub">'+esc(e.co)+'</div>':'')+(lines(e.desc).length?'<ul>'+lines(e.desc).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'')+'</div>'; }); return sec(D.experience,h);},
       education:function(){var h='';S.edu.forEach(function(e){ if(!(e.deg||e.sch)) return;
-        h+='<div class="ent"><div class="eh"><span>'+esc(e.deg||'')+'</span><span class="d" dir="auto">'+esc(e.yr||'')+'</span></div>'+(e.sch?'<div class="sub">'+esc(e.sch)+(e.note?' | '+esc(e.note):'')+'</div>':(e.note?'<div class="sub">'+esc(e.note)+'</div>':''))+'</div>'; }); return sec(D.education,h);},
+        h+='<div class="ent"><div class="eh"><span>'+esc(e.deg||'')+'</span><bdi class="d">'+esc(e.yr||'')+'</bdi></div>'+(e.sch?'<div class="sub">'+esc(e.sch)+(e.note?' | '+esc(e.note):'')+'</div>':(e.note?'<div class="sub">'+esc(e.note)+'</div>':''))+'</div>'; }); return sec(D.education,h);},
       skills:function(){var k=list($('skills').value);return sec(D.skills,k.length?'<p class="skills">'+k.map(esc).join(' | ')+'</p>':'');},
       languages:function(){var h=S.lng.filter(function(x){return x.n}).map(function(x){return esc(x.n)+(x.lv?' ('+esc(x.lv)+')':'')}).join(' | ');return sec(D.languages,h?'<p>'+h+'</p>':'');},
       extra:function(){var v=lines($('extra').value);return sec(t.x[l],v.length?'<ul>'+v.map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ul>':'');},
