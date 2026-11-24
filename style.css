@@ -80,3 +80,5 @@ details.note summary{cursor:pointer;font-weight:700;color:var(--navy)}details.no
 
 .card .src{font-size:.85rem;margin:.4rem 0;opacity:.85}.card .src a{color:inherit;text-decoration:underline}
 .routes{margin-top:auto;display:flex;flex-direction:column;gap:8px}.routes .btn{margin-top:0}
+
+.tel{unicode-bidi:isolate;direction:ltr;font-weight:700;letter-spacing:.02em}.wa-mini{display:inline-block;margin-inline-start:6px;padding:2px 12px;border-radius:999px;background:#25d366;color:#053b1a;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}.wa-mini:hover{filter:brightness(.95)}
