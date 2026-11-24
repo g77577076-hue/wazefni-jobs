@@ -30,7 +30,7 @@ window.WZ_JOBS = [
     cta: "راسل صاحب الإعلان على Reddit", href: "https://www.reddit.com/r/EgyptCareers/comments/1y4d1i6/" },
   { title: "B2B Lead Generation Specialist", company: "استوديو موشن ديزاين 3D، نشر u/Happy_Enthusiasm_691", field: "sales", fieldLabel: "مبيعات وكول سنتر",
     remote: "only", source: ["Reddit", "https://www.reddit.com/r/forhire/comments/1y493sj/"],
-    facts: [["المكان","ريموت من أي مكان"],["الدفع (حسب الإعلان)","عمولة على كل مشروع بيتحجز. بعد 5 مشاريع في الشهر بيبقى فيه أساسي + عمولة"],["المطلوب","خبرة B2B outreach وكولد إيميل، كتابة إنجليزي قوية، استخدام LinkedIn وApollo وHunter"],["التقديم","كومنت تحت البوست: نبذة عنك وخبرتك في الـ outreach ونتايجك"]],
+    facts: [["المكان","ريموت من أي مكان"],["الدفع (حسب الإعلان)","عمولة على كل مشروع بيتحجز. بعد 5 مشاريع في الشهر بيبقى فيه أساسي + عمولة"],["المطلوب","خبرة B2B outreach وكولد إيميل، كتابة إنجليزي قوية، استخدام LinkedIn و Apollo و Hunter"],["التقديم","كومنت تحت البوست: نبذة عنك وخبرتك في الـ outreach ونتايجك"]],
     postedAt: "2026-11-24", expires: "2026-12-02",
     posted: "نزلت يوم الثلاثاء 24 نوفمبر 2026 على Reddit",
     cta: "قدّم بكومنت على Reddit", href: "https://www.reddit.com/r/forhire/comments/1y493sj/" },
