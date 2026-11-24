@@ -73,3 +73,4 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy2);b
 
 .brand img{height:40px;width:auto;border-radius:10px;display:block;mix-blend-mode:multiply}
 .hero-logo{width:min(260px,70vw);height:auto;border-radius:20px;margin-bottom:18px;box-shadow:0 10px 30px rgba(11,31,58,.12);align-self:flex-start}
+.exp{margin:0 0 8px;font-weight:700;font-size:14px;color:#7a5600}
