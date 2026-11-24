@@ -97,3 +97,9 @@ details.note summary{cursor:pointer;font-weight:700;color:var(--navy)}details.no
 .tg{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0}
 .tg a{padding:9px 16px;border-radius:999px;background:#fff;border:1px solid #7a1530;color:#7a1530;font-weight:800;text-decoration:none}
 .tg a:hover{background:#7a1530;color:#fff}
+.tbar{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin:0 0 14px}
+.tbar select{font:inherit;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid #7a1530;background:#fff;color:#7a1530}
+.tmsg{text-align:center;margin:4px 0 12px}
+.card{position:relative}
+.save{position:absolute;top:12px;left:12px;width:38px;height:38px;border-radius:50%;border:1px solid #e3cfd3;background:#fff;color:#a3173f;font-size:20px;line-height:1;cursor:pointer;z-index:2}
+.save[aria-pressed=true]{background:#f4a21b;border-color:#f4a21b;color:#fff}
