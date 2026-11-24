@@ -17,7 +17,7 @@
       if(c._t) return; var h=c.querySelector('h3'); if(!h) return;
       var j=jobs.filter(function(x){return x.title===h.textContent})[0]; if(!j) return; c._t=1;
       var t=trust(j), d=el('details','trust '+t.k), sm=el('summary','',(t.k==='ok'?'✔ ':'⚠ ')+t.label); d.appendChild(sm);
-      var ul=el('ul'); t.why.forEach(function(w){ul.appendChild(el('li','',w))}); d.appendChild(ul); d.appendChild(el('p','tiny',t.note));
+      var tp=el('p','tiptxt',t.k==='ok'?'💡 الشارة الخضرا معناها إن المصدر معروف. اقرا الأسباب وقدّم من الرابط الأصلي بس.':'💡 الشارة الصفرا معناها اتأكد بنفسك: افحص الإعلان قبل ما تبعت أي بيانات، وعمرك ما تدفع فلوس.'); d.appendChild(tp); var ul=el('ul'); t.why.forEach(function(w){ul.appendChild(el('li','',w))}); d.appendChild(ul); d.appendChild(el('p','tiny',t.note));
       var a=el('a','tiny-link','افحص الإعلان بنفسك'); a.href='scam.html'; d.appendChild(a); var rp=el('a','tiny-link','بلّغ عن إعلان نصب'); rp.href='report.html'; d.appendChild(rp);
       var tag=c.querySelector('.tag'); if(tag&&tag.nextSibling) c.insertBefore(d,h); else c.insertBefore(d,c.firstChild);
     });
