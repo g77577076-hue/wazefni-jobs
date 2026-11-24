@@ -11,7 +11,7 @@
   var bar=el('div','tbar'), sel=el('select'); sel.setAttribute('aria-label','المكان');
   [['all','كل الأماكن'],['cairo','القاهرة'],['giza','الجيزة'],['remote','عن بعد']].forEach(function(o){var op=el('option','',o[1]);op.value=o[0];sel.appendChild(op);});
   var sv=el('button','chip','★ المحفوظة'); sv.type='button'; var msg=el('p','tiny tmsg','');
-  bar.appendChild(sel); bar.appendChild(sv); filters.parentNode.insertBefore(bar,grid); grid.parentNode.insertBefore(msg,grid);
+  bar.appendChild(sel); bar.appendChild(sv); var tip=el('p','tiptxt','💡 اختار مكانك من القايمة، وادوس ★ على أي وظيفة تحفظها وترجعلها من زرار «المحفوظة». الحفظ على جهازك بس.'); filters.parentNode.insertBefore(tip,grid); filters.parentNode.insertBefore(bar,grid); grid.parentNode.insertBefore(msg,grid);
   function apply(){
     var shown=0, cards=grid.querySelectorAll('article.card');
     [].forEach.call(cards,function(c){ var h=c.querySelector('h3'); if(!h) return; var t=h.textContent, m=map[t]||{}, ok=true;
