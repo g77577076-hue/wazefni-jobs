@@ -4,6 +4,20 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('upd').textContent = 'آخر تحديث: ' + window.WZ_UPDATED;
   function el(t, c, txt){ var e=document.createElement(t); if(c) e.className=c; if(txt!=null) e.textContent=txt; return e; }
+  var LINKS=[], NAME='';
+  function lineFor(j){ var t=(j.title+' '+j.company).toLowerCase();
+    if(/customer|care|support|call center|خدمة|كول سنتر/.test(t)) return 'وعندي استعداد أتعامل مع العملاء باحترافية وأتعلم بسرعة وألتزم بالشيفتات المطلوبة.';
+    if(j.field==='sales'||/sales|telesales|closer|setter|lead/.test(t)) return 'وعندي استعداد ألتزم بالتارجت وأشتغل بالمواعيد المطلوبة وأتعلم بسرعة.';
+    if(j.field==='design'||j.field==='social') return 'وجاهز أبعتلك أمثلة من شغلي ولينكات الأعمال السابقة.';
+    return 'وعندي استعداد أبدأ بسرعة وألتزم بالمواعيد وأتعلم بسرعة.'; }
+  function msgFor(j){ var n=NAME||'[اكتب اسمك هنا]';
+    return 'السلام عليكم ورحمة الله،\n\nأنا '+n+'، وشفت إعلان وظيفة «'+j.title+'» على موقع وظفني، وعندي اهتمام كبير بيها ورغبة حقيقية أنضم لفريقكم. '+lineFor(j)+'\n\nجاهز أبعتلك الـ CV فورًا، ومتاح لمقابلة في أي وقت يناسبكم. ياريت تفيدوني بالخطوات الجاية.\n\nشكرًا لوقتكم واهتمامكم،\n'+n; }
+  function updateLinks(){ LINKS.forEach(function(p){ var a=p[0], j=p[1], m=msgFor(j);
+    if(a.dataset.k==='wa') a.href='https://wa.me/'+a.dataset.v+'?text='+encodeURIComponent(m);
+    else a.href='mailto:'+a.dataset.v+'?subject='+encodeURIComponent('تقديم على وظيفة «'+j.title+'»'+(NAME?' - '+NAME:''))+'&body='+encodeURIComponent(m); }); }
+  var box=el('div','namebox'); var nl=el('label','','اسمك (اختياري): بيتكتب تلقائي في رسالة التقديم'); nl.setAttribute('for','applName'); var ni=el('input'); ni.id='applName'; ni.type='text'; ni.autocomplete='name'; ni.placeholder='اكتب اسمك هنا'; box.appendChild(nl); box.appendChild(ni); box.appendChild(el('p','tiny','الاسم بيفضل في متصفحك بس ومبيتبعتش ولا بيتخزن عندنا.'));
+  filters.parentNode.insertBefore(box,filters);
+  ni.addEventListener('input',function(){ NAME=ni.value.trim(); updateLinks(); });
   function render(f){
     grid.innerHTML='';
     jobs.filter(function(j){return f==='all'||j.field===f;}).forEach(function(j,i){
@@ -11,12 +25,20 @@
       c.appendChild(el('span','tag',j.fieldLabel));
       c.appendChild(el('h3','',j.title));
       c.appendChild(el('p','co',j.company));
-      var dl = el('dl'); j.facts.forEach(function(p){ var r=el('div'); r.appendChild(el('dt','',p[0])); r.appendChild(el('dd','',p[1])); dl.appendChild(r); });
+      var PH=/(?<!\d)(?:\+?20|0)?1[0125][\s-]?\d{4}[\s-]?\d{4}(?!\d)/g;
+      function waNum(n){ var d=n.replace(/\D/g,''); return d.replace(/^0020/,'').replace(/^20(?=1)/,'').replace(/^0/,''); }
+      var dl = el('dl'); j.facts.forEach(function(p){ var r=el('div'); r.appendChild(el('dt','',p[0])); var dd=el('dd','');
+        var s=p[1], last=0, m, any=false; PH.lastIndex=0;
+        while((m=PH.exec(s))){ any=true; if(m.index>last) dd.appendChild(document.createTextNode(s.slice(last,m.index)));
+          var num=el('bdi','tel'); num.setAttribute('dir','ltr'); num.textContent=m[0].trim(); dd.appendChild(num);
+          var b=el('a','wa-mini','واتساب برسالة جاهزة'); b.dataset.k='wa'; b.dataset.v='20'+waNum(m[0]); LINKS.push([b,j]); b.href='#'; b.target='_blank'; b.rel='noopener'; dd.appendChild(document.createTextNode(' ')); dd.appendChild(b); last=m.index+m[0].length; }
+        if(any){ if(last<s.length) dd.appendChild(document.createTextNode(s.slice(last))); } else dd.textContent=s;
+        r.appendChild(dd); dl.appendChild(r); });
       c.appendChild(dl);
       c.appendChild(el('p','exp','التقديم المقترح لحد: '+new Date(j.expires+'T12:00:00').toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'})));
       if(j.source){ var sp=el('p','src','المصدر: '); var sa=el('a','',j.source[0]); sa.href=j.source[1]; sa.target='_blank'; sa.rel='noopener nofollow'; sp.appendChild(sa); c.appendChild(sp); }
       c.appendChild(el('p','tiny',j.posted + '. التقديم عند الشركة نفسها، ووظفني مش وسيط ولا بياخد حاجة من المتقدم.'));
-      var rs = el('div','routes'); (j.routes||[[j.cta,j.href]]).forEach(function(r,ri){ var a = el('a','btn'+(ri?' btn-ghost':''),r[0]); a.href=r[1]; if(r[1].indexOf('http')===0){a.target='_blank'; a.rel='noopener';} rs.appendChild(a); });
+      var rs = el('div','routes'); (j.routes||[[j.cta,j.href]]).forEach(function(r,ri){ var a = el('a','btn'+(ri?' btn-ghost':''),r[0]); a.href=r[1]; var mw=/^https:\/\/wa\.me\/(\d+)$/.exec(r[1]), mm=/^mailto:([^?]+)/i.exec(r[1]); if(mw){a.dataset.k='wa';a.dataset.v=mw[1];LINKS.push([a,j]);} else if(mm){a.dataset.k='mail';a.dataset.v=mm[1];LINKS.push([a,j]);} if(r[1].indexOf('http')===0){a.target='_blank'; a.rel='noopener';} rs.appendChild(a); });
       c.appendChild(rs); grid.appendChild(c); observe(c);
     });
   }
@@ -25,6 +47,7 @@
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); },{threshold:.12}) : null;
   function observe(e){ if(io) io.observe(e); else e.classList.add('in'); }
   if(!jobs.length){ grid.appendChild(el('p','note','مفيش وظايف مفتوحة دلوقتي. تابع قناة واتساب وصفحة فيسبوك، وبنضيف وظايف جديدة باستمرار.')); }
+  var _r=render; render=function(f){ _r(f); updateLinks(); };
   render('all');
   [].forEach.call(document.querySelectorAll('.reveal'), observe);
   // counter
