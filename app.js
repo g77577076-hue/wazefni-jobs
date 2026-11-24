@@ -45,6 +45,7 @@
       c.appendChild(dl);
       c.appendChild(el('p','exp','التقديم المقترح لحد: '+new Date(j.expires+'T12:00:00').toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'})));
       if(j.source){ var sp=el('p','src','المصدر: '); var sa=el('a','',j.source[0]); sa.href=j.source[1]; sa.target='_blank'; sa.rel='noopener nofollow'; sp.appendChild(sa); c.appendChild(sp); }
+      (function(){ var sb=el('a','btn btn-ghost share','شارك على واتساب'); sb.href='https://api.whatsapp.com/send?text='+encodeURIComponent(window.WZ_fmt(j)); sb.target='_blank'; sb.rel='noopener'; sb.style.cssText='margin-top:8px'; sb.dataset.share='1'; c.appendChild(sb); })();
       c.appendChild(el('p','tiny',j.posted + '. التقديم عند الشركة نفسها، ووظفني مش وسيط ولا بياخد حاجة من المتقدم.'));
       var rs = el('div','routes'); (j.routes||[[j.cta,j.href]]).forEach(function(r,ri){ var a = el('a','btn'+(ri?' btn-ghost':''),r[0]); a.href=r[1]; var mw=/^https:\/\/wa\.me\/(\d+)$/.exec(r[1]), mm=/^mailto:([^?]+)/i.exec(r[1]); if(/^https:\/\/(www\.)?reddit\.com\//i.test(r[1])){a.dataset.k='rd';LINKS.push([a,j]);} else if(mw){a.dataset.k='wa';a.dataset.v=mw[1];LINKS.push([a,j]);} else if(mm){a.dataset.k='mail';a.dataset.v=mm[1];LINKS.push([a,j]);} if(r[1].indexOf('http')===0){a.target='_blank'; a.rel='noopener';} rs.appendChild(a); });
       c.appendChild(rs); grid.appendChild(c); observe(c);
@@ -83,6 +84,7 @@
   function ev(n){ try{ if(window.goatcounter&&goatcounter.count) goatcounter.count({path:n,title:n,event:true}); }catch(e){} }
   document.addEventListener('click',function(e){
     var el=e.target.closest&&e.target.closest('a,button'); if(!el) return;
+    if(el.dataset&&el.dataset.share){ ev('share-whatsapp'); return; }
     if(el.id==='sendWa'){ ev('click-submit-job-form'); return; }
     var h=el.getAttribute('href')||''; if(!h) return;
     var n=null;
