@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>فاحص السيرة الذاتية (CV) مجانًا: اعرف نقط الضعف وصلّحها | وظفني</title>
+<meta name="description" content="الصق الـ CV بتاعك واعرف نقط الضعف: بيانات التواصل، الأقسام الناقصة، التواريخ، الجمل الضعيفة، الكلمات المكررة وأخطاء الكتابة الشائعة، مع اقتراحات تصليح. مجاني وبيشتغل جوه متصفحك.">
+<link rel="canonical" href="https://g77577076-hue.github.io/wazefni-jobs/cvcheck.html"><meta name="robots" content="index,follow,max-snippet:-1"><meta name="theme-color" content="#7a1530">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"وظفني: فاحص الـ CV","url":"https://g77577076-hue.github.io/wazefni-jobs/cvcheck.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","inLanguage":["ar-EG","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EGP"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400..800&display=swap" rel="stylesheet"><link rel="stylesheet" href="tools.css?v=1">
+<script data-goatcounter="https://wazefni.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
+<header class="top"><a class="brand" href="./">وظ<span>فني</span></a><nav><a href="./#jobs">الوظايف</a><a href="cv.html">اعمل CV</a><a href="tools.html">كل الأدوات</a></nav></header>
+<div class="wrap"><h1>فاحص السيرة الذاتية</h1>
+<p class="lead">الصق نص الـ CV (عربي أو إنجليزي) وهنقولك إيه الضعيف فيه وإزاي تصلحه. الفاحص بيقترح بس، ومبيألفش أي معلومة.</p>
+<div class="priv">🔒 الفحص جوه متصفحك. الـ CV مبيتبعتش ولا بيتخزن عندنا.</div>
+<div class="panel"><label for="cv">نص الـ CV</label><textarea id="cv" style="min-height:240px" placeholder="الصق الـ CV هنا. من PDF: حدد الكلام وانسخه."></textarea>
+<div class="actions"><button class="btn amber" id="go" type="button">افحص الـ CV</button><a class="btn ghost" href="cv.html">اعمل CV من الأول</a></div></div>
+<div id="res" hidden></div></div><footer><a href="./">الرئيسية</a> | <a href="tools.html">كل الأدوات</a></footer>
+<script>
+(function(){var $=function(i){return document.getElementById(i)};
+function ev(n){try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:n,title:n,event:true})}catch(e){}}
+try{var pre=sessionStorage.getItem('wzcvtext');if(pre&&!$('cv').value)$('cv').value=pre}catch(e){}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var AR2=function(s){return s.replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d)})};
+function check(raw){var T=AR2(raw),L=T.toLowerCase(),issues=[],ok=[],pts=100;
+function bad(p,t,w,lvl){issues.push({t:t,w:w,l:lvl||'warn'});pts-=p}
+var words=(T.match(/[\u0600-\u06FFA-Za-z0-9]+/g)||[]).length;
+if(words<80)bad(15,'الـ CV قصير جدًا ('+words+' كلمة)','الـ CV الكويس غالبًا بين 200 و450 كلمة. ضيف تفاصيل حقيقية عن شغلك ومهاراتك.','bad');else if(words>700)bad(10,'الـ CV طويل ('+words+' كلمة)','ركز على آخر 10 سنين وأهم الإنجازات. صفحة أو صفحتين بالكتير.');else ok.push('الطول مناسب ('+words+' كلمة).');
+var em=T.match(/[\w.+-]+@[\w-]+(\.[\w-]+)+/);
+if(!em)bad(15,'مفيش إيميل','ضيف إيميل واضح، لأن أغلب الشركات بتتواصل بيه.','bad');else{ if(/@(gmail|outlook|hotmail|yahoo|icloud)\./i.test(em[0])){ok.push('الإيميل موجود.');var lp=em[0].split('@')[0];if(/\d{4,}|(sexy|cute|boy|girl|king|queen|love)/i.test(lp))bad(6,'الإيميل شكله غير رسمي','استخدم إيميل فيه اسمك بس، زي name.lastname@gmail.com.')}else ok.push('الإيميل موجود.')}
+var ph=T.match(/(?:\+?20|0)?1[0125][\s-]?\d{4}[\s-]?\d{4}/);if(!ph)bad(12,'مفيش رقم موبايل مصري واضح','ضيف رقم موبايل شغال، يفضل عليه واتساب.','bad');else ok.push('رقم الموبايل موجود.');
+var secs=[[/(نبذه|ملخص|الهدف|summary|profile|objective|about)/i,'نبذة مختصرة',6],[/(خبر[اه]ت|خبره|experience|employment|work history)/i,'الخبرات',10],[/(تعليم|مؤهل|education|degree|بكالوريوس|دبلوم|bachelor)/i,'التعليم',8],[/(مهارات|skills)/i,'المهارات',10]];
+secs.forEach(function(s){if(!s[0].test(T))bad(s[2],'قسم ناقص: '+s[1],'الـ CV من غير '+s[1]+' بيضعف فرصتك ومش بيعدي كويس على أنظمة الفرز (ATS).','warn');else ok.push('قسم '+s[1]+' موجود.')});
+var yrs=(T.match(/\b(19[89]\d|20[0-3]\d)\b/g)||[]).map(Number),now=new Date().getFullYear();
+if(yrs.some(function(y){return y>now+5}))bad(6,'سنة في المستقبل البعيد','راجع التواريخ: في سنة أكبر من '+(now+5)+'.');
+var rg=T.match(/((?:19|20)\d{2})\s*(?:-|–|—|to|إلى|الى|الي)\s*((?:19|20)\d{2})/gi)||[];
+rg.forEach(function(r){var n=r.match(/\d{4}/g);if(+n[1]<+n[0])bad(8,'تاريخ نهاية قبل البداية: '+r,'صحح ترتيب السنين.','bad')});
+var f1=/\b\d{1,2}\/\d{4}\b/.test(T),f2=/\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d{4}/i.test(T),f3=/(يناير|فبراير|مارس|أبريل|ابريل|مايو|يونيو|يوليو|أغسطس|سبتمبر|أكتوبر|نوفمبر|ديسمبر)\s+\d{4}/.test(T);
+if((f1+f2+f3)>1)bad(5,'صيغ تواريخ مختلطة','استخدم صيغة واحدة في كل الـ CV، مثل 03/2023.');
+var weak=[/مسؤول (عن|عن ال)/,/responsible for/i,/duties included/i,/hard.?working/i,/team player/i,/كويس في التعامل|شخص طموح|اجتماعي جدا|احب العمل الجماعي/,/references available/i,/يمكنني العمل تحت الضغط/];
+var wk=weak.filter(function(r){return r.test(T)}).length;if(wk)bad(Math.min(10,wk*4),'عبارات عامة وضعيفة ('+wk+')','بدل "مسؤول عن" أو "hard-working" اكتب اللي عملته فعلًا بفعل قوي ورقم: "رديت على 60 عميل يوميًا".');
+var nums=(T.match(/\d+\s*%|\b\d{2,}\b/g)||[]).length;if(words>100&&nums<3)bad(8,'قليل الأرقام','أي رقم حقيقي (عدد عملاء، نسبة تارجت، مدة) بيقوّي الخبرة. اكتبه لو عندك بس.');else if(nums>=3)ok.push('فيه أرقام بتدعم الخبرات.');
+var verbs=/(نفذت|حققت|طورت|ادرت|أدرت|قدت|زودت|خفضت|أنشأت|ساهمت|دربت|حللت|صممت|بعت|بعتّ|رديت|handled|led|managed|achieved|improved|developed|increased|reduced|built|created|trained|delivered|designed)/i;
+if(words>100&&!verbs.test(T))bad(8,'مفيش أفعال إنجاز','ابدأ كل نقطة بفعل ماضي: حققت، نفذت، دربت، Managed، Achieved.');
+var rep={};(L.match(/[a-z\u0600-\u06FF]{5,}/g)||[]).forEach(function(w){rep[w]=(rep[w]||0)+1});
+var top=Object.keys(rep).filter(function(w){return rep[w]>=6&&!/^(experience|company|مهارات|الخبرات|skills)$/.test(w)}).slice(0,3);
+if(top.length)bad(4,'كلمات متكررة: '+top.join('، '),'نوّع الألفاظ عشان الـ CV ميبانش مكرر.');
+var typ=[];
+if(/ {3,}/.test(T))typ.push('مسافات كتيرة متتالية');
+if(/([.!?،,])\1{2,}/.test(T))typ.push('علامات ترقيم مكررة');
+if(/(^|\s)([A-Za-z\u0600-\u06FF]{2,})\s+\2(\s|$)/i.test(T))typ.push('كلمة مكررة ورا بعض');
+if(/(اللذى|هاذا|لاكن|اولائك|انشاء الله|إنشاء الله|ان شاء الله)/.test(T))typ.push('إملائي: راجع كلمات زي لكن، هذا، إن شاء الله');
+if(/ ([.,،:;])/.test(T))typ.push('مسافة قبل علامة ترقيم');
+if(/\bi\b(?=\s[a-z])/.test(T)&&/[a-z]{3}/.test(T))typ.push('English: اكتب I بحرف كبير');
+if(/\b(recieve|seperate|managment|experiance|responsable|sucess|langauge|communcation|enviroment|definately|adress)\b/i.test(T))typ.push('English: أخطاء إملائية شائعة');
+if(typ.length)bad(Math.min(10,typ.length*3),'أخطاء كتابة محتملة','راجع: '+typ.join(' | ')+'. اقرأ الـ CV بصوت عالي أو اطلب من حد يراجعه.');
+if(/(الديانه|religion|marital|الحاله الاجتماعيه|date of birth|تاريخ الميلاد)/i.test(T.replace(/[ةى]/g,function(c){return c=='ة'?'ه':'ي'})))bad(3,'بيانات شخصية مش مطلوبة','الديانة والحالة الاجتماعية مش لازم تتكتب، ومعظم الشركات المحترمة مش بتطلبها.');
+pts=Math.max(0,Math.min(100,pts));return {pts:pts,issues:issues,ok:ok,words:words}}
+function show(r){var lv=r.pts>=80?['ok','قوي، محتاج لمسات بسيطة','#166534']:r.pts>=55?['warn','كويس بس فيه نقط ضعف','#b45309']:['bad','ضعيف ومحتاج شغل','#b42318'];
+var h='<div class="verdict v-'+lv[0]+'"><span class="badge b-'+lv[0]+'">درجة الـ CV '+r.pts+'/100</span><h2 style="margin-top:8px">'+lv[1]+'</h2><div class="meter"><i style="width:'+Math.max(r.pts,4)+'%;background:'+lv[2]+'"></i></div></div>';
+if(r.issues.length)h+='<div class="panel"><h2>نقط الضعف واقتراحات التصليح ('+r.issues.length+')</h2>'+r.issues.map(function(s){return '<div class="sig"><b>'+(s.l==='bad'?'❌ ':'⚠️ ')+esc(s.t)+'</b><small>'+esc(s.w)+'</small></div>'}).join('')+'</div>';
+if(r.ok.length)h+='<div class="panel"><h2>نقط قوة</h2>'+r.ok.map(function(s){return '<div class="sig"><b>✅ '+esc(s)+'</b></div>'}).join('')+'</div>';
+h+='<p class="note">الفحص آلي وبيدور على علامات شائعة بس، ومش بديل عن مراجعة بشرية. صلّح الـ CV وافحصه تاني، أو <a href="cv.html">اعمل واحد جديد</a> و<a href="cover.html">خطاب تقديمي</a>.</p>';
+var e=$('res');e.innerHTML=h;e.hidden=false;e.scrollIntoView({behavior:'smooth',block:'start'})}
+$('go').onclick=function(){var v=$('cv').value;if(v.trim().length<30){$('cv').focus();return}var r=check(v);ev('cvcheck '+(r.pts>=80?'high':r.pts>=55?'mid':'low'));show(r)};
+})();
+</script></body></html>
