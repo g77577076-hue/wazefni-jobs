@@ -1,5 +1,6 @@
 (function(){
-  var jobs = window.WZ_JOBS, grid = document.getElementById('grid'), filters = document.getElementById('filters');
+  var today=new Date().toISOString().slice(0,10);
+  var jobs = window.WZ_JOBS.filter(function(j){return j.expires>=today;}).sort(function(x,y){return y.postedAt<x.postedAt?-1:1;}), grid = document.getElementById('grid'), filters = document.getElementById('filters');
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('upd').textContent = 'آخر تحديث: ' + window.WZ_UPDATED;
   function el(t, c, txt){ var e=document.createElement(t); if(c) e.className=c; if(txt!=null) e.textContent=txt; return e; }
@@ -12,6 +13,7 @@
       c.appendChild(el('p','co',j.company));
       var dl = el('dl'); j.facts.forEach(function(p){ var r=el('div'); r.appendChild(el('dt','',p[0])); r.appendChild(el('dd','',p[1])); dl.appendChild(r); });
       c.appendChild(dl);
+      c.appendChild(el('p','exp','التقديم المقترح لحد: '+new Date(j.expires+'T12:00:00').toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'})));
       c.appendChild(el('p','tiny',j.posted + '. التقديم عند الشركة نفسها، ووظفني مش وسيط ولا بياخد حاجة من المتقدم.'));
       var a = el('a','btn',j.cta); a.href=j.href; if(j.href.indexOf('http')===0){a.target='_blank'; a.rel='noopener';}
       c.appendChild(a); grid.appendChild(c); observe(c);
@@ -21,10 +23,11 @@
   cats.forEach(function(c,i){ var b=el('button','chip'+(i===0?' on':''),c[1]); b.type='button'; b.onclick=function(){ [].forEach.call(filters.children,function(x){x.classList.remove('on')}); b.classList.add('on'); render(c[0]); }; filters.appendChild(b); });
   var io = 'IntersectionObserver' in window ? new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }); },{threshold:.12}) : null;
   function observe(e){ if(io) io.observe(e); else e.classList.add('in'); }
+  if(!jobs.length){ grid.appendChild(el('p','note','مفيش وظايف مفتوحة دلوقتي. تابع قناة واتساب وصفحة فيسبوك، وبنضيف وظايف جديدة باستمرار.')); }
   render('all');
   [].forEach.call(document.querySelectorAll('.reveal'), observe);
   // counter
-  var n=jobs.length, cEl=document.getElementById('count'), k=0; var t=setInterval(function(){ k++; cEl.textContent=k; if(k>=n) clearInterval(t); },250);
+  var n=jobs.length, cEl=document.getElementById('count'), k=0; cEl.textContent=n?0:0; var t=setInterval(function(){ k++; cEl.textContent=k; if(k>=n) clearInterval(t); },250);
   // scroll: parallax background, progress, nav
   var layers=[].slice.call(document.querySelectorAll('[data-speed]')), prog=document.getElementById('progress'), nav=document.getElementById('nav'), ticking=false;
   function frame(){
