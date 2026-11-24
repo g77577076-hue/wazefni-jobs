@@ -62,3 +62,18 @@
     if(n) ev(n+' '+(el.closest('.job,.card,article')?((el.closest('.job,.card,article').querySelector('h3,h2')||{}).textContent||'').trim().slice(0,40):''));
   },true);
 })();
+
+(function(){
+  var f=document.getElementById('leadform'); if(!f) return;
+  f.addEventListener('submit',function(e){
+    e.preventDefault(); var m=document.getElementById('leadMsg'), d=new FormData(f);
+    var n=d.get('n').trim(), p=d.get('p').trim(), j=d.get('j').trim();
+    m.hidden=false;
+    if(!n||p.replace(/\D/g,'').length<8||!j){ m.textContent='من فضلك املا الاسم ورقم صحيح والمجال.'; return; }
+    var b=new URLSearchParams(); b.append('entry.24709502',n); b.append('entry.1952334928',p); b.append('entry.1355532484',j);
+    document.getElementById('leadBtn').disabled=true;
+    fetch('https://docs.google.com/forms/d/e/1FAIpQLScdIMgP8eeKgrkdWy8yCOVgZ7j1QOyn58M0N5JnxKmtxCB_XA/formResponse',{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString()})
+    .then(function(){ try{ if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'lead-submit',title:'lead-submit',event:true}); }catch(x){} f.reset(); m.textContent='تم الاستلام. هنتواصل معاك قريب.'; })
+    .catch(function(){ m.textContent='حصلت مشكلة. جرب تاني.'; document.getElementById('leadBtn').disabled=false; });
+  });
+})();
