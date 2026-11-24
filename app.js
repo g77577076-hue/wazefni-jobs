@@ -19,10 +19,7 @@
     if(a.dataset.k==='wa') a.href='https://api.whatsapp.com/send?phone='+a.dataset.v+'&text='+encodeURIComponent(m)+'&type=phone_number&app_absent=0';
     else if(a.dataset.k==='rd'){ /* href stays */ }
     else a.href='mailto:'+a.dataset.v+'?subject='+encodeURIComponent('تقديم على وظيفة «'+j.title+'»'+(NAME?' - '+NAME:''))+'&body='+encodeURIComponent(m);
-    if(!a._c){ a._c=1; a.addEventListener('click',function(){ copyText(a._m,function(ok){ if(ok) toast(a.dataset.k==='rd'?'اتنسخت الرسالة، الصقها في الكومنت':'الرسالة اتنسخت. لو مظهرتش في الشات، الصقها'); }); });
-      var cb=el('button','wa-copy','انسخ الرسالة'); cb.type='button'; cb.style.cssText='margin-inline-start:6px;padding:2px 12px;border-radius:999px;border:1.5px solid #7a1530;background:#fff;color:#7a1530;font:700 13px Cairo,sans-serif;cursor:pointer';
-      cb.addEventListener('click',function(){ copyText(a._m,function(ok){ if(ok){ toast('اتنسخت. الصقها في الشات'); try{ if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'copy-message',title:'copy-message',event:true}); }catch(e){} } else prompt('انسخ الرسالة:',a._m); }); });
-      a.parentNode.insertBefore(cb,a.nextSibling); a.parentNode.insertBefore(document.createTextNode(' '),cb); } }); }
+    if(!a._c){ a._c=1; a.addEventListener('click',function(){ copyText(a._m,function(ok){ if(ok) toast(a.dataset.k==='rd'?'اتنسخت الرسالة، الصقها في الكومنت':'الرسالة اتنسخت. لو مظهرتش في الشات، الصقها'); }); }); } }); }
   var box=el('div','namebox'); var nl=el('label','','اسمك (اختياري): بيتكتب تلقائي في رسالة التقديم'); nl.setAttribute('for','applName'); var ni=el('input'); ni.id='applName'; ni.type='text'; ni.autocomplete='name'; ni.placeholder='اكتب اسمك هنا'; box.appendChild(nl); box.appendChild(ni); box.appendChild(el('p','tiny','الاسم بيفضل في متصفحك بس ومبيتبعتش ولا بيتخزن عندنا.'));
   filters.parentNode.insertBefore(box,filters);
   ni.addEventListener('input',function(){ NAME=ni.value.trim(); updateLinks(); });
@@ -39,16 +36,20 @@
         var s=p[1], last=0, m, any=false; PH.lastIndex=0;
         while((m=PH.exec(s))){ any=true; if(m.index>last) dd.appendChild(document.createTextNode(s.slice(last,m.index)));
           var num=el('bdi','tel'); num.setAttribute('dir','ltr'); num.textContent=m[0].trim(); dd.appendChild(num);
-          var b=el('a','wa-mini','واتساب برسالة جاهزة'); b.dataset.k='wa'; b.dataset.v='20'+waNum(m[0]); LINKS.push([b,j]); b.href='#'; b.target='_blank'; b.rel='noopener'; dd.appendChild(document.createTextNode(' ')); dd.appendChild(b); last=m.index+m[0].length; }
+          if(!c._ph) c._ph=waNum(m[0]); last=m.index+m[0].length; }
         if(any){ if(last<s.length) dd.appendChild(document.createTextNode(s.slice(last))); } else dd.textContent=s;
         r.appendChild(dd); dl.appendChild(r); });
       c.appendChild(dl);
       c.appendChild(el('p','exp','التقديم المقترح لحد: '+new Date(j.expires+'T12:00:00').toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'})));
       if(j.source){ var sp=el('p','src','المصدر: '); var sa=el('a','',j.source[0]); sa.href=j.source[1]; sa.target='_blank'; sa.rel='noopener nofollow'; sp.appendChild(sa); c.appendChild(sp); }
-      (function(){ var sb=el('a','btn btn-ghost share','شارك على واتساب'); sb.href='https://api.whatsapp.com/send?text='+encodeURIComponent(window.WZ_fmt(j)); sb.target='_blank'; sb.rel='noopener'; sb.style.cssText='margin-top:8px'; sb.dataset.share='1'; c.appendChild(sb); })();
       c.appendChild(el('p','tiny',j.posted + '. التقديم عند الشركة نفسها، ووظفني مش وسيط ولا بياخد حاجة من المتقدم.'));
       var rs = el('div','routes'); (j.routes||[[j.cta,j.href]]).forEach(function(r,ri){ var a = el('a','btn'+(ri?' btn-ghost':''),r[0]); a.href=r[1]; var mw=/^https:\/\/wa\.me\/(\d+)$/.exec(r[1]), mm=/^mailto:([^?]+)/i.exec(r[1]); if(/^https:\/\/(www\.)?reddit\.com\//i.test(r[1])){a.dataset.k='rd';LINKS.push([a,j]);} else if(mw){a.dataset.k='wa';a.dataset.v=mw[1];LINKS.push([a,j]);} else if(mm){a.dataset.k='mail';a.dataset.v=mm[1];LINKS.push([a,j]);} if(r[1].indexOf('http')===0){a.target='_blank'; a.rel='noopener';} rs.appendChild(a); });
-      c.appendChild(rs); grid.appendChild(c); observe(c);
+      var rl=j.routes||[[j.cta,j.href]]; var hasWa=rl.some(function(r){return /^https:\/\/wa\.me\//.test(r[1]);}), hasRd=rl.some(function(r){return /reddit\.com/i.test(r[1]);});
+      if(!hasWa && c._ph && !rl.some(function(r){return /^mailto:/i.test(r[1]);})){ var wb=el('a','btn'+(rl.length?' btn-ghost':''),'كلمهم على واتساب'); wb.dataset.k='wa'; wb.dataset.v='20'+c._ph; wb.href='#'; wb.target='_blank'; wb.rel='noopener'; LINKS.push([wb,j]); rs.appendChild(wb); }
+      if(hasRd){ var cb=el('button','copy-one','انسخ رسالة التقديم'); cb.type='button'; cb.addEventListener('click',function(){ copyText(msgFor(j),function(ok){ if(ok) toast('الرسالة اتنسخت'); }); }); rs.appendChild(cb); }
+      c.appendChild(rs);
+      (function(){ var sb=el('a','btn btn-ghost share','شارك على واتساب'); sb.href='https://api.whatsapp.com/send?text='+encodeURIComponent(window.WZ_fmt(j)); sb.target='_blank'; sb.rel='noopener'; sb.className='share-sec'; sb.dataset.share='1'; sb.textContent='شارك الوظيفة على واتساب'; c.appendChild(sb); })();
+      grid.appendChild(c); observe(c);
     });
   }
   var cats=[['all','الكل']]; jobs.forEach(function(j){ if(!cats.some(function(c){return c[0]===j.field;})) cats.push([j.field,j.fieldLabel]); });
