@@ -1,0 +1,14 @@
+/* وظفني: service worker. بيخزن الصفحات وأدوات قراءة الملفات عشان تشتغل بدون نت بعد أول زيارة. مفيش بيانات مستخدم بتتخزن. */
+var V='wz-v1', BASE=self.registration.scope;
+var PAGES=['','index.html','cv.html','cover.html','scam.html','cvcheck.html','tools.html','style.css','tools.css','app.js','jobs.js','fmt.js'];
+var VENDOR=['pdf.min.js','pdf.worker.min.js','mammoth.min.js','tesseract.min.js','worker.min.js','core-simd-lstm.wasm.js','core-lstm.wasm.js','tesseract-core-simd-lstm.wasm.js','tesseract-core-lstm.wasm.js','ara.traineddata.gz','eng.traineddata.gz'].map(function(f){return 'vendor/'+f});
+function say(m){return self.clients.matchAll().then(function(cs){cs.forEach(function(c){c.postMessage(m)})})}
+self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(PAGES.map(function(p){return c.add(new Request(BASE+p,{cache:'reload'})).catch(function(){})}))}).then(function(){return self.skipWaiting()}))});
+self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!==V}).map(function(x){return caches.delete(x)}))}).then(function(){return self.clients.claim()}))});
+self.addEventListener('message',function(e){ if(!e.data) return;
+  if(e.data.type==='status'){ e.waitUntil(caches.open(V).then(function(c){return Promise.all(VENDOR.map(function(v){return c.match(BASE+v)}))}).then(function(r){var n=r.filter(Boolean).length;return say({type:'offline',done:n,total:VENDOR.length})})); }
+  if(e.data.type==='warm'){ e.waitUntil(caches.open(V).then(function(c){var n=0;return VENDOR.reduce(function(p,v){return p.then(function(){return c.match(BASE+v).then(function(h){ if(h){n++;return say({type:'offline',done:n,total:VENDOR.length})} return fetch(BASE+v).then(function(r){ if(!r.ok) throw 0; return c.put(BASE+v,r).then(function(){n++;return say({type:'offline',done:n,total:VENDOR.length})}) }) })})},Promise.resolve())}).catch(function(){return say({type:'offline-error'})})); }
+});
+self.addEventListener('fetch',function(e){ var r=e.request; if(r.method!=='GET') return; var u=new URL(r.url); if(u.origin!==location.origin) return;
+  if(u.pathname.indexOf('/vendor/')>-1){ e.respondWith(caches.match(r,{ignoreSearch:true}).then(function(h){return h||fetch(r)})); return; }
+  e.respondWith(fetch(r).then(function(res){ if(res&&res.ok){ var cp=res.clone(); caches.open(V).then(function(c){c.put(r,cp)}); } return res; }).catch(function(){ return caches.match(r,{ignoreSearch:true}).then(function(h){ return h||(r.mode==='navigate'?caches.match(BASE+'index.html'):undefined) }) })); });
