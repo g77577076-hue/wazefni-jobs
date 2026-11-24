@@ -151,6 +151,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
 <div class="previewcol">
   <div class="actions">
     <button type="button" class="btn amber" id="dl">تحميل PDF</button>
+    <a class="btn ghost" href="cover.html">اعمل خطاب تقديمي</a>
     <a class="btn" href="./#jobs">شوف الوظايف وقدّم</a>
   </div>
   <p class="note">دوس تحميل PDF واختار "Save as PDF" أو "حفظ كـ PDF" من نافذة الطباعة. الخلفيات والألوان بتتحفظ تلقائي.</p>
@@ -257,6 +258,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
     var l=S.lang, D=L[l], t=T[S.tpl], paper=$('paper');
     paper.className='paper '+l+' t-'+S.tpl;
     var name=$('name').value.trim(), role=$('role').value.trim();
+    try{ var e0=S.exp.filter(function(e){return e.title||e.co})[0]||{}, d0=S.edu.filter(function(e){return e.deg||e.sch})[0]||{}; sessionStorage.setItem('wzcv',JSON.stringify({name:name,role:role,phone:$('phone').value.trim(),email:$('email').value.trim(),skills:$('skills').value.trim(),jt:e0.title||'',jc:e0.co||'',deg:[d0.deg,d0.sch].filter(Boolean).join('، ')})); }catch(e){}
     var contact=[$('phone').value,$('email').value,$('city').value,$('link').value].map(function(x){return x.trim()}).filter(Boolean);
     var any=name||role||contact.length||$('summary').value.trim()||$('skills').value.trim()||S.exp.some(function(e){return e.title||e.co})||S.edu.some(function(e){return e.deg||e.sch});
     if(!any){ paper.innerHTML='<div class="empty">'+D.empty+'</div>'; fit(); return; }
