@@ -59,6 +59,7 @@
     else if(/whatsapp\.com|wa\.me/i.test(h)) n='click-whatsapp';
     else if(/facebook\.com|m\.me/i.test(h)) n='click-facebook';
     else if(/reddit\.com/i.test(h)) n='click-reddit';
+    else if(/t\.me\//i.test(h)) n='click-telegram';
     else if(/^https?:/i.test(h)&&h.indexOf(location.host)<0) n='click-apply-link';
     if(n) ev(n+' '+(el.closest('.job,.card,article')?((el.closest('.job,.card,article').querySelector('h3,h2')||{}).textContent||'').trim().slice(0,40):''));
   },true);
