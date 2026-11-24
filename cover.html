@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>اعمل خطاب تقديمي (Cover Letter) احترافي مجانًا بالعربي والإنجليزي | وظفني</title>
+<meta name="description" content="اكتب خطاب تقديمي قوي لأي وظيفة في دقيقتين بالعربي أو الإنجليزي. بيستخدم بياناتك إنت بس من غير ما يألف خبرات، وبيتجهز نسخ ونزّل PDF. مجاني ومبيتخزنش بياناتك.">
+<link rel="canonical" href="https://g77577076-hue.github.io/wazefni-jobs/cover.html"><meta name="robots" content="index,follow,max-snippet:-1"><meta name="theme-color" content="#7a1530">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"وظفني: منشئ الخطاب التقديمي","url":"https://g77577076-hue.github.io/wazefni-jobs/cover.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","inLanguage":["ar-EG","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EGP"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400..800&display=swap" rel="stylesheet"><link rel="stylesheet" href="tools.css?v=1">
+<style>.letter{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;white-space:pre-wrap;font-size:16px;line-height:2}.letter.en{direction:ltr;text-align:left;font-family:Georgia,serif}.warn{background:#fff1d6;color:#7a4a00;border-radius:12px;padding:8px 14px;margin:6px 0;font-size:14px}
+@media print{body *{visibility:hidden}#letter,#letter *{visibility:visible}#letter{position:absolute;inset:0;border:0;padding:20mm;font-size:12pt}}</style>
+<script data-goatcounter="https://wazefni.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
+<header class="top"><a class="brand" href="./">وظ<span>فني</span></a><nav><a href="./#jobs">الوظايف</a><a href="cv.html">اعمل CV</a><a href="tools.html">كل الأدوات</a></nav></header>
+<div class="wrap"><h1>الخطاب التقديمي (Cover Letter)</h1>
+<p class="lead">اكتب بياناتك الحقيقية، وهنرتبها في خطاب قوي ومحترم. مفيش أي خبرة بتتألف: الخطاب مبني على اللي تكتبه بس.</p>
+<div class="priv">🔒 كل حاجة جوه متصفحك. مفيش بيانات بتتبعت أو بتتخزن عندنا. لو عملت CV في نفس التبويب هنملا بياناتك منه.</div>
+<div class="panel">
+<div class="actions" style="margin:0 0 6px"><button class="btn" id="lAr" type="button">عربي</button><button class="btn ghost" id="lEn" type="button">English</button></div>
+<div class="row2"><div><label>اسمك</label><input id="name"></div><div><label>الوظيفة اللي بتقدم عليها</label><input id="role"></div></div>
+<div class="row2"><div><label>اسم الشركة</label><input id="co"></div><div><label>اسم مسؤول التوظيف (اختياري)</label><input id="hm"></div></div>
+<div class="row2"><div><label>موبايل</label><input id="phone" inputmode="tel"></div><div><label>إيميل</label><input id="email" inputmode="email"></div></div>
+<div class="row2"><div><label>آخر وظيفة (المسمى)</label><input id="jt" placeholder="مثال: Customer Service Agent"></div><div><label>في شركة (اختياري)</label><input id="jc"></div></div>
+<div class="row2"><div><label>مدة الخبرة (اختياري)</label><input id="yrs" placeholder="مثال: سنتين"></div><div><label>المؤهل</label><input id="deg" placeholder="مثال: بكالوريوس تجارة، جامعة طنطا"></div></div>
+<label>أهم مهاراتك (فاصلة أو سطر جديد)</label><textarea id="skills" style="min-height:80px"></textarea>
+<label>إنجاز حقيقي حصل (اختياري، بأرقام لو عندك)</label><textarea id="ach" style="min-height:70px" placeholder="مثال: حققت 110% من التارجت لمدة 3 شهور. اكتبه لو حصل فعلًا بس."></textarea>
+<label>ليه الشركة دي بالذات؟ (اختياري، من عندك)</label><textarea id="why" style="min-height:70px"></textarea>
+<label>متى تقدر تبدأ؟</label><select id="av"><option value="0">فورًا</option><option value="1">خلال أسبوع</option><option value="2">خلال أسبوعين</option><option value="3">بعد إنهاء فترة الإشعار</option></select>
+</div>
+<div id="warns"></div>
+<div class="letter" id="letter"></div>
+<div class="actions"><button class="btn amber" id="cp" type="button">انسخ الخطاب</button><button class="btn ghost" id="pr" type="button">طباعة / PDF</button></div>
+<p class="note">راجع الخطاب وعدّل أي جملة متناسبكش قبل ما تبعته. الخطاب بيتكتب من اللي أدخلته بس.</p>
+</div><footer><a href="./">الرئيسية</a> | <a href="tools.html">كل الأدوات</a></footer>
+<script>
+(function(){var $=function(i){return document.getElementById(i)},L='ar',ids=['name','role','co','hm','phone','email','jt','jc','yrs','deg','skills','ach','why','av'];
+function ev(n){try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:n,title:n,event:true})}catch(e){}}
+function v(i){return $(i).value.trim()} function list(s){return s.split(/[,\n،;]+/).map(function(x){return x.trim()}).filter(Boolean)}
+try{var s=JSON.parse(sessionStorage.getItem('wzcv')||'null');if(s){['name','role','phone','email','skills'].forEach(function(k){if(s[k]&&!$(k).value)$(k).value=s[k]});if(s.jt)$('jt').value=s.jt;if(s.jc)$('jc').value=s.jc;if(s.deg)$('deg').value=s.deg}}catch(e){}
+var AV={ar:['متاح أبدأ فورًا','متاح أبدأ خلال أسبوع','متاح أبدأ خلال أسبوعين','متاح أبدأ بعد إنهاء فترة الإشعار'],en:['I am available to start immediately','I can start within one week','I can start within two weeks','I can start after completing my notice period']};
+function dot(t){return /[.!؟?]$/.test(t)?t:t+'.'}
+function gen(){var n=v('name')||'[الاسم]',r=v('role')||'[الوظيفة]',c=v('co'),hm=v('hm'),sk=list(v('skills')).slice(0,6),a=+v('av'),o='';
+if(L==='ar'){o+=(hm?'السيد/ة '+hm:'السادة مسؤولي التوظيف')+(c?'،\nشركة '+c:'')+'\n\nتحية طيبة وبعد،\n\n';
+o+='أتقدم لشغل وظيفة «'+r+'»'+(c?' لديكم في '+c:'')+'، وأرى أن خلفيتي ومهاراتي تتناسب مع متطلباتها.';
+var p=[];if(v('jt'))p.push('أعمل/عملت كـ '+v('jt')+(v('jc')?' في '+v('jc'):''));if(v('yrs'))p.push('بخبرة '+v('yrs'));if(v('deg'))p.push('وحاصل على '+v('deg'));
+if(p.length)o+=' '+dot(p.join(' '));
+if(sk.length)o+='\n\nأهم ما أقدمه:\n'+sk.map(function(x){return '• '+x}).join('\n');
+if(v('ach'))o+='\n\n'+dot(v('ach'));
+if(v('why'))o+='\n\n'+dot(v('why'));
+o+='\n\n'+AV.ar[a]+'، وأرحب بمقابلتكم في الوقت الذي يناسبكم. أرفقت السيرة الذاتية، وسأكون سعيدًا بفرصة أقدّم فيها قيمة حقيقية لفريقكم.\n\nشاكرًا لوقتكم واهتمامكم،\n'+n+(v('phone')?'\n'+v('phone'):'')+(v('email')?'\n'+v('email'):'')}
+else{o+='Dear '+(hm||'Hiring Manager')+(c?',\n'+c:',')+'\n\n';
+o+='I am applying for the '+r+' position'+(c?' at '+c:'')+'. I believe my background and skills fit what the role needs.';
+var q=[];if(v('jt'))q.push('I work/worked as '+v('jt')+(v('jc')?' at '+v('jc'):''));if(v('yrs'))q.push('with '+v('yrs')+' of experience');if(v('deg'))q.push('and I hold '+v('deg'));
+if(q.length)o+=' '+dot(q.join(' '));
+if(sk.length)o+='\n\nWhat I bring:\n'+sk.map(function(x){return '• '+x}).join('\n');
+if(v('ach'))o+='\n\n'+dot(v('ach'));if(v('why'))o+='\n\n'+dot(v('why'));
+o+='\n\n'+AV.en[a]+' and would welcome an interview at your convenience. My CV is attached, and I would be glad to add real value to your team.\n\nThank you for your time and consideration.\n\nSincerely,\n'+n+(v('phone')?'\n'+v('phone'):'')+(v('email')?'\n'+v('email'):'')}
+return o}
+function warn(){var w=[];if(!v('name'))w.push('اكتب اسمك.');if(!v('role'))w.push('اكتب اسم الوظيفة.');if(!v('co'))w.push('اكتب اسم الشركة عشان الخطاب يبان مخصص.');if(list(v('skills')).length<3)w.push('ضيف 3 مهارات على الأقل.');if(!v('phone')&&!v('email'))w.push('ضيف وسيلة تواصل.');
+if(v('email')&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')))w.push('الإيميل شكله مش صح.');
+if(v('phone')&&!/^(\+?20|0)?1[0125]\d{8}$/.test(v('phone').replace(/[\s-]/g,'')))w.push('رقم الموبايل شكله مش صح.');
+$('warns').innerHTML=w.map(function(x){return '<div class="warn">⚠️ '+x+'</div>'}).join('')}
+function render(){$('letter').className='letter'+(L==='en'?' en':'');$('letter').textContent=gen();warn()}
+ids.forEach(function(i){$(i).addEventListener('input',render)});
+function setL(l){L=l;$('lAr').className='btn'+(l==='ar'?'':' ghost');$('lEn').className='btn'+(l==='en'?'':' ghost');ev('cover-lang-'+l);render()}
+$('lAr').onclick=function(){setL('ar')};$('lEn').onclick=function(){setL('en')};
+$('cp').onclick=function(){var t=gen();var d=function(){var m=document.createElement('div');m.textContent='اتنسخ الخطاب';m.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#7a1530;color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:9';document.body.appendChild(m);setTimeout(function(){m.remove()},2500)};ev('cover-copy');if(navigator.clipboard)navigator.clipboard.writeText(t).then(d,function(){prompt('انسخ الخطاب:',t)});else prompt('انسخ الخطاب:',t)};
+$('pr').onclick=function(){ev('cover-print');window.print()};
+render();})();
+</script></body></html>
