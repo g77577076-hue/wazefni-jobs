@@ -14,6 +14,7 @@
       var dl = el('dl'); j.facts.forEach(function(p){ var r=el('div'); r.appendChild(el('dt','',p[0])); r.appendChild(el('dd','',p[1])); dl.appendChild(r); });
       c.appendChild(dl);
       c.appendChild(el('p','exp','التقديم المقترح لحد: '+new Date(j.expires+'T12:00:00').toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'})));
+      if(j.source){ var sp=el('p','src','المصدر: '); var sa=el('a','',j.source[0]); sa.href=j.source[1]; sa.target='_blank'; sa.rel='noopener nofollow'; sp.appendChild(sa); c.appendChild(sp); }
       c.appendChild(el('p','tiny',j.posted + '. التقديم عند الشركة نفسها، ووظفني مش وسيط ولا بياخد حاجة من المتقدم.'));
       var a = el('a','btn',j.cta); a.href=j.href; if(j.href.indexOf('http')===0){a.target='_blank'; a.rel='noopener';}
       c.appendChild(a); grid.appendChild(c); observe(c);
@@ -88,7 +89,9 @@
       var d=j.title+' في '+j.company+(loc?' - '+loc[1]:'')+'. '+j.facts.map(function(f){return f[0]+': '+f[1];}).join('. ')+'. التقديم عند الشركة نفسها.';
       var o={'@context':'https://schema.org','@type':'JobPosting','title':j.title,'description':d,'datePosted':j.postedAt,'validThrough':j.expires+'T23:59:59+02:00','employmentType':et,'directApply':false,'inLanguage':'ar-EG','url':B+'#jobs',
         'hiringOrganization':{'@type':'Organization','name':j.company},
-        'jobLocation':{'@type':'Place','address':{'@type':'PostalAddress','addressLocality':'Cairo','addressCountry':'EG'}}};
+        'jobLocation':{'@type':'Place','address':{'@type':'PostalAddress','addressLocality':j.city||'Cairo','addressCountry':'EG'}}};
+      if(j.remote){ o.jobLocationType='TELECOMMUTE'; o.applicantLocationRequirements={'@type':'Country','name':'EG'}; if(j.remote==='only') delete o.jobLocation; }
+      if(j.source){ o.identifier={'@type':'PropertyValue','name':'Reddit','value':j.source[1]}; }
       return o; });
     if(list.length){ var s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(list); document.head.appendChild(s); }
   }catch(e){}
