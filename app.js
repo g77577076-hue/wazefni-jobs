@@ -46,3 +46,19 @@
   }
   document.getElementById('sendWa').onclick=function(){ var m=msg(); if(!m) return; var done=function(){ window.open('https://m.me/wazefni.eg.jobs','_blank'); }; if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(m).then(function(){ alert('تم نسخ بيانات الوظيفة. الصقها في رسالة صفحة وظفني.'); done(); },function(){ prompt('انسخ الرسالة والصقها في ماسنجر:', m); done(); }); } else { prompt('انسخ الرسالة والصقها في ماسنجر:', m); done(); } };
 })();
+
+(function(){
+  function ev(n){ try{ if(window.goatcounter&&goatcounter.count) goatcounter.count({path:n,title:n,event:true}); }catch(e){} }
+  document.addEventListener('click',function(e){
+    var el=e.target.closest&&e.target.closest('a,button'); if(!el) return;
+    if(el.id==='sendWa'){ ev('click-submit-job-form'); return; }
+    var h=el.getAttribute('href')||''; if(!h) return;
+    var n=null;
+    if(/^mailto:/i.test(h)) n='click-apply-email';
+    else if(/whatsapp\.com|wa\.me/i.test(h)) n='click-whatsapp';
+    else if(/facebook\.com|m\.me/i.test(h)) n='click-facebook';
+    else if(/reddit\.com/i.test(h)) n='click-reddit';
+    else if(/^https?:/i.test(h)&&h.indexOf(location.host)<0) n='click-apply-link';
+    if(n) ev(n+' '+(el.closest('.job,.card,article')?((el.closest('.job,.card,article').querySelector('h3,h2')||{}).textContent||'').trim().slice(0,40):''));
+  },true);
+})();
