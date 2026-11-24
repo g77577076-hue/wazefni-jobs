@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>اعمل سيرة ذاتية CV احترافية مجانًا بالعربي والإنجليزي | وظفني</title>
-<meta name="description" content="اعمل CV جاهز للتقديم في دقايق: قوالب لخدمة العملاء والمبيعات والمطاعم والفنادق والإدارة والتقني وحديثي التخرج، بالعربي أو الإنجليزي، تنزيل PDF مجاني. بياناتك بتفضل على جهازك ومبتتبعتش لأي مكان.">
+<meta name="description" content="اعمل CV جاهز للتقديم في دقايق: أكتر من 15 مجال: خدمة عملاء، مبيعات، محاسبة، IT، هندسة، تمريض، تعليم، سواقين، مصانع، أمن، تصميم، تسويق، وحديثي التخرج، بالعربي أو الإنجليزي، تنزيل PDF مجاني. بياناتك بتفضل على جهازك ومبتتبعتش لأي مكان.">
 <link rel="canonical" href="https://g77577076-hue.github.io/wazefni-jobs/cv.html">
 <link rel="alternate" hreflang="ar-EG" href="https://g77577076-hue.github.io/wazefni-jobs/cv.html">
 <link rel="alternate" hreflang="x-default" href="https://g77577076-hue.github.io/wazefni-jobs/cv.html">
@@ -53,7 +53,7 @@ textarea{min-height:84px;resize:vertical}
 .seg{display:flex;gap:8px;flex-wrap:wrap}
 .seg button{flex:1;min-width:110px;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:700;cursor:pointer;color:var(--navy)}
 .seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.tpls{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tpls{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:300px;overflow:auto;margin-top:8px;padding:2px}#tplSearch{margin-bottom:0}
 .tpls button{padding:12px 10px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:inherit;font-weight:700;cursor:pointer;text-align:center;color:var(--navy);line-height:1.4}
 .tpls button small{display:block;font-weight:400;color:var(--mut);font-size:12px}
 .tpls button.on{border-color:var(--amber);background:#fff8e1;box-shadow:0 0 0 2px var(--amber) inset}
@@ -91,7 +91,7 @@ textarea{min-height:84px;resize:vertical}
 .paper .skills{display:block}
 .paper .credit{margin-top:22px;font-size:10px;color:#8a94a3;text-align:center}
 .paper .empty{color:#9aa4b2;text-align:center;padding:60px 0;font-size:15px}
-.t-sales{--acc:#b45309}.t-hospitality{--acc:#7c2d12}.t-admin{--acc:#1d4ed8}.t-tech{--acc:#0f766e}.t-grad{--acc:#6d28d9}.t-cs{--acc:#0b1f3a}
+.t-sales{--acc:#b45309}.t-hospitality{--acc:#7c2d12}.t-admin{--acc:#1d4ed8}.t-tech{--acc:#0f766e}.t-grad{--acc:#6d28d9}.t-cs,.t-general{--acc:#0b1f3a}.t-retail{--acc:#be185d}.t-acct{--acc:#166534}.t-it{--acc:#0369a1}.t-eng{--acc:#475569}.t-health{--acc:#0e7490}.t-edu{--acc:#a16207}.t-driver{--acc:#334155}.t-factory{--acc:#525252}.t-security{--acc:#1e293b}.t-construction{--acc:#9a3412}.t-design{--acc:#c026d3}.t-marketing{--acc:#e11d48}
 .faq{margin-top:30px}.faq details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin-bottom:8px}.faq summary{font-weight:700;cursor:pointer}
 footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
 @page{size:A4;margin:0}
@@ -120,8 +120,10 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
     <div class="seg" id="langSeg"><button type="button" data-l="ar" class="on">عربي</button><button type="button" data-l="en">English</button></div>
     <p class="hint">لغة الـ CV نفسه. اكتب بياناتك بنفس اللغة اللي اخترتها.</p>
   </div>
-  <div class="panel"><h2>2. نوع الوظيفة</h2>
+  <div class="panel"><h2>2. مجال الوظيفة</h2>
+    <input id="tplSearch" type="search" placeholder="دوّر على مجالك: مثلاً سواق، محاسب، تمريض، مهندس..." aria-label="دوّر على مجال الوظيفة">
     <div class="tpls" id="tpls"></div>
+    <p class="hint" id="tplNone" hidden>مفيش مجال بالاسم ده. اختار "عام" وهيناسب أي وظيفة.</p>
     <p class="hint" id="tplHint"></p>
   </div>
   <div class="panel"><h2>3. بياناتك</h2>
@@ -172,28 +174,54 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
   var L={ar:{summary:'نبذة',experience:'الخبرات',education:'التعليم',skills:'المهارات',languages:'اللغات',certs:'كورسات وشهادات',present:'حتى الآن',credit:'اتعمل بواسطة وظفني | wazefni',empty:'املا بياناتك وهتشوف الـ CV هنا'},
           en:{summary:'Professional Summary',experience:'Work Experience',education:'Education',skills:'Skills',languages:'Languages',certs:'Courses & Certifications',present:'Present',credit:'Created with Wazefni',empty:'Fill in your details to see your CV here'}};
   var T={
-    cs:{n:'خدمة عملاء',s:'كول سنتر وسابورت',order:['summary','skills','experience','education','languages','extra','certs'],
+    cs:{n:'خدمة عملاء',kw:'كول سنتر call center customer service support سابورت',s:'كول سنتر وسابورت',order:['summary','skills','experience','education','languages','extra','certs'],
       x:{ar:'اللغات والمواعيد',en:'Availability & Shifts'},xh:'مثال: متاح شيفتات ليلية، أو إنجليزي B2. اكتب اللي ينطبق عليك بس.',
       chips:{ar:['خدمة عملاء','التعامل مع الشكاوى','التواصل الفعال','الكتابة السريعة','Microsoft Office','CRM','حل المشكلات'],en:['Customer Service','Complaint Handling','Communication','Fast Typing','Microsoft Office','CRM','Problem Solving']}},
-    sales:{n:'مبيعات',s:'تيليسيلز وإنجاز',order:['summary','experience','skills','education','extra','languages','certs'],
+    sales:{n:'مبيعات',kw:'مبيعات تيليسيلز sales telesales closer',s:'تيليسيلز وإنجاز',order:['summary','experience','skills','education','extra','languages','certs'],
       x:{ar:'إنجازات',en:'Achievements'},xh:'اكتب أرقامك الحقيقية بس (مثلاً: نسبة تارجت حققتها). لو معندكش، سيبه فاضي.',
       chips:{ar:['البيع بالتليفون','الإقناع','التفاوض','إدارة العملاء','تحقيق التارجت','المتابعة','Cold Calling'],en:['Telesales','Persuasion','Negotiation','Account Management','Target Achievement','Follow-up','Cold Calling']}},
-    hospitality:{n:'مطاعم وفنادق',s:'ويتر، كابتن، ضيافة',order:['summary','experience','skills','education','extra','languages','certs'],
+    hospitality:{n:'مطاعم وفنادق',kw:'ويتر كابتن مطعم فندق كافيه waiter chef barista hotel',s:'ويتر، كابتن، ضيافة',order:['summary','experience','skills','education','extra','languages','certs'],
       x:{ar:'المواعيد المتاحة',en:'Availability'},xh:'مثال: متاح شيفتات صباحي ومسائي وأجازات رسمية. اكتب اللي ينطبق عليك.',
       chips:{ar:['خدمة الضيوف','العمل تحت ضغط','العمل الجماعي','نظافة وسلامة الغذاء','نقطة البيع POS','الالتزام بالمواعيد'],en:['Guest Service','Working Under Pressure','Teamwork','Food Safety','POS Systems','Punctuality']}},
-    admin:{n:'إدارة وسكرتارية',s:'أدمن وإدخال بيانات',order:['summary','experience','skills','education','languages','certs','extra'],
+    admin:{n:'إدارة وسكرتارية',kw:'ادمن سكرتير admin office data entry موارد بشرية hr',s:'أدمن وإدخال بيانات',order:['summary','experience','skills','education','languages','certs','extra'],
       x:{ar:'برامج وأدوات',en:'Tools & Software'},xh:'مثال: Excel، Word، Google Sheets. اكتب اللي بتعرف تستخدمه فعلاً.',
       chips:{ar:['Excel','Word','تنظيم الملفات','إدخال البيانات','الكتابة السريعة','تنظيم المواعيد','المراسلات'],en:['Excel','Word','Filing & Records','Data Entry','Fast Typing','Scheduling','Correspondence']}},
-    tech:{n:'تقني وفني',s:'IT، فني، صيانة',order:['summary','skills','experience','extra','education','languages','certs'],
+    tech:{n:'تقني وفني',kw:'فني صيانة technician maintenance',s:'IT، فني، صيانة',order:['summary','skills','experience','extra','education','languages','certs'],
       x:{ar:'أدوات وتقنيات',en:'Tools & Technologies'},xh:'اكتب الأدوات أو الأجهزة أو اللغات اللي اشتغلت بيها فعلاً.',
       chips:{ar:['الدعم الفني','حل المشكلات','الشبكات','صيانة أجهزة','Windows','Excel','التوثيق'],en:['Technical Support','Troubleshooting','Networking','Hardware Maintenance','Windows','Excel','Documentation']}},
-    grad:{n:'حديث التخرج',s:'من غير خبرة',order:['summary','education','extra','skills','experience','languages','certs'],
+    general:{n:'عام',s:'أي مجال',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'معلومات إضافية',en:'Additional Information'},xh:'اكتب أي حاجة حقيقية تفيدك: مواعيد متاحة، رخصة، تطوع.',kw:'عام اي مجال general other تاني',
+      chips:{ar:['العمل الجماعي','الالتزام بالمواعيد','التواصل','تنظيم الوقت','التعلم السريع','Microsoft Office'],en:['Teamwork','Punctuality','Communication','Time Management','Quick Learner','Microsoft Office']}},
+    acct:{n:'حسابات ومحاسبة',s:'محاسب، مالية',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'برامج وأدوات',en:'Tools & Software'},xh:'مثال: Excel، برنامج محاسبي. اكتب اللي بتعرفه فعلاً.',kw:'محاسب محاسبة حسابات مالية مالي accountant finance',
+      chips:{ar:['المحاسبة','Excel','إعداد القيود','الفواتير','مطابقة الحسابات','الضرائب','برامج محاسبية'],en:['Accounting','Excel','Journal Entries','Invoicing','Reconciliation','Taxes','Accounting Software']}},
+    it:{n:'برمجة وIT',s:'مبرمج، دعم فني، شبكات',order:['summary','skills','experience','education','extra','languages','certs'],x:{ar:'أدوات وتقنيات',en:'Technologies & Tools'},xh:'لغات البرمجة والأدوات اللي اشتغلت بيها فعلاً.',kw:'برمجة مبرمج it software developer تقني كمبيوتر شبكات support',
+      chips:{ar:['Python','JavaScript','SQL','Git','الدعم الفني','الشبكات','حل المشكلات'],en:['Python','JavaScript','SQL','Git','Technical Support','Networking','Problem Solving']}},
+    eng:{n:'هندسة',s:'مهندس، مواقع، تصميم',order:['summary','skills','experience','education','extra','languages','certs'],x:{ar:'برامج هندسية ومشاريع',en:'Engineering Software & Projects'},xh:'مثال: AutoCAD، مشروع تخرج، موقع اشتغلت فيه.',kw:'هندسة مهندس engineer engineering ميكانيكا كهرباء مدني',
+      chips:{ar:['AutoCAD','Excel','قراءة الرسومات','متابعة التنفيذ','السلامة المهنية','إدارة الوقت'],en:['AutoCAD','Excel','Reading Drawings','Site Follow-up','Occupational Safety','Time Management']}},
+    health:{n:'صحة وتغذية وتمريض',s:'تمريض، صيدلة، تغذية',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'تراخيص وتدريب',en:'Licenses & Training'},xh:'اكتب الترخيص أو النقابة أو التدريب لو عندك. لو معندكش سيبه فاضي.',kw:'صحة تمريض ممرض صيدلة صيدلي تغذية اخصائي nurse pharmacy nutrition طب مستشفى',
+      chips:{ar:['رعاية المرضى','التعامل مع الأطفال والكبار','السجلات الطبية','التغذية العلاجية','التواصل مع المرضى','مكافحة العدوى'],en:['Patient Care','Medical Records','Clinical Nutrition','Patient Communication','Infection Control','Teamwork']}},
+    edu:{n:'تعليم وتدريس',s:'مدرس، مدرب',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'مواد وصفوف',en:'Subjects & Levels'},xh:'المواد والصفوف اللي دريتها فعلاً.',kw:'تعليم مدرس معلم teacher tutor مدرب trainer حضانة',
+      chips:{ar:['شرح المناهج','إدارة الفصل','إعداد الدروس','التعامل مع الأطفال','التقييم','التواصل مع أولياء الأمور'],en:['Lesson Planning','Classroom Management','Curriculum','Assessment','Working with Children','Parent Communication']}},
+    driver:{n:'سواقة ولوجستيات',s:'سواق، مندوب، مخزن',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'رخصة ومناطق',en:'License & Areas'},xh:'نوع الرخصة، والمناطق اللي بتعرفها، والمواعيد المتاحة.',kw:'سواق سائق driver توصيل دليفري مندوب delivery مخزن امين مخزن لوجستيات logistics warehouse شحن',
+      chips:{ar:['قيادة آمنة','معرفة الطرق','تسليم الطلبات','تحميل وتنزيل','جرد المخزن','الالتزام بالمواعيد'],en:['Safe Driving','Route Knowledge','Order Delivery','Loading & Unloading','Inventory Counts','Punctuality']}},
+    factory:{n:'مصانع وعمال',s:'عامل، فني إنتاج',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'شهادات ومعدات',en:'Certificates & Equipment'},xh:'المعدات اللي اشتغلت عليها والشهادات لو فيه.',kw:'مصنع عامل عمال factory worker production انتاج ورشة صنايعي حرفي',
+      chips:{ar:['تشغيل ماكينات','مراقبة الجودة','التعبئة والتغليف','السلامة المهنية','العمل بشيفتات','العمل الجماعي'],en:['Machine Operation','Quality Control','Packing','Occupational Safety','Shift Work','Teamwork']}},
+    retail:{n:'كاشير ومحلات',s:'بيع في محل، كاشير',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'المواعيد المتاحة',en:'Availability'},xh:'مثال: متاح شيفتات ومواسم الزحمة. اكتب اللي ينطبق عليك.',kw:'كاشير محل محلات بيع سوبر ماركت retail cashier sales associate',
+      chips:{ar:['خدمة العملاء','الكاشير','نقطة البيع POS','ترتيب الرفوف','الجرد','عرض المنتجات'],en:['Customer Service','Cashier','POS Systems','Shelf Stocking','Inventory','Product Display']}},
+    security:{n:'أمن وحراسة',s:'أمن، سلامة',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'دورات وتراخيص',en:'Training & Licenses'},xh:'دورات الأمن والسلامة اللي خدتها فعلاً.',kw:'امن حراسة security guard سلامة safety',
+      chips:{ar:['المراقبة','الإسعافات الأولية','السلامة','كتابة التقارير','الالتزام بالمواعيد','اليقظة'],en:['Surveillance','First Aid','Safety','Report Writing','Punctuality','Vigilance']}},
+    design:{n:'تصميم وميديا',s:'جرافيك، مونتاج',order:['summary','skills','experience','education','extra','languages','certs'],x:{ar:'برامج وأعمال سابقة',en:'Software & Portfolio'},xh:'البرامج ولينك البورتفوليو لو عندك.',kw:'تصميم جرافيك مصمم design designer ميديا مونتاج فيديو video editor photoshop',
+      chips:{ar:['Photoshop','Illustrator','Figma','Premiere','Canva','الكتابة الإبداعية'],en:['Photoshop','Illustrator','Figma','Premiere Pro','Canva','Creative Writing']}},
+    marketing:{n:'تسويق وسوشيال',s:'ميديا باير، كونتنت',order:['summary','skills','experience','education','extra','languages','certs'],x:{ar:'أدوات وأرقام',en:'Tools & Results'},xh:'اكتب الأدوات ونتائج حقيقية لو متاحة.',kw:'تسويق ماركتنج marketing سوشيال social ميديا كونتنت content اعلانات ads',
+      chips:{ar:['إدارة السوشيال ميديا','كتابة المحتوى','Meta Business Suite','Canva','تحليل الأداء','الإعلانات الممولة'],en:['Social Media Management','Content Writing','Meta Business Suite','Canva','Analytics','Paid Ads']}},
+    construction:{n:'مقاولات وبناء',s:'فني، مشرف موقع',order:['summary','experience','skills','education','extra','languages','certs'],x:{ar:'مهارات ومعدات',en:'Skills & Equipment'},xh:'المعدات والأعمال اللي نفذتها فعلاً.',kw:'مقاولات بناء construction عامل بناء نجار سباك كهربائي نقاش فني تشطيب',
+      chips:{ar:['قراءة المخططات','أعمال التشطيب','السباكة','الكهرباء','السلامة المهنية','العمل الجماعي'],en:['Reading Plans','Finishing Work','Plumbing','Electrical Work','Occupational Safety','Teamwork']}},
+    grad:{n:'حديث التخرج',kw:'خريج جديد بدون خبرة fresh graduate student طالب تدريب',s:'من غير خبرة',order:['summary','education','extra','skills','experience','languages','certs'],
       x:{ar:'مشاريع وأنشطة',en:'Projects & Activities'},xh:'مشروع التخرج، تطوع، نشاط جامعي، تدريب. اكتب اللي عملته فعلاً.',
       chips:{ar:['التواصل','العمل الجماعي','سرعة التعلم','Microsoft Office','تنظيم الوقت','العرض والتقديم'],en:['Communication','Teamwork','Quick Learner','Microsoft Office','Time Management','Presentation']}}
   };
-  var S={lang:'ar',tpl:'cs',exp:[{}],edu:[{}],lng:[{}],started:false};
-  var tk=['cs','sales','hospitality','admin','tech','grad'];
-  var tpls=$('tpls'); tk.forEach(function(k){ var b=document.createElement('button'); b.type='button'; b.dataset.k=k; b.innerHTML=T[k].n+'<small>'+T[k].s+'</small>'; tpls.appendChild(b); });
+  var S={lang:'ar',tpl:'general',exp:[{}],edu:[{}],lng:[{}],started:false};
+  var tk=['general','cs','sales','retail','hospitality','admin','acct','it','tech','eng','health','edu','driver','factory','security','construction','design','marketing','grad'];
+  var tpls=$('tpls'); tk.forEach(function(k){ var b=document.createElement('button'); b.type='button'; b.dataset.k=k; b.innerHTML=T[k].n+'<small>'+T[k].s+'</small>'; b.dataset.q=(T[k].n+' '+T[k].s+' '+(T[k].kw||'')+' '+k).toLowerCase(); tpls.appendChild(b); });
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]});}
   function lines(v){return (v||'').split(/\n+/).map(function(x){return x.trim()}).filter(Boolean);}
   function list(v){return (v||'').split(/[\n,،;]+/).map(function(x){return x.trim()}).filter(Boolean);}
@@ -219,7 +247,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
   function applyTpl(){
     var t=T[S.tpl];
     [].forEach.call(tpls.children,function(b){b.classList.toggle('on',b.dataset.k===S.tpl)});
-    $('tplHint').textContent='القالب بيرتب الأقسام حسب نوع الوظيفة. الكلام كله من عندك.';
+    $('tplHint').textContent='المجال بيرتب الأقسام ويقترح مهارات مناسبة. الكلام كله من عندك.';
     $('extraTitleF').textContent=t.x.ar+' (اختياري)'; $('extraHint').textContent=t.xh;
     var chips=$('skillChips'); chips.innerHTML='اقتراحات: '.length?'':'';
     t.chips[S.lang].forEach(function(c){ var b=document.createElement('button'); b.type='button'; b.textContent='+ '+c; b.onclick=function(){ var cur=list($('skills').value); if(cur.indexOf(c)<0){ cur.push(c); $('skills').value=cur.join('، '); start(); render(); } }; chips.appendChild(b); });
@@ -259,6 +287,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
   $('langSeg').onclick=function(e){ var b=e.target.closest('button'); if(!b) return; S.lang=b.dataset.l; [].forEach.call($('langSeg').children,function(x){x.classList.toggle('on',x===b)}); applyTpl(); start(); ev('cv-lang-'+S.lang); render(); };
   ['name','role','phone','email','city','link','summary','skills','extra','certs','credit'].forEach(function(i){ $(i).addEventListener('input',function(){start();render();}); $(i).addEventListener('change',render); });
   $('dl').onclick=function(){ ev('cv-download '+S.tpl+' '+S.lang); render(); setTimeout(function(){ window.print(); },60); };
+  $('tplSearch').addEventListener('input',function(){ var q=this.value.trim().toLowerCase(),n=0; [].forEach.call(tpls.children,function(b){ var ok=!q||b.dataset.q.indexOf(q)>-1; b.style.display=ok?'':'none'; if(ok) n++; }); $('tplNone').hidden=n>0; });
   buildLists(); applyTpl(); render();
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(render);
 })();
