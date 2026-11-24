@@ -77,3 +77,5 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy2);b
 
 .foot{flex-wrap:wrap}.soc{display:inline-flex;gap:18px;flex-wrap:wrap}.soc a{color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:4px}
 details.note summary{cursor:pointer;font-weight:700;color:var(--navy)}details.note p{margin:10px 0 0}
+
+.card .src{font-size:.85rem;margin:.4rem 0;opacity:.85}.card .src a{color:inherit;text-decoration:underline}
