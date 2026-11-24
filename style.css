@@ -79,3 +79,4 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--navy2);b
 details.note summary{cursor:pointer;font-weight:700;color:var(--navy)}details.note p{margin:10px 0 0}
 
 .card .src{font-size:.85rem;margin:.4rem 0;opacity:.85}.card .src a{color:inherit;text-decoration:underline}
+.routes{margin-top:auto;display:flex;flex-direction:column;gap:8px}.routes .btn{margin-top:0}
