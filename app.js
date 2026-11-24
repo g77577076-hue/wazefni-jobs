@@ -77,3 +77,19 @@
     .catch(function(){ m.textContent='حصلت مشكلة. جرب تاني.'; document.getElementById('leadBtn').disabled=false; });
   });
 })();
+
+(function(){
+  try{
+    var B='https://g77577076-hue.github.io/wazefni-jobs/', today=new Date().toISOString().slice(0,10);
+    var list=(window.WZ_JOBS||[]).filter(function(j){return j.expires>=today;}).map(function(j){
+      var loc=(j.facts||[]).filter(function(f){return f[0]==='المكان';})[0];
+      var typ=(j.facts||[]).filter(function(f){return f[0]==='النوع';})[0];
+      var t=typ?typ[1]:'', et=/جزئي/.test(t)?'PART_TIME':(/عقد/.test(t)?'CONTRACTOR':'FULL_TIME');
+      var d=j.title+' في '+j.company+(loc?' - '+loc[1]:'')+'. '+j.facts.map(function(f){return f[0]+': '+f[1];}).join('. ')+'. التقديم عند الشركة نفسها.';
+      var o={'@context':'https://schema.org','@type':'JobPosting','title':j.title,'description':d,'datePosted':j.postedAt,'validThrough':j.expires+'T23:59:59+02:00','employmentType':et,'directApply':false,'inLanguage':'ar-EG','url':B+'#jobs',
+        'hiringOrganization':{'@type':'Organization','name':j.company},
+        'jobLocation':{'@type':'Place','address':{'@type':'PostalAddress','addressLocality':'Cairo','addressCountry':'EG'}}};
+      return o; });
+    if(list.length){ var s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(list); document.head.appendChild(s); }
+  }catch(e){}
+})();
