@@ -8,10 +8,15 @@
 <script data-goatcounter="https://wazefni.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></head><body>
 <header class="top"><a class="brand" href="./">وظ<span>فني</span></a><nav><a href="./#jobs">الوظايف</a><a href="cv.html">اعمل CV</a><a href="tools.html">كل الأدوات</a></nav></header>
 <div class="wrap"><h1>فاحص السيرة الذاتية</h1>
-<p class="lead">الصق نص الـ CV (عربي أو إنجليزي) وهنقولك إيه الضعيف فيه وإزاي تصلحه. الفاحص بيقترح بس، ومبيألفش أي معلومة.</p>
-<div class="priv">🔒 الفحص جوه متصفحك. الـ CV مبيتبعتش ولا بيتخزن عندنا.</div>
-<div class="panel"><label for="cv">نص الـ CV</label><textarea id="cv" style="min-height:240px" placeholder="الصق الـ CV هنا. من PDF: حدد الكلام وانسخه."></textarea>
-<div class="actions"><button class="btn amber" id="go" type="button">افحص الـ CV</button><a class="btn ghost" href="cv.html">اعمل CV من الأول</a></div></div>
+<p class="lead">ارفع ملف الـ CV (PDF أو صورة أو Word) أو الصق نصه، وهنقولك إيه الضعيف فيه وإزاي تصلحه. الفاحص بيقترح بس، ومبيألفش أي معلومة.</p>
+<div class="priv">🔒 الفحص جوه متصفحك. الملف والنص مبيتبعتوش ولا بيتخزنوا عندنا.</div>
+<div class="panel"><h2>ارفع ملف الـ CV</h2>
+<label for="file">اختار ملف (PDF أو صورة JPG/PNG أو Word DOCX أو TXT)</label>
+<input id="file" type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.docx,.txt,application/pdf,image/*">
+<p class="hint">القراءة بتتم جوه متصفحك والملف مبيتبعتش لوظفني. أول مرة بنحمّل أدوات القراءة (PDF وOCR للصور) من الإنترنت (jsDelivr وtessdata)، فلازم النت يكون شغال. قراءة الصور بتاخد من 10 لـ 60 ثانية حسب الموبايل.</p>
+<div class="meter" id="pgbar" hidden><i id="pg" style="width:0;background:#7a1530"></i></div><p class="hint" id="pgmsg" aria-live="polite"></p></div>
+<div class="panel"><label for="cv">أو الصق نص الـ CV هنا (اختياري)</label><textarea id="cv" style="min-height:240px" placeholder="الصق الـ CV هنا لو معندكش ملف."></textarea>
+<div class="actions"><button class="btn amber" id="go" type="button">افحص النص</button><a class="btn ghost" href="cv.html">اعمل CV من الأول</a></div></div>
 <div id="res" hidden></div></div><footer><a href="./">الرئيسية</a> | <a href="tools.html">كل الأدوات</a></footer>
 <script>
 (function(){var $=function(i){return document.getElementById(i)};
@@ -59,6 +64,34 @@ if(r.issues.length)h+='<div class="panel"><h2>نقط الضعف واقتراحا
 if(r.ok.length)h+='<div class="panel"><h2>نقط قوة</h2>'+r.ok.map(function(s){return '<div class="sig"><b>✅ '+esc(s)+'</b></div>'}).join('')+'</div>';
 h+='<p class="note">الفحص آلي وبيدور على علامات شائعة بس، ومش بديل عن مراجعة بشرية. صلّح الـ CV وافحصه تاني، أو <a href="cv.html">اعمل واحد جديد</a> و<a href="cover.html">خطاب تقديمي</a>.</p>';
 var e=$('res');e.innerHTML=h;e.hidden=false;e.scrollIntoView({behavior:'smooth',block:'start'})}
+
+var LIBS={pdf:['https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js'],ocr:['https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js'],docx:['https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js']},loaded={};
+function lib(k){return loaded[k]||(loaded[k]=new Promise(function(ok,no){var sc=document.createElement('script');sc.src=LIBS[k][0];sc.onload=ok;sc.onerror=function(){loaded[k]=null;no(new Error('lib '+k))};document.head.appendChild(sc)}))}
+function prog(p,m){$('pgbar').hidden=false;$('pg').style.width=Math.max(3,Math.round(p*100))+'%';$('pgmsg').style.color='#6b5560';$('pgmsg').textContent=m}
+function fail(m){$('pgbar').hidden=true;$('pgmsg').style.color='#b42318';$('pgmsg').textContent=m}
+var worker=null;
+function ocr(src,label){return lib('ocr').then(function(){prog(.1,'بنحمّل أداة قراءة الصور...');return Tesseract.createWorker('ara+eng',1,{logger:function(m){if(m.status==='recognizing text')prog(.3+.7*m.progress,label+': بنقرا النص '+Math.round(m.progress*100)+'%');else if(/load|init/.test(m.status))prog(.15,'بنجهّز اللغة العربية والإنجليزية...')}})}).then(function(w){return w.recognize(src).then(function(r){return w.terminate().then(function(){return {t:r.data.text,c:r.data.confidence}})})})}
+function imgPrep(file){return new Promise(function(ok,no){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){var m=2400,sc=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*sc);c.height=Math.round(im.height*sc);var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c)};im.onerror=function(){no(new Error('img'))};im.src=u})}
+function readPdf(file){return lib('pdf').then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';return file.arrayBuffer()}).then(function(b){return pdfjsLib.getDocument({data:b}).promise}).then(function(doc){var n=Math.min(doc.numPages,4),out='',p=Promise.resolve();
+for(let i=1;i<=n;i++)p=p.then(function(){prog(i/n*.5,'بنقرا صفحة '+i+' من '+n);return doc.getPage(i).then(function(pg){return pg.getTextContent()}).then(function(tc){var line='',lastY=null;tc.items.forEach(function(it){var y=it.transform[5];if(lastY!==null&&Math.abs(y-lastY)>3)line+='\n';else if(line&&!/\s$/.test(line))line+=' ';line+=it.str;lastY=y});out+=line+'\n'})});
+return p.then(function(){ if(out.replace(/\s/g,'').length>60)return {t:out,c:null};
+ var o='',q=Promise.resolve(),conf=[];for(let i=1;i<=n;i++)q=q.then(function(){return doc.getPage(i).then(function(pg){var vp=pg.getViewport({scale:2.2}),c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;return pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise.then(function(){return ocr(c,'صفحة '+i)}).then(function(r){o+=r.t+'\n';conf.push(r.c)})})});
+ return q.then(function(){return {t:o,c:conf.length?conf.reduce(function(a,b){return a+b},0)/conf.length:0,scanned:true}})})})}
+function readFile(f){var n=f.name.toLowerCase(),ty=f.type;
+ if(f.size>15*1024*1024)return Promise.reject(new Error('big'));
+ if(/\.txt$/.test(n)||ty==='text/plain')return f.text().then(function(t){return {t:t,c:null}});
+ if(/\.pdf$/.test(n)||ty==='application/pdf')return readPdf(f);
+ if(/\.docx$/.test(n))return lib('docx').then(function(){prog(.4,'بنقرا ملف Word...');return f.arrayBuffer()}).then(function(b){return mammoth.extractRawText({arrayBuffer:b})}).then(function(r){return {t:r.value,c:null}});
+ if(/\.doc$/.test(n))return Promise.reject(new Error('doc'));
+ if(/^image\//.test(ty)||/\.(jpe?g|png|webp)$/.test(n))return imgPrep(f).then(function(c){return ocr(c,'الصورة')}).then(function(r){r.scanned=true;return r});
+ return Promise.reject(new Error('type'))}
+$('file').onchange=function(){var f=this.files[0];if(!f)return;ev('cvcheck-file');prog(.05,'بنفتح الملف...');
+ readFile(f).then(function(r){var t=(r.t||'').replace(/[\u200e\u200f\u202a-\u202e]/g,'').replace(/\r/g,'').replace(/[ \t]+\n/g,'\n').trim();
+  if(t.replace(/\s/g,'').length<40){fail('مقدرناش نطلع نص كفاية من الملف. جرّب صورة أوضح بإضاءة كويسة من فوق، أو الصق النص بإيدك.');return}
+  $('cv').value=t;$('pg').style.width='100%';var low=r.c!==null&&r.c<70;
+  $('pgmsg').style.color=low?'#b45309':'#166534';$('pgmsg').textContent=low?'اتقرا الملف بدقة منخفضة ('+Math.round(r.c)+'%). راجع النص تحت وصلّح أي غلط قبل الفحص، لأن الأخطاء ممكن تكون من القراءة مش من الـ CV.':'اتقرا الملف'+(r.scanned?' بالـ OCR (دقة '+Math.round(r.c)+'%). راجع النص تحت.':'. راجع النص تحت.');
+  var q=check(t);ev('cvcheck '+(q.pts>=80?'high':q.pts>=55?'mid':'low')+' file');show(q);$('res').scrollIntoView({behavior:'smooth'});
+ }).catch(function(e){var m=e&&e.message;fail(m==='big'?'الملف أكبر من 15 ميجا. صغّره أو الصق النص.':m==='doc'?'ملفات DOC القديمة مش مدعومة. احفظه DOCX أو PDF.':m==='type'?'نوع الملف مش مدعوم. استخدم PDF أو JPG أو PNG أو DOCX أو TXT.':/^lib/.test(m||'')?'مقدرناش نحمّل أدوات القراءة. اتأكد إن النت شغال وجرّب تاني، أو الصق النص.':'حصلت مشكلة في قراءة الملف. جرّب ملف تاني أو الصق النص.')});};
 $('go').onclick=function(){var v=$('cv').value;if(v.trim().length<30){$('cv').focus();return}var r=check(v);ev('cvcheck '+(r.pts>=80?'high':r.pts>=55?'mid':'low'));show(r)};
 })();
 </script></body></html>
