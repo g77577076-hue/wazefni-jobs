@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>وظفني | وظايف موثوقة في مصر</title>
+<meta name="description" content="وظفني: فرص شغل حقيقية في مصر ومعاها طريقة التقديم من الشركة نفسها. نشر الوظايف مجاني للشركات.">
+<meta name="theme-color" content="#0b1f3a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <span class="blob b1" data-speed="0.18"></span>
+  <span class="blob b2" data-speed="-0.12"></span>
+  <span class="blob b3" data-speed="0.3"></span>
+  <span class="ring r1" data-speed="-0.22"></span>
+  <span class="ring r2" data-speed="0.15"></span>
+  <span class="dots d1" data-speed="0.1"></span>
+  <span class="dots d2" data-speed="-0.2"></span>
+  <span class="plus p1" data-speed="0.25">+</span>
+  <span class="plus p2" data-speed="-0.28">+</span>
+  <span class="plus p3" data-speed="0.12">+</span>
+</div>
+<div class="progress" id="progress"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="وظفني"><img id="navLogo" alt="شعار وظفني" width="90" height="40"></a>
+  <nav>
+    <a href="#jobs">الوظايف</a>
+    <a href="#post">انشر وظيفة</a>
+    <a href="#about">عن وظفني</a>
+  </nav>
+  <a class="btn btn-sm" href="https://whatsapp.com/channel/0029Vb9GqZHJP214uGgNSC3d" target="_blank" rel="noopener">قناة واتساب</a>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <img class="hero-logo reveal" id="heroLogo" width="260" height="117" fetchpriority="high" src="data:image/webp;base64,UklGRuQfAABXRUJQVlA4INgfAACwhgCdASqaAbkAPnk8mkgko6KhqFUqUJAPCU1gel1BDU2CBmhBbZOQJwBrwg/Ime51EJ6Pzx7G/gf7v+yf7t7rvEPrryx/Mf2//w/4L2ff7X1i/o/9ZPgM/XPp7/9j0S/7D0O/UP6Hv7cde70IX/k9pz9vcieVB5idQ++b/jr+F62/8H/o+Uf7T/M+gd+S/0j/Z8PiAD9C/s/7DckviBcMrQD8XXRs9cewz+xCs7lrS2gAjzi3WzHRqxvt/iFa0OltLco0/3LQuCqajctEPxk7IKCElKJ4UPBgeTswFm81qvICDhjQ+WQNUA6NNbbLywfAmUNZaySdp+l5eTmQByRwejEGJTBnnjfj26dDb+qjAHsH20ym/T2vROrzLsnnbqvCcj91pwgnznOnqwX2SRRTMw7su/2uRHsMHvpD+tnRafm5hy5dOSI8Hp5wbQVpXO4gRXqCcqvGqg8+/NAMBO5TFKEhRtm4AT67OfDVTSabOykZ2fht2BOdxzlXRLGkPfg1yxe4IKs4KN6hRI5cMi11dX+Wp0CaHSo+Y53djQPLB/Y19+4p/Qa9FrBad7UVHoTm6HExNwXL0rxbzeoEV2kW0xIrkOLQtjRTCqge/7wXCm89ZUiamoqch1foLTrPaNwT989k1M7+onnK2e3G/6lqZUoa9e+fkFK9T6GqBXNlIPik6wEMCQWLeBeY2FkShtB8zIMiHfrIA65mwL25q0+RQMAWCWNdN8fryfyvidNgRE8ZgdkqS1rePHsE4OLom69zBxBmno05kV3KMdc4vx5diDkNw4G14UZr5wgwzwJvdCcR2j4AfOx5XLlhQpCp0V9RlhvXtygDRyOmJ3WKfT5F8x9MdxTPPByZxJj4ZdcV+inceQ/7RYUK+bdpLtjogjKBwnrd1QKocOE1pWtgzXwvVccrGOuMx6aakGKDs8v5sqHmfGjqulmxLmiivRrQssaqvcQ5h5FofdyioSLkkE0bxZLEitNvjwklkj9ZaFfUEG6QK39PkaA3q2TwKk7PMc8LJ7fXxsjz/pggcZ5or3UjlmgsF/aqzgzohcAX7KQiqZrwUWJOAs2L057PJOF0ELyzLk0LAPdTVlVK1e+QHD9d4Jcc9DX7x8G4m8VQark9viK6ldCMOQKfSUQfE7Y23metNpGSqTOjz24l9RtZcvicEeZMNVmRxUoB/iatynRwd4iY9xFzkUtfTrZ+KK7CJWb2OzinExRYz2LSRRkdQ34iLMSD8YQ61h26LtffoHtyLqv5jjxYq4SbVfQUxm5+dC9LOnQWJMzqJG3ABdNArc6RTqSEKhuBxutPKSqn3F8RT+/6ZWCOqfOiZ06ZzqvI7Lx3a3M5uVe10EQ3XSuTg1gyYYzFtDIBhgLmHu2+I7G+4wU4D0eUajIaHx1sGRvpbTXHemKRgAbPhpkJkdF4Amk7Rp4mDxKbqxNrj7QGAAAA/vqWMejNbCQ37Igu+90zVcV9EK8LMEp+bFTqY25JPeFdVeOzLljnLoYdNEdhoRWVh1DlMfhGSttozCsJHJAAFvGaS8VALDQ9atxVT+XNntI+39vKIp3EOCkDESsA2ckYOcj26/JsHQN2JAXoUuFzePwKjW474Hoy5LWxg1MwYaU9EhHWgN2HuAtaxtVFwx/cJdvxPaBYom2ZMbHKEcAilB+TjzoE8Y0AdwTtOjo5y/GPhFpXHBA45jha3goLAKrApzfXepq1uTSNGZX+Q0oxIHe27SLdJRVNGJ4P7Yi6ZffjGmCjNS4GOwDGgiLVlllRhe6IfKj9P8zJFRza0Bgwo3rPkIiqGjOAug/PoJzRoijX0y+D0jWlkQ2eT8mgHr1yr6LlMzrxAAWyS7icvXs5BjpuWs4AC/Ml1J/OmL8eiTQ8mfS/blVeK0X1HNY0SigCIsw3QesnhvyhRQIH3dCczR4cxUEU30bnZY2b0QYwpCoPv97ZkAFdeY2Fv1b76LnUgtuJ/Vr7gh4QVTLWAzGrnlGbYDwetGg6qYie6/5RH1L7KWi2DmesxfBexKX4e6kycApuLlx/mkJgg/uBTxlMW4/qA18r/a2yEUawA8rnDZvJ6VAuKDge8sFH4wI5V65CMm2F1zXQK2M+D6wpet4BMz19umKwQfdv6Vs6vvNd9LiqusefkkYWGBKKk1sk+1LAhZ4AFmo9JO/vzRITIagP3WyVIlAor5deCd5182cAkDp1TLN6Vj8bt7Ep+Iiltuuku0BRsUPOfjpxHNJGC6LPU3ZWJotqr3BJhlslMpaoZnGLyyd6dbLBQkYeew8Ya7zo7UccjD273TrnWcdVR4lHn/ikG8P0OLwjF1dRtd7LFUxW6+S7lWB7T2W5MWhP7DUvWNv3ct3orO6bOLhTw0Tx/GEDBY4iZEKFBDVz10S8MGBgr2pPzoYvLC+pbysDRwSnm94ViaipgK6JkMJVDEHVULsw2e5Iz1GzmFnAs9J2sFR1qxJWuMoyZbvWSb50iL9zIEFtbXfGrGZCQaAfx6t97aoUMoGZBMCIVomof0zFwN4QTS5wP6/xMbEblNkXOJY4AFFOX80IClhaJrEJjcRaPy2axejbn6mOCvYWfq1OuEpp+nE7v7yZR3A1Y2OisdZBC3CYOFNbUbHpieJXp62JY6wMi01LWfRlMpVOtXeuAJ70qzyefDrSe0gmbFhnPZA/wxXEqvBWZ73ZjY9wzHxa2gJt9FHgkIppZjMGOgafq2LudCok18LvYIGKJfVyUe7fHWYJMp04YoGc11pPM0VROkM4WDR1XuUWC71Rr33N4UJSjg58EYVz8hCPrU+EqICE1HCkxu6DoNmJj9wuoLNKff/0JGFC6FlE0PFK+zKvLy07dxr279k0JyQ0DakYFYYt01OXo2o4H9jFoEjmQnRj8nwFlcdq9cSzd7RLADlJbxNcwNJ45usfbOfWfP9o9/pDar6ziLH+NQ0p572p6T9S3G9msW1dQg0ynbnnGscqsrbvEuJmhBe/Uo+bu6NAexP8zItgUpDYRd2a9crK9fTREJxXE9Pwt+OfHUDLwE3+VVvcxGCudqY1Gd/+aJYC+pK3ZOdelmXLS+CXIgHeKLlNWWyad0E9Q4D+5LDh2MR+0AXgIbpPWhZ0AcsWe4vh79WWS/ehkRDsKaswU+FtFZXpyO5kC/w/lOF6zQmWFbNfpwSjpsU1HNJDeEmID223dEJ71xh0NPdPffqSxknenYvuba8RMGgP68h1qaDaCigJUqgQEHjLTe+J9xDxfLu1pThPQETqqha9oFqDNjVvg7QqSfgDZzlCUpIw3sqfVW/3h3ICvm/tAPL+pP6E8xdz5AllbHMyJJVnSkdWML5Yw12xpfNpvdgczvtnmbzTqlAXrSHpIJzsq84W+gNeR1qHP+X7PVmpI0DpiMrD0lp8ctyJA8IFHEB5aFauKa0wg3GPyRupk6leQcYiikgbj4z7xTOzNqMH7CSnCQ6BRcyoBpOzpGbcjv9EGySg7OwarncWm3B55wOFbbORchjfASSJcM30tDa3v5GSwePbWrxnVenus9Zqg3xS+dU2Z3YlzkjTQyw09VW/NJb/kDWk1KwvnwxfuG0EpfDdakB3zq6SEZsBG5yMHYpmgwIGbQG2jJ7lpFgInbC0dpocQNQuWHjZ6tnQrvA8+G1uuKmNLI15Mmipk4r2jnckddTsCJ/P+enSTC86uaHDaEm9uEY0jmceoI9OtnrkGNg9tVCebMT8rIIKB5CIPIDCmyAX48T3v0YXhQzaDXdZHpQVUtoK0xL7LqYeQfmbIT1qMaH5b26+xmpUon22wjcc3J8/soq/2Dfd5OU16Kigs/v+B6wXWW2k9tzT1bL5ChUMWop/RRdvtTl23vrATugb3EGk9tcJ/r6i6ZMgJ9UOX1vbEdgj+Tb5PZv3UvdRxFz0jxBI0VUOGERR36BzPwInDIGfFKsXwVSOtX0LMwIax7BkdQYerJ+poHH6MIfsQzwERRZiqClOeDUgvreVNftIRglSAgY3JznGwdHeOg2pgobezrTal5+Yf/hjMp7fYdc7YTWjv08h+y96URW12rK+UMu3YFN8eyw5TYFSArzbvavA68PTUKMlrY6kl+vEyQgVzoP7EbH8PmVp4JAXtilw5yh7J69YZIXpAKCviGWq0S7h80sqmPJjHlLvvuH83C0I98yRg+go/2srtFGcmYNtXw61EHvOovyDcdBlzEFS3OfZGTNafLW8uOrSsW5v0zEmBPQuGQ7loHMmiwxHe1Lx8E6z4A7wZkGKsFBR+U/Whgru11HM7esWDy0aFrpBkZNH1vydUpnKz/320Xmpworj8+iezOl9tua/7O5BFkwSAdVZhg1f5vT8uRIQSGnXWkTP6hJxYn9bRCORaIb4FCR79+tr+xkzmY3cxL7HZvrYI/trLaYQcd+ct14hJBtffxxldk8UnQuZm9fqSeDGT8fCmAUZFCHs+F3I5rwH+7mVAr/TODyMTxLjTo79tbWlFKjBZ44v/L8o3koqIPS6O5aNmZ6kgqvfJRQnGf+dgS4OlPGQAUc4O08+qXTmt1pjTuFvIu11GnZ1+LCLFa3SwxsFoQb4WRBTLJ3Locu2snkO/VqtmcaISpqsFUSKSDgn5DFQjrnlLVWzKnmu+O+p4RGMQLz0gEsycv9QEHRZ4PGRg6zgDN7TYSCuaoxcPkMplbCiUpWjhlM887jQGyA8ZhL+NG6qro7CwdMBd3pKQ9vzClhX62zOiLPb0qScyNm5+lZthYu/DMjGD8IfvDi0vMoEZGVoQB711q1QsyVn8vXL1xnoJpZPvwDU8hTpQZZISh99w0FKCPW9Rpx5N2uARPa2kLjrlWau8e3KQr6/u8ac8ajo79l0tdjwVYH6IvAhcQhbXd4S7+pIw7Quqki2db2sRE/5D92T4zMXNryKwYtKyKkwcklsdQ6vwKPfp5hdl0i0qz9dsvZdqo1Tf3WkbBL9xGMiD/tCb+NVxsk3V83bVKuohQlQPBG5lKm019h+M0zByHj5Xe2BpNLvYg7gIJeZir8IYWZ9+hewmhwZrtWxH3dTN+s5l78wG7g4KM6yMtKXbvHNOshSTmtYPJU04aWhOYYFE+yuosXXkf8AUFh3+jiMjbshwwhdEP6rr6YdXpOXD3r7nG+n397GMbFlqxZDj1O1HZdne5Mkb3k8R/BQZj+6JdAs/ed+CIE9QibYVx+v6I17s51JkyGAMPN8Mf/42vTA3vjnqf6eBvGO1EoppgqjI4hO+mwX9Q6kk2noazqcKvGqWkg3r7p35jv9tdgEg9TM4kOQi8Yq5m/IV/E/7JzwPsP48m5DFS/r697DIT+DfdUoWi19E3mhnrOgWf3hwO1NEkGd9Owp4CcIXNpkMsLiAb4XcPdMcZSdxUUD8ULcp9ojPUe/71T3l/i7ixOIfeTjJr8XlmzsQEL7VW3+Fs8v4c8MuMbxkR+JSVMQZxjaWBzQRDbMGoRk28uLJA9YqMTwLps1OqoiNQ3nSEpdt27s0SbGZWSOG/HCFQOSGfM5cUGXjeYfw0NqYpQnXrSVffsMsQJrgA0mNQM2tZJgQ7ETiffv5s5ffFE551jEckei6ezAO+nniI0B7O40jiYYLd9qbyvwAo7hyAy3L9p0b2WMtogz+PJa/8uaAhqQqD815/nB7ae02mAcwmAevzXXl/3EcemK/BRgESlgqrH4qKn98+owTRuDzHEchFebZDWMf4lcitO2DsuCQn4JoQrSuk3wm2N4c62MwRGQTXr1nPHQnPy/BChjx45BrXj9ApNnI23yNWuDN5ZMkwIRj+WClsDWHcG7dz1Sa64T5TxdAnLpqwM6/XYTOAaqqBPaqxGeFVHtdrYDb+V8f0zAOQWxa9En31CKFpLA6OX4XcD66+0tFYZmwRYBt09wxuO2Pe1U6xUKuRooV+XDTmXTAjjWTaRu59zfSueXWw05wwTUh2ZKi+bhyjTKNH5B7HTtSJCxm9TndXI6l1VPLkva05IO0fNQH83GNWTMU/4YC9HpH0wI1CUzPbka8LTIInkRjMB6hv2c1ZZzYmIqwRxXfxcrabiXrb4G+dnqCV0rvrfsPyWZBALouTyJTuRxG9CUKyESVRH6vvUOzvFAeZ+ky8yaIVeoWegc3DRw+Fy9PKn+6SiGGZPSG7jqhRt7+HjITtj3pM/ldKtUoQF1+0ywh8JOKtc7tEA7m6/qPkOiDCNKRnf0UzwM4VcjuFU+xW6CyiBZm3tvHwhtj5qLN2weu4DMxSTjql2bosIIhRCq/l4OpLI7z5cOR9WebhDNzOoH47KiF6stm75nUi8/3RVUqbtXBoINDhoEzmNRxdWUX/D3nYt5ptDmY7mJqeYMJA88Fcka6JpWLtBUbgGW/QP8K72nmwNvFVhr8RrB9kSJSF3FX2lOR5WVkBWorBRA+8k4SsosqMhj8qqjQiSVEE31J6MFCx7wAQaa8MTVDh9y+D76LZ1oy0tRN+uxrHQAyOpuzE5O/t2j1kOAs1AMGotyuZrHX/OsMuQV55UMFZey/3ZBnpZE665EoQi5rR43M0cve9u4JR0hYlE7sXKRIqad5ouq0GDIaTZfTu3EAojUApJ67JHRVlbL6qlp6rSU463wRE9o8hljUXlB6h3ug6RtdEBoe558aBH/hr1z7Y1k4nAW2aEVFXtmIC+n3iTe92XqLWDCWew4QttmkClSlCtQk5I4CON/4wWHqDW+g/9avyVRRIOeM64nRAhakYrV2PRNM8YB3quHcmm85798b1Xhi5wHbvPVZ2Nh/LobILVcnyOtMGF2U060K6dY2g3AsjEExGUktR1hI6DmXi8tb9aXrRQHbkBFk84ZXWBONNZqM05hes094YmaJGSn42s4GL9j+bpNeedNDjBBGmwpK5CfH/ZMjsmws/K0KE+Xw7gmvHeIe8q61l05h3XvMXSsbTt11Xgac0y4kW7gC4LYtqQxWEQ9LKT8utmKIzXoE1SqqJ6JhiLr6AvKO0QpeFdlEIFmJGZID0gaGJUG+k5cFC/V4qARnqwlXqsy7DEqM2QycrQWTaV5/ezzUmXiYPKH2FHWH6s5WlW0VIjy9ag5U+A1MEg0C2cOBecbl1quX/UMuQ6/LytHujrQO8Jsx/4x9A6hvwQSQ3AFhaoIdE6EHo22bSv5r148VrCcnxLPpxtpMJJ5fMFidjj7+0D5nR7oBId5yHcNAeIcd1Z1qvR8ilOGnWuLlSdbQe1A9qoSUNjEiRule5WrQk7ewAy8/b2+M+lNrk+f5Ztffl9t89SOaViXjeSgotmgWIO2y39EWTLp+zgGhiWeXiKd3iDCbcwUA/rs5ED7kb3FXqTszpgq2ujc/Z348LXFlYqjehKjQ/P1ApOIHiix2g2iODLajyMy1lO4Cg9fPExVjPifz3ikF/GLqw2BGCvJ1WnHBQv+jFr4pL8YpvYf9QT54rFDuHwy5rEmSpLemhT0ojzqxtCPRQdKJsBo1DliCrgY2RI9OKZBLXtLbbKiFeUkGbw7OgDplM9+YDTzw6VtaGfdlDqQKNSlwhX9K+RHLgVyqR/mM8FxbM59eh7x/ysR7biuRzm8/0/5N24SNOaSaUdCHIdxt2NjxR++lTNrs8lOULiG2GjJOs+TGYyUWqY6X0FLSk8fDKLMjKzaYqVTQrOXxRWmmYOUtnx6JwB2IHyN6GF5WJESTsUrD+DQpdlZ4+DKggmC2Hy5A8XTl3KU9CUDJi2piZjibdfiD853fCxQuXZq26ChZHNGi4RcGSe+txSGLGcsLZ9YR60Ucip8Wq+vRDx85adBgWM354bQ7/rDSzUVQoa2yH5klh8ZHcreIohe9dS3mNkDInQUG0NNpToc5H9wDeRy3O7rMbLVIQh0mHtPBjA/e/ArXCAJal3zWxWL3MS8Be4s+2TB/CPZpwIPuGHdscJtVsjmrPZpmDZJ1v6lYXDbEEqnbzgZL8NxTpujAeoNiXFM9gIvqUwFkUXaFS/BWIvYT50OfohwlrmUqI3mEEAwb+pq8piz7C+hCv3BOr4tszUbZqMwBrxDt2IX8pfTRJTbjXsLIWGUQXyfHQGgHlW+s9as6aDaWVaymaG7qrfiEnwY6crLjM5fbmClDud6hYb75sDlEljNnt4OJrJZSUGoq45aL60GZwAMrH9Umh0HFkZTo0dVAE+yzdLArOk+U+7UptIcnh3fuuxb3PU2jfLlZDjVFShookmt0I7vg2ekLJrzwJmxiSiXdepSR3j48qokG7BTgiBboumfDuUhjyPFAuE+v4cZ4ctdtdDcPOwpxTcgJM20T5gYVqIhqO2IlMxCJpyJnp2Tt5g0dksRH84+kgcDnZ3cMepIFSBW12lhqb7EA4STeNAxZwznBaqa/3hf0Fl2aMqOo9cCQviXxCDqAtnnTlYn8ahqRY28sBkPEXGjNo/o8E8GE7YTNJEvAxIuoP7qBYKcWqzGKFNyQMvJlDUHZF3RyoKqHidDN8DZevIihpQbFg2RB/ZWAWRh7Hz597pX+KEFnosa1juhazdLec+2IQPFqLgT9r2V2ktoIys8JfhYvFAyv6JFJuNjLHUf+LmFmaIHlXWDloOoDrhBMJYPSC3DQYqcoXsCjmYLdB8WTeN9QXWmCfVIgEAw9qlIIMBox0cBEN3EHkSiwolC4rA6DnSo0IcOEq+ecjyePneMWm6bSUebQ1XeI2l7GbPvjyyiNWb69oaAfK2/G/nN83nxvDA/GZSXetebZAEDSmlUSC+PqpLe/YdP6d44u0EwnLEL5MTC7ODwpzkGtxq9mOL8MU42QUFud2DM7sJekLfpY6EV0MMKax6lsmRv9DtP1BuQrZFLsCpiFaGyEYAVr6lDOCLlL2gpsU/VmbVbnPKu7yHaGF33/RXJhMJhlYHt1kOIdV1Dk3CUXH9VTEX0W7UPmO4TtfEfnUV+9R1l5hK9AfzlOsQFi+uh+/6nD1a3yFXf19vgbeN0oRL++d+t6RrfUdnYpjCjxJvkGVqDbQydg325SOPv69xvnWg/EPnN3FjCcz30Wua5JlCVfIevRTPCKtIIavMzDXMqZyAGrmVppkt7gVI4q/tFlJKcrjiN9BVUGlWPLoDzU+hD59/KtH1sywNjfZZXRjSJLrepxvvP/cau6Z6kl3dAuF2+lEO2pO56lZ7Cvm7zOHCrRl3ZxB7rG6QKQis3lvkrprZcQNfnmdY0F/NatZjn2+43TxL5il6XEUPNhoFrYqjdLsFknSJZ9dPJ9EbUpe1WHF/C0O8DgRPwEhon/WtP38DNn7LnL31JCgDSu6906e9iZtrs/BZBN/92HHvp+zqKw+/ZukAiLOhPsflnkv2zVzN4uhcJ5MGbx2Q/6oPPasm4v5R4FSvyrP/P5DJDKkPv/Gz8HfbbUa5lZ7dDzGCgR7JnjirXV+CUA7Tdas8i9Ww+RQMaYztt6A9Adpf6UNeOPgn1kuLlZaoO6XCoFRenOAxvy8C3pfoxdbqPRylYYdrCoLSALz6pcpAKodvK3s7q5u0VnfgA7ZNNFmV/L8eOR8vBo8iVSheIixAnXQDYc62Q6BL6IbgzXB5+jqLCokQ1mGEnJsPfel0PFzcrbK+OMKlAIx0SjhEc4CnvG6xuaviJX4EJNu4TeQv83OgBdyQxXldFacAQaAqWbXEPJcdEbZngj8zs+mhx8CU6JG2PfjWoJwPJutrpyDiFbHxJbkvjvxudXhAwV/mtD0ikGRTJxwg9+xhJj2cN83DEuCOrHSL5izd5Fhwismft1XwFWxfz/oXZ9qDDjih/KxztI5ANhbTas6YKhf5EEruTQRoe7FnQIP5vfPZNbEEnzcXaY5sQlo/OXLZ41G8cBjjr8tDzJQggzYbX0SxBKa2StcDuqI7nc1krFm02SPvcMmyN2aANZ7POf/8CiyejEMcCTyxK3eo1VD9aBMJuDygb/HGrp7LfJB6cJkctOTIZKwVYl9bw47o0aUyCa24+K39eqoT2naWIf5aV/406TffRKkYINFcm9ghZL4/VoTVfuBXKfLo8Mv3jlWPBhFNLXpC1RuGVMZ+9R7R1vm1J14T77/AynIjEdb6oIl2t/3siRCJ0raV79u04CqWonFsjG76TK/tLkKuQvg8Xpq4+ytWzQQQ4KNJO9YvftW1oY7CN9dHORNLJLqEypjmq+LCtzw0S+PYBrSw6WjB24edFEQkscFcD2TxtWKU9k+9oqRvnFyqRe9FARvHvdDuOfTW8NtxuaEQOVlFiGuhaOL3azMqPqK1a0/HEjX7WyWz3aYGhX+VAfUdhph/2oA+/FnpSXH8aG0BJ5TOhDkH20OPweMgH/4LqJc5raXdirtybd9MkygYv6PJBdXN7i4DNpcrz4cnIj2ZhcZ6aaHj243IHU+sjn+a2M8eZZTg8quQ34ese5PSuHg80YCX4uu7uHSoLkP9E0QzRB4FvHeV940lDPB+o2befnahOmsf+T2TMyLhPanZtN1JK3pQ5vX65jc+L1KrrJW4azSdK/y2BA+t7CHsAKaleUttwv5+x+XTINRKPkCZONYjnBJZSDBx1SolS5jpE7ZNzh1qBpvneBaXhlyG7CT0R23KxgLS43SspuFiyJdyNY0NkfOydqUabpHbn9kog1TaUWRvGWvGypakXVrCFGBdJ3+BZTN73hVJqdMSzrP2ZJAfQtROGOvXF0Zzya6Pd2KF6w3VoZ65/uTU3WOFgoJpEAaiudiLNCh4TmL28xGzDdoTEmb1wCZkZgGnfg7tdPlt12z5XNWDhNxYPenTSPmpCyIwEE5iYnhw9aLR0/+m4KuDk0Bas/l0+dOVuVTzXEtjNrFKZqHEcKPvWZB1fgL1eH5J+smgJ/Cg5Wnf/ca5zrk7p8cX5JYz3k2OxrkrpfLdwnWKWZMzqh3tVvaK1SwCH+0Wq0PbOkRfEAQMCd5k9qHk14DtZgfdShfRq8sAA" alt="شعار وظفني: حلول توظيف مبتكرة"><p class="eyebrow reveal d1">وظايف موثوقة. من غير لف ودوران.</p>
+    <h1 class="reveal d1">فرصة شغلك الجاية<br><em>بجهة تواصل حقيقية</em></h1>
+    <p class="lead reveal d2">بننشر وظايف في مصر ومعاها طريقة التقديم من الشركة نفسها: رابط رسمي أو إيميل معلن. مجانًا للباحثين عن شغل، ومجانًا للشركات.</p>
+    <div class="cta reveal d3">
+      <a class="btn" href="#jobs">شوف الوظايف</a>
+      <a class="btn btn-ghost" href="#post">انشر وظيفة مجانًا</a>
+    </div>
+    <ul class="stats reveal d4">
+      <li><b id="count">0</b><span>وظايف مفتوحة</span></li>
+      <li><b>0</b><span>رسوم تقديم</span></li>
+      <li><b>100%</b><span>جهات تواصل حقيقية</span></li>
+    </ul>
+    <a class="scroll-hint" href="#jobs" aria-label="انزل للوظايف"><span></span></a>
+  </section>
+
+  <section class="section" id="jobs">
+    <div class="head reveal"><p class="eyebrow">الوظايف المفتوحة</p><h2>اختار تخصصك وقدم من المصدر</h2></div>
+    <div class="filters reveal" id="filters" role="group" aria-label="التخصص"></div>
+    <div class="grid" id="grid"></div>
+    <p class="note reveal">الوظايف منقولة من إعلانات الشركات على Wuzzuf أو إيميلاتها المعلنة. اتأكد من الإعلان الأصلي إن الوظيفة لسه مفتوحة. أي جهة تطلب فلوس للتقديم، متدفعش وبلغنا.</p>
+  </section>
+
+  <section class="section steps-sec" id="how">
+    <div class="head reveal"><p class="eyebrow">إزاي بنشتغل</p><h2>أربع خطوات للنشر</h2></div>
+    <ol class="steps">
+      <li class="reveal"><b>1</b><h3>ابعت بيانات الوظيفة</h3><p>اسم الوظيفة والشركة والمكان ونوع الدوام والخبرة.</p></li>
+      <li class="reveal d1"><b>2</b><h3>حدد طريقة التقديم</h3><p>رابط رسمي أو إيميل أو رقم للتواصل.</p></li>
+      <li class="reveal d2"><b>3</b><h3>بنراجع الإعلان</h3><p>بنتأكد إن الشركة حقيقية وبيانات التواصل شغالة.</p></li>
+      <li class="reveal d3"><b>4</b><h3>بننشر على كل القنوات</h3><p>صفحة فيسبوك وقناة واتساب وريديت.</p></li>
+    </ol>
+  </section>
+
+  <section class="section" id="post">
+    <div class="head reveal"><p class="eyebrow">للشركات</p><h2>انشر وظيفتك مجانًا</h2></div>
+    <form class="form reveal" id="jobform" novalidate>
+      <label>اسم الوظيفة<input name="title" required placeholder="مثال: Graphic Designer"></label>
+      <label>اسم الشركة<input name="company" required></label>
+      <label>المكان<input name="place" placeholder="مثال: القاهرة، هايبرد"></label>
+      <label>نوع الدوام<select name="type"><option>دوام كامل</option><option>دوام جزئي</option><option>عقد محدد المدة</option><option>عن بعد</option></select></label>
+      <label class="full">الخبرة والمطلوب<textarea name="req" rows="3"></textarea></label>
+      <label class="full">طريقة التقديم (رابط رسمي أو إيميل أو رقم)<input name="apply" required></label>
+      <p class="err" id="err" hidden>املأ اسم الوظيفة والشركة وطريقة التقديم.</p>
+      <div class="full actions">
+        <button class="btn" type="button" id="sendWa">ابعت على فيسبوك ماسنجر</button>
+              </div>
+      <p class="tiny full">الزرار بيجهز رسالة جاهزة بالبيانات، وانت بتبعتها بنفسك. مفيش حاجة بتتحفظ على الموقع. بنقبل وظايف بجهة تواصل حقيقية بس، ومش بننشر وظايف بتطلب رسوم من المتقدم.</p>
+    </form>
+  </section>
+
+  <section class="section about" id="about">
+    <div class="head reveal"><p class="eyebrow">عن وظفني</p><h2>مسؤوليتنا نوفر وظايف تثق فيها</h2></div>
+    <p class="lead reveal">وظفني صفحة بتنشر فرص شغل في مصر، وكل وظيفة لازم يكون معاها رقم أو إيميل أو رابط رسمي. بننشر كمان نصايح للإنترفيو والسي في.</p>
+    <div class="social reveal">
+      <a class="btn" href="https://whatsapp.com/channel/0029Vb9GqZHJP214uGgNSC3d" target="_blank" rel="noopener">قناة واتساب</a>
+      <a class="btn btn-ghost" href="https://www.facebook.com/wazefni.eg.jobs/" target="_blank" rel="noopener">صفحة فيسبوك</a>
+      <a class="btn btn-ghost" href="https://www.reddit.com/user/No-Transition4594/" target="_blank" rel="noopener">ريديت</a>
+    </div>
+  </section>
+</main>
+<footer class="foot"><span>وظفني</span><span id="upd"></span></footer>
+<script src="jobs.js" defer></script>
+<script src="app.js" defer></script>
+<script>document.getElementById("navLogo").src=document.getElementById("heroLogo").src</script>
+</body>
+</html>
