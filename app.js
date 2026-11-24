@@ -16,8 +16,8 @@
       c.appendChild(el('p','exp','التقديم المقترح لحد: '+new Date(j.expires+'T12:00:00').toLocaleDateString('ar-EG',{day:'numeric',month:'long',year:'numeric'})));
       if(j.source){ var sp=el('p','src','المصدر: '); var sa=el('a','',j.source[0]); sa.href=j.source[1]; sa.target='_blank'; sa.rel='noopener nofollow'; sp.appendChild(sa); c.appendChild(sp); }
       c.appendChild(el('p','tiny',j.posted + '. التقديم عند الشركة نفسها، ووظفني مش وسيط ولا بياخد حاجة من المتقدم.'));
-      var a = el('a','btn',j.cta); a.href=j.href; if(j.href.indexOf('http')===0){a.target='_blank'; a.rel='noopener';}
-      c.appendChild(a); grid.appendChild(c); observe(c);
+      var rs = el('div','routes'); (j.routes||[[j.cta,j.href]]).forEach(function(r,ri){ var a = el('a','btn'+(ri?' btn-ghost':''),r[0]); a.href=r[1]; if(r[1].indexOf('http')===0){a.target='_blank'; a.rel='noopener';} rs.appendChild(a); });
+      c.appendChild(rs); grid.appendChild(c); observe(c);
     });
   }
   var cats=[['all','الكل']]; jobs.forEach(function(j){ if(!cats.some(function(c){return c[0]===j.field;})) cats.push([j.field,j.fieldLabel]); });
