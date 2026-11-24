@@ -151,6 +151,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
 <div class="previewcol">
   <div class="actions">
     <button type="button" class="btn amber" id="dl">تحميل PDF</button>
+    <a class="btn ghost" href="cvcheck.html" id="cvQ">افحص جودة الـ CV</a>
     <a class="btn ghost" href="cover.html">اعمل خطاب تقديمي</a>
     <a class="btn" href="./#jobs">شوف الوظايف وقدّم</a>
   </div>
@@ -276,7 +277,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
     };
     t.order.forEach(function(k){ out+=secs[k](); });
     if($('credit').checked) out+='<div class="credit">'+D.credit+'</div>';
-    paper.innerHTML=out; fit();
+    paper.innerHTML=out; try{ sessionStorage.setItem('wzcvtext',paper.innerText||''); }catch(e){} fit();
   }
   function fit(){
     var host=$('pvhost'), sc=$('pvscale'), p=$('paper');
