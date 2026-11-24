@@ -29,6 +29,10 @@
 <p class="lead">الصق نص إعلان الوظيفة أو رسالة الواتساب، وهنطلعلك علامات النصب اللي فيه وإيه اللي تعمله قبل ما تبعت أي حاجة.</p>
 <div class="priv">🔒 الفحص جوه متصفحك. الإعلان مبيتبعتش ولا بيتخزن في أي مكان.</div>
 <div class="panel">
+  <label for="lnk">لينك الإعلان (اختياري)</label>
+  <input id="lnk" type="url" inputmode="url" dir="ltr" placeholder="https://..." autocomplete="off">
+  <div class="actions" style="margin:6px 0"><button class="btn ghost" id="rd" type="button">حاول أقرا الصفحة من اللينك</button></div>
+  <p class="hint" id="rdmsg">فحص اللينك نفسه بيتم جوه متصفحك. زرار "أقرا الصفحة" بيبعت اللينك بس لخدمة قراءة مجانية (r.jina.ai) عشان يجيب النص، ومبنبعتش حاجة لوظفني. فيسبوك وواتساب وتيليجرام الخاص غالبًا مش بيتقروا، فالصق النص تحت.</p>
   <label for="ad">نص الإعلان</label>
   <textarea id="ad" placeholder="الصق هنا نص الوظيفة، ومعاه رقم الموبايل أو الإيميل أو اللينك لو موجودين."></textarea>
   <div class="actions"><button class="btn amber" id="go" type="button">افحص الإعلان</button><button class="btn ghost" id="clr" type="button">مسح</button></div>
@@ -71,16 +75,40 @@
   var FREE=/@(gmail|yahoo|hotmail|outlook|icloud|live|aol|proton(mail)?|mail)\.(com|me|net)/i;
   var SHORT=/(bit\.ly|tinyurl\.com|t\.co|cutt\.ly|rb\.gy|is\.gd|shorturl\.at|goo\.gl|wa\.me\/message|forms\.gle|linktr\.ee)/i;
   var PHONE=/(?:\+?20|0)?1[0125][\s-]?\d{4}[\s-]?\d{4}/g;
-  function analyze(raw){
-    var t=norm(raw).replace(NEG,' '), sig=[], score=0, good=[];
+  var SHORTD=/^(bit\.ly|tinyurl\.com|t\.co|cutt\.ly|rb\.gy|is\.gd|shorturl\.at|goo\.gl|ow\.ly|buff\.ly|tiny\.cc|s\.id|v\.gd|t\.ly|lnkd\.in|wa\.link)$/;
+  var FREEH=/(forms\.gle|docs\.google\.com|typeform\.com|jotform\.com|linktr\.ee|wixsite\.com|blogspot\.com|weebly\.com|github\.io|netlify\.app|vercel\.app|000webhostapp\.com|carrd\.co|sites\.google\.com|webflow\.io|wordpress\.com|notion\.site|bio\.link|beacons\.ai)/;
+  var BADTLD=/\.(xyz|top|click|shop|site|online|icu|live|work|buzz|cfd|sbs|vip|loan|bid|monster|rest|fun|cyou|today)$/;
+  var OFFICIAL={vodafone:['vodafone.com.eg','vodafone.com'],orange:['orange.eg','orange.com'],etisalat:['etisalat.eg','e.com.eg','eand.com'],cib:['cibeg.com'],misr:['banquemisr.com'],ahly:['nbe.com.eg'],amazon:['amazon.com','amazon.eg','amazon.jobs'],google:['google.com'],microsoft:['microsoft.com'],facebook:['facebook.com','fb.com'],wuzzuf:['wuzzuf.net'],linkedin:['linkedin.com'],indeed:['indeed.com'],bayt:['bayt.com'],forasna:['forasna.com'],talabat:['talabat.com'],uber:['uber.com'],aramex:['aramex.com'],instapay:['instapay.eg']};
+  var KNOWN=/(^|\.)(wuzzuf\.net|linkedin\.com|indeed\.com|bayt\.com|forasna\.com|glassdoor\.com|jobzella\.com|t\.me|wa\.me|facebook\.com|fb\.com|instagram\.com|youtube\.com)$/;
+  function parseU(u){ try{ return new URL(/^[a-z]+:\/\//i.test(u)?u:'https://'+u); }catch(e){ return null; } }
+  function linkSigs(urls){ var sig=[],notes=[],seen={};
+    urls.forEach(function(u){ var p=parseU(u); if(!p) return; var h=p.hostname.toLowerCase().replace(/^www\./,''), full=(p.pathname+p.search).toLowerCase(), key=h; if(seen[key]) return; seen[key]=1;
+      var add=function(s,t,w){ sig.push({s:s,t:t,w:w+' ('+h+')'}); };
+      if(p.protocol==='http:') add(10,'لينك بدون HTTPS','اللينك مش مشفر. متكتبش فيه بيانات.');
+      if(SHORTD.test(h)) add(15,'لينك مختصر','اللينك المختصر بيخفي الوجهة الحقيقية. افتحه بحذر ومتكتبش فيه بيانات.');
+      if(FREEH.test(h)) add(15,'فورم أو موقع مجاني بدل موقع الشركة','الشركات الكبيرة عندها موقع رسمي. فورم Google أو موقع مجاني مش دليل نصب لوحده، لكن اتأكد إنه تابع لشركة حقيقية.');
+      if(/^\d{1,3}(\.\d{1,3}){3}$/.test(h)) add(30,'لينك برقم IP','اللينكات الحقيقية بتستخدم اسم دومين، مش رقم.');
+      if(/xn--/.test(h)) add(30,'دومين فيه حروف مموهة (Punycode)','ده بيستخدم لتقليد أسماء مواقع معروفة بحروف شبيهة.');
+      if(/@/.test(p.href.split('?')[0].replace(/^https?:\/\//,'').split('/')[0])) add(25,'علامة @ في اللينك','ده أسلوب لإخفاء الوجهة الحقيقية.');
+      if(BADTLD.test(h)) add(20,'امتداد دومين مشبوه','الامتداد ده شائع في مواقع النصب. راجع الشركة من الموقع الرسمي.');
+      if((h.match(/-/g)||[]).length>=3||h.split('.').length>=5) add(10,'اسم دومين طويل وغريب','كتر الشرط أو الدومينات الفرعية شائعة في المواقع المقلدة.');
+      Object.keys(OFFICIAL).forEach(function(b){ if(h.indexOf(b)>-1){ var ok=OFFICIAL[b].some(function(d){return h===d||h.endsWith('.'+d)}); if(!ok) add(30,'دومين بيقلد اسم "'+b+'"','الدومين فيه اسم جهة معروفة لكن مش دومينها الرسمي. ده أسلوب نصب شائع.'); } });
+      if(!BADTLD.test(h)&&/(earn|profit|vip|bonus|invest|forex|crypto|wallet|claim|verify|giveaway)/.test(h+full)&&!KNOWN.test(h)) add(10,'كلمات مشبوهة في اللينك','اللينك فيه كلمات زي ربح أو استثمار أو تحقق.');
+      if(/^(wa\.me|api\.whatsapp\.com|wa\.link)$/.test(h)||/(^|\.)t\.me$/.test(h)||h==='telegram.me') notes.push({t:'لينك محادثة ('+h+')',w:'التقديم على شات بس مفيهوش اسم شركة. اطلب إيميل أو موقع رسمي.',s:12});
+      if(/(facebook\.com|fb\.com|fb\.watch|instagram\.com)$/.test(h)) notes.push({t:'بوست على سوشيال ميديا',w:'فيسبوك وإنستجرام بيمنعوا قراءة المحتوى. صفحة معروفة وقديمة وليها تعليقات حقيقية علامة كويسة، لكن اتأكد.',s:0});
+      if(KNOWN.test(h)&&!/(t\.me|wa\.me|facebook|fb\.com|instagram)/.test(h)) notes.push({t:'موقع توظيف معروف',w:'الموقع ده معروف، بس اتأكد إن الشركة واللينك فعلًا تبع الإعلان ومفيش رسوم.',s:-1});
+    }); return {sig:sig,notes:notes}; }
+  function analyze(raw,url){
+    raw=raw||''; var t=norm(raw).replace(NEG,' '), sig=[], score=0, good=[];
     R.forEach(function(r){ if(r[3]&&r[3].test(t)){ sig.push({s:r[0],t:r[1],w:r[2]}); score+=r[0]; } });
     var emails=raw.match(/[\w.+-]+@[\w-]+(\.[\w-]+)+/g)||[], links=raw.match(/https?:\/\/[^\s)]+|www\.[^\s)]+/gi)||[], phones=(raw.match(PHONE)||[]).map(function(x){return x.trim()});
+    if(url) links.unshift(url);
     var comp=/(شركه|company|ltd|llc|inc\b|co\.|group|مجموعه|مؤسسه|مصنع|بنك|bank|agency|وكاله)/.test(t);
     var uni=function(a){return a.filter(function(x,i){return a.indexOf(x)===i})}; phones=uni(phones); emails=uni(emails);
+    links.forEach(function(l){ var m=l.match(/wa\.me\/\+?(\d{10,15})|phone=\+?(\d{10,15})/); if(m) phones.push('+'+(m[1]||m[2])); }); phones=uni(phones);
     var freeMail=emails.filter(function(e){return FREE.test(e)});
     if(freeMail.length){ sig.push({s:12,t:'إيميل شخصي مش إيميل شركة',w:'التقديم على Gmail أو Yahoo بدل إيميل بدومين الشركة علامة تحذير، خصوصًا لو الشركة معروفة. إيميل: '+freeMail.join(', ')}); score+=12; }
-    if(links.some(function(l){return SHORT.test(l)})){ sig.push({s:15,t:'لينك مختصر أو نموذج مجهول',w:'اللينكات المختصرة بتخفي الوجهة الحقيقية. افتحها بحذر وبلاش تكتب فيها بيانات حساسة.'}); score+=15; }
-    var onlyChat=phones.length&&!emails.length&&!links.length&&!comp;
+    var onlyChat=phones.length&&!emails.length&&!links.filter(function(l){return !/(wa\.me|whatsapp|t\.me)/i.test(l)}).length&&!comp;
     if(onlyChat||(/(واتس|whatsapp|تيليجرام|telegram)/.test(t)&&!emails.length&&!comp)){ sig.push({s:20,t:R[5][1],w:R[5][2]}); score+=20; }
     var caps=(raw.match(/[A-Z]{4,}/g)||[]).length, emo=(raw.match(/[\u{1F300}-\u{1FAFF}\u2600-\u27BF]/gu)||[]).length, ex=(raw.match(/[!！]/g)||[]).length;
     if(emo>=10||ex>=6||caps>=6){ sig.push({s:R[10][0],t:R[10][1],w:R[10][2]}); score+=R[10][0]; }
@@ -95,7 +123,8 @@
     if(emails.length&&!freeMail.length) good.push('الإيميل بدومين مخصص ('+emails[0].split('@')[1]+'). اتأكد إنه بنفس دومين موقع الشركة الرسمي.');
     if(/(القاهره|الجيزه|الاسكندريه|المعادي|مدينه نصر|اكتوبر|التجمع|الشيخ زايد|cairo|giza|alexandria|عنوان|location|address)/.test(t)) good.push('مذكور مكان أو عنوان الشغل.');
     if(/(خبره|شهاده|مؤهل|مهارات|requirements|qualification|experience|degree|responsibilit|مسؤوليات)/.test(t)) good.push('فيه متطلبات ومسؤوليات محددة، وده شكل الإعلانات الحقيقية.');
-    if(raw.trim().length<120) { sig.push({s:10,t:'إعلان قصير ومبهم',w:'مفيش تفاصيل كفاية عن الوظيفة. الإعلان الحقيقي بيوضح المسؤوليات والمتطلبات.'}); score+=10; }
+    var LS=linkSigs(links), have={}; sig.forEach(function(x){have[x.t]=1}); LS.sig.forEach(function(x){ if(!have[x.t]){ sig.push(x); score+=x.s; } }); LS.notes.forEach(function(n){ if(n.s>0&&!have[n.t]){ sig.push({s:n.s,t:n.t,w:n.w}); score+=n.s; } else if(n.s<=0) good.push(n.t+': '+n.w); else {} });
+    if(raw.trim().length&&raw.trim().length<120) { sig.push({s:10,t:'إعلان قصير ومبهم',w:'مفيش تفاصيل كفاية عن الوظيفة. الإعلان الحقيقي بيوضح المسؤوليات والمتطلبات.'}); score+=10; }
     score=Math.min(100,score); if(score>=60) good=[];
     return {score:score,sig:sig,good:good,emails:emails,links:links,phones:phones};
   }
@@ -103,7 +132,7 @@
   function dom(u){ try{ return new URL(/^https?:/i.test(u)?u:'https://'+u).hostname.replace(/^www\./,''); }catch(e){ return ''; } }
   function show(r){
     var lvl=r.score>=60?['bad','خطر عالي: على الأغلب نصب','#b42318']:r.score>=30?['warn','محتاج حذر وتأكد قبل أي خطوة','#b45309']:['ok','مفيش علامات نصب واضحة (ده مش ضمان)','#166534'];
-    var h='<div class="verdict v-'+lvl[0]+'"><span class="badge b-'+lvl[0]+'">مؤشر الخطورة '+r.score+'/100</span><h2 style="margin-top:8px">'+lvl[1]+'</h2><div class="meter"><i style="width:'+Math.max(r.score,4)+'%;background:'+lvl[2]+'"></i></div></div>';
+    var pre=(r.mode?'<p class="hint">اتفحص: '+esc(r.mode)+'</p>':'')+(r.partial?'<div class="warn" style="background:#fff1d6;border-radius:12px;padding:8px 14px;margin:6px 0">اتفحص اللينك نفسه بس. الحكم مش كامل: الصق نص الإعلان عشان فحص أدق.</div>':''); var h=pre+'<div class="verdict v-'+lvl[0]+'"><span class="badge b-'+lvl[0]+'">مؤشر الخطورة '+r.score+'/100</span><h2 style="margin-top:8px">'+lvl[1]+'</h2><div class="meter"><i style="width:'+Math.max(r.score,4)+'%;background:'+lvl[2]+'"></i></div></div>';
     if(r.sig.length){ h+='<div class="panel"><h2>علامات اتلقت ('+r.sig.length+')</h2>'+r.sig.map(function(s){return '<div class="sig"><b>⚠️ '+esc(s.t)+'</b><small>'+esc(s.w)+'</small></div>'}).join('')+'</div>'; }
     if(r.good.length){ h+='<div class="panel"><h2>إشارات كويسة</h2>'+r.good.map(function(s){return '<div class="sig"><b>✅ '+esc(s)+'</b></div>'}).join('')+'</div>'; }
     var L='';
@@ -116,7 +145,20 @@
     var el=$('res'); el.innerHTML=h; el.hidden=false; el.scrollIntoView({behavior:'smooth',block:'start'});
     $('co').addEventListener('input',function(){ var v=this.value.trim(), e=encodeURIComponent(v), c=$('colinks'); c.innerHTML=v?'<a target="_blank" rel="noopener" href="https://www.linkedin.com/search/results/companies/?keywords='+e+'">لينكدإن</a><a target="_blank" rel="noopener" href="https://wuzzuf.net/search/jobs/?q='+e+'">Wuzzuf</a><a target="_blank" rel="noopener" href="https://www.google.com/search?q='+encodeURIComponent(v+' شكاوى OR نصب OR reviews')+'">جوجل: شكاوى</a><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/'+e+'">خرائط جوجل</a>':''; });
   }
-  $('go').onclick=function(){ var v=$('ad').value; if(v.trim().length<15){ $('ad').focus(); return; } var r=analyze(v); ev('scam-check '+(r.score>=60?'high':r.score>=30?'mid':'low')); show(r); };
+  var FETCHED='', FURL='';
+  function setMsg(t,bad){ var m=$('rdmsg'); m.textContent=t; m.style.color=bad?'#b42318':'#166534'; }
+  $('rd').onclick=function(){ var u=$('lnk').value.trim(); if(!u){ $('lnk').focus(); return; } var p=parseU(u); if(!p){ setMsg('اللينك مش صحيح.',1); return; }
+    if(/(facebook\.com|fb\.com|fb\.watch|instagram\.com|wa\.me|whatsapp\.com)$/.test(p.hostname.replace(/^www\./,''))){ setMsg('فيسبوك وإنستجرام وواتساب بيمنعوا قراءة الصفحة. انسخ نص الإعلان والصقه في الخانة تحت، وهنفحص اللينك والنص مع بعض.',1); return; }
+    setMsg('بنحاول نقرا الصفحة...'); var c=new AbortController(); var to=setTimeout(function(){c.abort()},15000); ev('scam-read-page');
+    fetch('https://r.jina.ai/'+p.href,{signal:c.signal}).then(function(r){return r.text()}).then(function(t){ clearTimeout(to);
+      var bad=t.length<250||/(performing security verification|just a moment|captcha|access denied|enable javascript|Final URL: https?:\/\/[^\s]*(login|signin|checkpoint))/i.test(t.slice(0,1500))||/"code":4\d\d/.test(t.slice(0,300));
+      if(bad){ FETCHED=''; setMsg('الصفحة مقفولة أو محمية ومقدرناش نقراها. الصق نص الإعلان تحت وهنفحصه مع اللينك.',1); return; }
+      FETCHED=t.slice(0,8000); FURL=p.href; setMsg('اتقرت الصفحة ('+t.length+' حرف) وهتتفحص مع اللينك والنص. اضغط "افحص الإعلان".'); })
+    .catch(function(){ clearTimeout(to); FETCHED=''; setMsg('مقدرناش نقرا الصفحة من المتصفح. الصق نص الإعلان تحت وهنفحص اللينك والنص مع بعض.',1); }); };
+  $('lnk').addEventListener('input',function(){ FETCHED=''; });
+  $('go').onclick=function(){ var u=$('lnk').value.trim(), v=$('ad').value; if(u&&!parseU(u)){ setMsg('اللينك مش صحيح.',1); $('lnk').focus(); return; } if(v.trim().length<15&&!u){ $('ad').focus(); return; }
+    var r=analyze(v+(FETCHED?'\n'+FETCHED:''),u); r.mode=(u?'لينك':'')+(u&&(v.trim()||FETCHED)?' + ':'')+(FETCHED?'نص الصفحة':'')+(FETCHED&&v.trim()?' + ':'')+(v.trim()?'نص ملصوق':'');
+    r.partial=u&&!v.trim()&&!FETCHED; ev('scam-check '+(r.score>=60?'high':r.score>=30?'mid':'low')+(u?' link':'')); show(r); };
   $('clr').onclick=function(){ $('ad').value=''; $('res').hidden=true; };
 })();
 </script>
