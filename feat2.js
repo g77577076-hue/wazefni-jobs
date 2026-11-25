@@ -2,14 +2,14 @@
   var jobs=window.WZ_JOBS||[], grid=document.getElementById('grid'), filters=document.getElementById('filters'); if(!grid||!filters) return;
   function el(t,c,x){var e=document.createElement(t); if(c)e.className=c; if(x!=null)e.textContent=x; return e;}
   function place(j){ var f=(j.facts||[]).filter(function(p){return /المكان/.test(p[0])})[0], s=f?f[1]:'';
-    var g=/القاهرة|المعادي|دجلة|الزهراء/.test(s)?'cairo':/الجيزة|زايد|أكتوبر|العمرانية|المهندسين/.test(s)?'giza':'';
+    var g=/القاهرة|المعادي|دجلة|الزهراء|الزمالك|مدينة نصر|مصر الجديدة/.test(s)?'cairo':/الجيزة|زايد|أكتوبر|العمرانية|المهندسين/.test(s)?'giza':/الإسكندرية/.test(s)?'alex':/الغربية|الدقهلية|طنطا|المنصورة/.test(s)?'delta':'';
     var r=j.remote==='only'||/ريموت|عن بعد/.test(s)&&!g; return {g:g,r:r,home:/من البيت/.test(s)}; }
   var map={}; jobs.forEach(function(j){map[j.title]=place(j);});
   var saved=[]; try{saved=JSON.parse(localStorage.getItem('wz_saved')||'[]')}catch(e){}
   function persist(){ try{localStorage.setItem('wz_saved',JSON.stringify(saved))}catch(e){} }
   var mode='all', onlySaved=false;
   var bar=el('div','tbar'), sel=el('select'); sel.setAttribute('aria-label','المكان');
-  [['all','كل الأماكن'],['cairo','القاهرة'],['giza','الجيزة'],['remote','عن بعد']].forEach(function(o){var op=el('option','',o[1]);op.value=o[0];sel.appendChild(op);});
+  [['all','كل الأماكن'],['cairo','القاهرة'],['giza','الجيزة'],['alex','الإسكندرية'],['delta','الغربية والدقهلية'],['remote','عن بعد']].forEach(function(o){var op=el('option','',o[1]);op.value=o[0];sel.appendChild(op);});
   var sv=el('button','chip','★ المحفوظة'); sv.type='button'; var msg=el('p','tiny tmsg','');
   bar.appendChild(sel); bar.appendChild(sv); var tip=el('p','tiptxt','💡 اختار مكانك من القايمة، وادوس ★ على أي وظيفة تحفظها وترجعلها من زرار «المحفوظة». الحفظ على جهازك بس.'); filters.parentNode.insertBefore(tip,grid); filters.parentNode.insertBefore(bar,grid); grid.parentNode.insertBefore(msg,grid);
   function apply(){
