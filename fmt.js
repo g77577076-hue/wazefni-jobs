@@ -17,5 +17,6 @@ window.WZ_fmt=function(j){
   L.push('');
   L.push('✨ وظفني مش وسيط ومبياخدش حاجة من المتقدم. التقديم عند الشركة نفسها');
   L.push('🌐 '+window.WZ_SITE);
+  L.push('📲 قناة تليجرام: https://t.me/wazefni_jobs');
   return L.join('\n');
 };
