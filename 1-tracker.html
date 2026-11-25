@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-YZT9TVH99Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-YZT9TVH99Z",{allow_google_signals:false,allow_ad_personalization_signals:false});</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>متابعة التقديمات: سجّل كل وظيفة قدمت عليها مجانًا | وظفني</title>
+<meta name="description" content="سجّل الوظايف اللي قدمت عليها، حدد ميعاد المتابعة، وغيّر الحالة (قدمت، مقابلة، عرض، رفض). كل بياناتك على جهازك بس. مجاني من وظفني.">
+<link rel="canonical" href="https://g77577076-hue.github.io/wazefni-jobs/tracker.html"><meta name="robots" content="index,follow,max-snippet:-1"><meta name="theme-color" content="#7a1530">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400..800&display=swap" rel="stylesheet"><link rel="stylesheet" href="tools.css?v=1">
+<style>.app{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}.app h3{margin:0 0 4px;font-size:17px}.app .meta{font-size:13px;color:#6b5a4e;margin-bottom:8px}.app select,.app input{margin:2px 0}.due{background:#fff1d6;color:#7a4a00;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700}.sum{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.sum span{background:#fbf6ef;border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px}</style></head><body>
+<header class="top"><a class="brand" href="./">وظ<span>فني</span></a><nav><a href="./#jobs">الوظايف</a><a href="cv.html">اعمل CV</a><a href="tools.html">كل الأدوات</a></nav></header>
+<div class="wrap"><h1>متابعة التقديمات</h1>
+<p class="lead">اكتب كل وظيفة قدمت عليها في مكان واحد، وحدد ميعاد تتابع فيه، وغيّر الحالة مع كل خطوة. متنساش ترد على حد.</p>
+<div class="priv">🔒 كل حاجة بتتخزن في متصفحك على جهازك بس. مفيش بيانات بتتبعت لأي حد. لو مسحت بيانات المتصفح هتضيع، فاعمل نسخة احتياطية من الزرار تحت.</div>
+<div class="panel">
+<div class="row2"><div><label>الوظيفة</label><input id="t" maxlength="120"></div><div><label>الشركة</label><input id="c" maxlength="120"></div></div>
+<div class="row2"><div><label>تاريخ التقديم</label><input id="d" type="date"></div><div><label>متابعة يوم (اختياري)</label><input id="f" type="date"></div></div>
+<label>لينك أو طريقة التواصل (اختياري)</label><input id="l" maxlength="300" dir="ltr">
+<label>ملاحظات (اختياري)</label><textarea id="n" style="min-height:60px" maxlength="500"></textarea>
+<div class="actions"><button class="btn" id="add" type="button">أضف التقديم</button></div></div>
+<div class="sum" id="sum"></div>
+<div id="list"></div>
+<div class="actions"><button class="btn ghost" id="ex" type="button">نسخة احتياطية (تنزيل)</button><button class="btn ghost" id="im" type="button">استرجاع نسخة</button><input id="file" type="file" accept="application/json" style="display:none"></div>
+<p class="note">ملاحظة: متابعة مهذبة بعد 5 إلى 7 أيام من التقديم بتفرق، ومفيش داعي لرسايل كتير.</p>
+</div>
+<script>
+(function(){
+var K='wz_tracker_v1',S=[['applied','قدمت'],['viewed','اتشافت'],['interview','مقابلة'],['offer','عرض'],['rejected','رفض'],['nores','مفيش رد']];
+function $(i){return document.getElementById(i)}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function load(){try{var a=JSON.parse(localStorage.getItem(K)||'[]');return Array.isArray(a)?a:[]}catch(e){return[]}}
+function save(a){try{localStorage.setItem(K,JSON.stringify(a))}catch(e){alert('المتصفح مش سامح بالتخزين')}}
+function ev(n){try{gtag('event',n)}catch(e){}}
+function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+function safe(u){return /^https?:\/\//i.test(u)||/^mailto:/i.test(u)}
+$('d').value=today();
+function render(){
+ var a=load(),box=$('list'),sum=$('sum');box.textContent='';sum.textContent='';
+ S.forEach(function(s){var n=a.filter(function(x){return x.s===s[0]}).length;if(n)sum.appendChild(el('span','',s[1]+': '+n))});
+ if(!a.length){box.appendChild(el('p','hint','لسه مفيش تقديمات. أضف أول واحدة من فوق.'));return}
+ a.slice().sort(function(x,y){return (y.d||'').localeCompare(x.d||'')}).forEach(function(x){
+  var c=el('div','app'),h=el('h3','',x.t),m=el('div','meta',(x.c?x.c+' | ':'')+'قدمت يوم '+(x.d||'-'));
+  if(x.f&&x.f<=today()&&x.s!=='offer'&&x.s!=='rejected'){m.appendChild(document.createTextNode(' '));m.appendChild(el('span','due','وقت المتابعة'))}
+  else if(x.f){m.appendChild(document.createTextNode(' | متابعة: '+x.f))}
+  c.appendChild(h);c.appendChild(m);
+  if(x.l){if(safe(x.l)){var an=el('a','',x.l);an.href=x.l;an.target='_blank';an.rel='noopener nofollow';an.style.display='block';an.style.wordBreak='break-all';c.appendChild(an)}else c.appendChild(el('div','meta',x.l))}
+  if(x.n)c.appendChild(el('div','meta',x.n));
+  var sel=el('select');S.forEach(function(s){var o=el('option','',s[1]);o.value=s[0];if(s[0]===x.s)o.selected=true;sel.appendChild(o)});
+  sel.onchange=function(){var b=load();b.forEach(function(y){if(y.id===x.id)y.s=sel.value});save(b);ev('tracker-status');render()};
+  var del=el('button','btn ghost','حذف');del.type='button';del.onclick=function(){if(confirm('تحذف التقديم ده؟')){save(load().filter(function(y){return y.id!==x.id}));render()}};
+  var r=el('div','actions');r.style.margin='6px 0 0';r.appendChild(sel);r.appendChild(del);c.appendChild(r);box.appendChild(c)})}
+$('add').onclick=function(){var t=$('t').value.trim();if(!t){$('t').focus();return}
+ var b=load();b.push({id:Date.now()+''+Math.floor(Math.random()*1000),t:t,c:$('c').value.trim(),d:$('d').value,f:$('f').value,l:$('l').value.trim(),n:$('n').value.trim(),s:'applied'});save(b);ev('tracker-add');
+ ['t','c','f','l','n'].forEach(function(i){$(i).value=''});render()};
+$('ex').onclick=function(){var u=URL.createObjectURL(new Blob([JSON.stringify(load())],{type:'application/json'}));var a=el('a');a.href=u;a.download='wazefni-tracker.json';document.body.appendChild(a);a.click();a.remove()};
+$('im').onclick=function(){$('file').click()};
+$('file').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var a=JSON.parse(r.result);if(!Array.isArray(a))throw 0;a=a.filter(function(x){return x&&typeof x.t==='string'}).map(function(x){return{id:String(x.id||Date.now()+Math.random()),t:String(x.t).slice(0,120),c:String(x.c||'').slice(0,120),d:String(x.d||''),f:String(x.f||''),l:String(x.l||'').slice(0,300),n:String(x.n||'').slice(0,500),s:S.some(function(s){return s[0]===x.s})?x.s:'applied'}});save(a);render()}catch(e){alert('الملف مش صالح')}};r.readAsText(f)};
+render();})();
+</script><script src="nav.js?v=1" defer></script></body></html>
