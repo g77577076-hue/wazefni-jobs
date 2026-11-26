@@ -27,7 +27,7 @@
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import{getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import{getFirestore,collection,query,where,orderBy,limit,getDocs}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import{getFirestore,collection,query,where,orderBy,limit,getDocs,doc,getDoc}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const app=initializeApp({apiKey:"AIzaSyD1z3KsqFExfLkn9HKHoCxSl8omjFK42EI",authDomain:"wazefni-jobs.firebaseapp.com",projectId:"wazefni-jobs",messagingSenderId:"829929004768",appId:"1:829929004768:web:665518f19388c70c1d3a85"});
 const auth=getAuth(app),db=getFirestore(app),OWNER="g77577076@gmail.com",$=id=>document.getElementById(id);
 $("in").onclick=async()=>{$("err").textContent="";try{await signInWithPopup(auth,new GoogleAuthProvider())}catch(e){$("err").textContent="تعذّر الدخول: "+(e.code||e.message)}};
@@ -70,8 +70,52 @@ function draw(since){
  bars("الأجهزة",top(pv,d=>dn[d.dev]||d.dev))+bars("أنظمة التشغيل",top(pv,d=>d.os))+bars("المتصفحات",top(pv,d=>d.br))+bars("اللغة",top(pv,d=>d.lg))+
  bars("الأحداث والنقرات",top(ev,d=>d.ev+(d.lb?" · "+d.lb:""),10))+bars("أوقات الذروة",hl)+
  '<div class="c full"><h3>آخر النشاط</h3><div class="lst">'+(recent||'<div class="mut">لا نشاط في هذه الفترة</div>')+'</div></div>'+
- '<div class="c full"><h3>أدوات تحليل إضافية (مجانية)</h3><div class="lk"><a target="_blank" rel="noopener" href="https://analytics.google.com/">Google Analytics 4</a><a target="_blank" rel="noopener" href="https://search.google.com/search-console?resource_id=https%3A%2F%2Fg77577076-hue.github.io%2Fwazefni-jobs%2F">Search Console</a><a target="_blank" rel="noopener" href="https://wazefni.goatcounter.com/">GoatCounter</a></div></div></div>'+
+ '<div class="c full"><h3>Google Analytics 4 (من حسابك مباشرة)</h3><div id="ga"></div></div>'+
+ '<div class="c full"><h3>Search Console (ظهور الموقع في جوجل)</h3><div id="gsc"></div></div>'+
+ '<div class="c full"><h3>GoatCounter</h3><div id="gcw"></div></div>'+
+ '<div class="c full"><h3>روابط سريعة</h3><div class="lk"><a target="_blank" rel="noopener" href="https://analytics.google.com/analytics/web/#/p417424800/reports/intelligenthome">Google Analytics 4</a><a target="_blank" rel="noopener" href="https://search.google.com/search-console?resource_id=https%3A%2F%2Fg77577076-hue.github.io%2Fwazefni-jobs%2F">Search Console</a><a target="_blank" rel="noopener" href="https://wazefni.goatcounter.com/">GoatCounter</a></div></div></div>'+
  '<div class="mut">'+docs.length+' سجل · البيانات من تتبّع الموقع نفسه (بدون حفظ IP)'+(docs.length>=8000?' · عرض أحدث 8000 فقط':'')+'</div>';
- document.querySelectorAll(".rng button").forEach(b=>b.onclick=()=>{days=+b.dataset.d;load()})}
+ document.querySelectorAll(".rng button").forEach(b=>b.onclick=()=>{days=+b.dataset.d;load()});ext()}
+let tok=sessionStorage.getItem("wz_gt")||"";
+const SITE="https://g77577076-hue.github.io/wazefni-jobs/",PROP="417424800";
+async function ext(){
+ try{const d=await getDoc(doc(db,"cfg","goatcounter"));$("gcw").innerHTML=d.exists()?'<iframe src="'+e(d.data().url)+'" style="width:100%;height:560px;border:0;border-radius:12px" loading="lazy"></iframe><div class="mut" style="margin:6px 0 0">لو الإطار فاضي افتح <a target="_blank" rel="noopener" href="'+e(d.data().url)+'">GoatCounter</a> مباشرة.</div>':'<div class="mut">غير مضبوط</div>'}catch(x){$("gcw").innerHTML='<div class="mut">تعذّر التحميل</div>'}
+ gcards()}
+function connectBtn(){return'<div style="text-align:center"><button class="btn cg">ربط حساب Google لعرض البيانات</button><div class="mut" style="margin:8px 0 0">يطلب إذن قراءة فقط (Analytics وSearch Console). الإذن يبقى في الجلسة فقط ولا يُحفظ في أي مكان.</div></div>'}
+function wire(){document.querySelectorAll(".cg").forEach(b=>b.onclick=connect)}
+function gcards(){
+ if(!tok){$("ga").innerHTML=connectBtn();$("gsc").innerHTML=connectBtn();wire();return}
+ ga();gsc()}
+async function connect(){
+ try{const p=new GoogleAuthProvider();p.addScope("https://www.googleapis.com/auth/analytics.readonly");p.addScope("https://www.googleapis.com/auth/webmasters.readonly");p.setCustomParameters({login_hint:OWNER});
+ const r=await signInWithPopup(auth,p);tok=GoogleAuthProvider.credentialFromResult(r).accessToken||"";sessionStorage.setItem("wz_gt",tok);gcards()}
+ catch(x){$("ga").innerHTML='<div class="err">تعذّر الربط: '+e(x.code||x.message)+'</div>'+connectBtn();wire()}}
+function expired(id,m){tok="";sessionStorage.removeItem("wz_gt");$(id).innerHTML='<div class="err">'+e(m)+'</div>'+connectBtn();wire()}
+async function ga(){
+ $("ga").innerHTML='<div class="mut">جاري التحميل…</div>';
+ const sd=days===1?"today":days+"daysAgo";
+ const q=b=>fetch("https://analyticsdata.googleapis.com/v1beta/properties/"+PROP+":runReport",{method:"POST",headers:{Authorization:"Bearer "+tok,"Content-Type":"application/json"},body:JSON.stringify(Object.assign({dateRanges:[{startDate:sd,endDate:"today"}]},b))}).then(async r=>{const j=await r.json();if(!r.ok)throw j.error||{message:r.status};return j});
+ try{const[t,c,s,p]=await Promise.all([
+  q({metrics:[{name:"activeUsers"},{name:"sessions"},{name:"screenPageViews"},{name:"newUsers"},{name:"averageSessionDuration"}]}),
+  q({dimensions:[{name:"country"}],metrics:[{name:"activeUsers"}],orderBys:[{metric:{metricName:"activeUsers"},desc:true}],limit:8}),
+  q({dimensions:[{name:"sessionDefaultChannelGroup"}],metrics:[{name:"sessions"}],orderBys:[{metric:{metricName:"sessions"},desc:true}],limit:8}),
+  q({dimensions:[{name:"pagePath"}],metrics:[{name:"screenPageViews"}],orderBys:[{metric:{metricName:"screenPageViews"},desc:true}],limit:8})]);
+  const m=(t.rows&&t.rows[0].metricValues.map(x=>+x.value))||[0,0,0,0,0];
+  const L=j=>(j.rows||[]).map(r=>[r.dimensionValues[0].value,+r.metricValues[0].value]);
+  const kk=(n,l)=>'<div class="k"><b>'+n+'</b><span>'+l+'</span></div>';
+  $("ga").innerHTML='<div class="kp">'+kk(m[0],"مستخدمين")+kk(m[1],"جلسات")+kk(m[2],"مشاهدات")+kk(m[3],"مستخدمين جدد")+kk(Math.round(m[4])+"ث","متوسط مدة الجلسة")+'</div><div class="g">'+bars("الدول (GA4)",L(c))+bars("القنوات (GA4)",L(s))+bars("أكثر الصفحات (GA4)",L(p))+'</div>'}
+ catch(x){if(x.code===401||x.status==="UNAUTHENTICATED")expired("ga","انتهت الجلسة، اربط Google من جديد");else $("ga").innerHTML='<div class="err">GA4: '+e(x.message||x.status)+'</div>'}}
+async function gsc(){
+ $("gsc").innerHTML='<div class="mut">جاري التحميل…</div>';
+ const end=new Date(Date.now()-864e5*2).toISOString().slice(0,10),st=new Date(Date.now()-864e5*Math.max(days,7)).toISOString().slice(0,10),base="https://www.googleapis.com/webmasters/v3/sites/"+encodeURIComponent(SITE),H={Authorization:"Bearer "+tok,"Content-Type":"application/json"};
+ const q=d=>fetch(base+"/searchAnalytics/query",{method:"POST",headers:H,body:JSON.stringify({startDate:st,endDate:end,dimensions:d,rowLimit:8})}).then(async r=>{const j=await r.json();if(!r.ok)throw j.error||{message:r.status};return j});
+ try{const[t,qs,pg,sm]=await Promise.all([q([]),q(["query"]),q(["page"]),fetch(base+"/sitemaps",{headers:H}).then(r=>r.json())]);
+  const r0=(t.rows&&t.rows[0])||{clicks:0,impressions:0,ctr:0,position:0};
+  const kk=(n,l)=>'<div class="k"><b>'+n+'</b><span>'+l+'</span></div>';
+  const L=j=>(j.rows||[]).map(r=>[r.keys[0].replace(SITE,"/"),r.clicks+" / "+r.impressions]);
+  const lst=(tt,a)=>'<div class="c"><h3>'+tt+' <small style="font-weight:400;color:#6b5560">(نقرات / ظهور)</small></h3>'+(a.length?a.map(([k,v])=>'<div class="row"><span class="n" style="flex:0 0 60%">'+e(k)+'</span><span class="v" style="flex:1">'+e(v)+'</span></div>').join(""):'<div class="mut">لا بيانات بعد</div>')+'</div>';
+  const smh=(sm.sitemap||[]).map(x=>'<div class="row"><span class="n" style="flex:0 0 55%">'+e(x.path.replace(SITE,"/"))+'</span><span class="v" style="flex:1">أخطاء '+(x.errors||0)+' · تحذيرات '+(x.warnings||0)+' · '+e(x.lastDownloaded?x.lastDownloaded.slice(0,10):"لم يُقرأ")+'</span></div>').join("");
+  $("gsc").innerHTML='<div class="kp">'+kk(r0.clicks,"نقرات من جوجل")+kk(r0.impressions,"مرات الظهور")+kk((r0.ctr*100).toFixed(1)+"%","نسبة النقر")+kk(r0.position?r0.position.toFixed(1):"-","متوسط الترتيب")+'</div><div class="g">'+lst("كلمات البحث",L(qs).map(([k,v],i)=>[qs.rows[i].keys[0],v]))+lst("الصفحات",L(pg))+'<div class="c full"><h3>Sitemap</h3>'+(smh||'<div class="mut">لا sitemap</div>')+'</div></div><div class="mut">آخر '+Math.max(days,7)+' يوم حتى '+end+' (بيانات جوجل متأخرة يومين)</div>'}
+ catch(x){if(x.code===401)expired("gsc","انتهت الجلسة، اربط Google من جديد");else $("gsc").innerHTML='<div class="err">Search Console: '+e(x.message||x.status)+'</div>'}}
 setInterval(()=>{if(auth.currentUser&&!document.hidden)load()},300000);
 </script></body></html>
