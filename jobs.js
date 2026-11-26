@@ -1,7 +1,7 @@
 // لإضافة وظيفة: انسخ أي كارت، وغيّر البيانات. لو الوظيفة ليها أكتر من طريقة تقديم، ضيفها في routes:
 // routes: [["كلمهم على واتساب","https://wa.me/20XXXXXXXXXX"],["ابعت إيميل","mailto:hr@example.com?subject=Job"],["قدّم من الموقع","https://..."]]
 // واتساب = wa.me ، إيميل = mailto ، لينك = رابط مباشر ، Reddit = لينك البوست. من غير routes بيتعمل زر واحد من cta وhref.
-window.WZ_UPDATED = "الأربعاء 25 نوفمبر 2026";
+window.WZ_UPDATED = "الخميس 26 نوفمبر 2026";
 window.WZ_JOBS = [
   { title: "Appointment Setter / Cold Caller", company: "فريق مبيعات لشركات أونلاين أمريكية (نشر u/Big_Potential_1213)", field: "sales", fieldLabel: "مبيعات وكول سنتر",
     remote: "only", source: ["Reddit", "https://www.reddit.com/r/EgyptCareers/comments/1y3jads/"],
@@ -63,10 +63,22 @@ window.WZ_JOBS = [
     cta: "ابعت CV وبورتفوليو", href: "mailto:hr@curiousflyproductions.com?subject=Senior%20Graphic%20Designer" },
   { title: "Airline Customer Care (إنجليزي B2)", company: "Alorica", field: "sales", fieldLabel: "خدمة عملاء ومبيعات",
     city: "Giza", source: ["LinkedIn", "https://eg.linkedin.com/jobs/view/airline-customer-care-b2-english-graduates-at-alorica-4492619891"],
-    facts: [["المكان","الشيخ زايد، الجيزة"],["المطلوب","خريجين، إنجليزي B2"]],
+    facts: [["المكان","الشيخ زايد، الجيزة (من مقر الشركة)"],["المطلوب","خريج (أو تعليم معادل)، إنجليزي B2، ومعرفة أساسية بالطيران، ومرونة في الشيفتات والإجازات"],["النوع","دوام كامل، مستوى مبتدئين"],["ميزة","خبرة سابقة في كول سنتر أو خدمة عملاء طيران تعتبر ميزة"]],
     postedAt: "2026-11-23", expires: "2026-12-02",
     posted: "نزلت يوم الإثنين 23 نوفمبر 2026 على LinkedIn",
     cta: "قدّم على LinkedIn", href: "https://eg.linkedin.com/jobs/view/airline-customer-care-b2-english-graduates-at-alorica-4492619891" },
+  { title: "Reservation Agents (موظف حجوزات)", company: "Royal Regency Hotel", field: "sales", fieldLabel: "خدمة عملاء ومبيعات",
+    city: "Cairo", source: ["Mustakbil", "https://eg.mustakbil.com/jobs/job/1438375"],
+    facts: [["المكان","فندق رويال ريجينسي، التجمع الخامس، القاهرة"],["المطلوب","سنة خبرة في خدمة العملاء، وإنجليزي كويس تحدث وكتابة"],["الراتب (حسب الإعلان)","من 12,000 لـ 18,000 جنيه في الشهر حسب مستوى الإنجليزي"],["النوع","دوام كامل، شيفتات متغيرة، 3 أماكن. مفيش سكن للمغتربين"]],
+    postedAt: "2026-11-24", expires: "2026-12-08",
+    posted: "نزلت يوم الثلاثاء 24 نوفمبر 2026 على Mustakbil",
+    cta: "قدّم على Mustakbil", href: "https://eg.mustakbil.com/jobs/job/1438375" },
+  { title: "Call Center - Egypt (حجوزات طيران)", company: "Air Arabia", field: "sales", fieldLabel: "خدمة عملاء ومبيعات",
+    city: "Cairo", source: ["موقع التوظيف الرسمي لـ Air Arabia", "https://jobs.airarabiagroupcareers.com/job/Cairo-Call-Center-Egypt/733614422/"],
+    facts: [["المطلوب","خريجين وحديثي التخرج، عربي وإنجليزي B2، وMicrosoft Office. الخبرة مش شرط"],["المهام","استقبال مكالمات العملاء، حجز وتعديل وإلغاء رحلات وباكدجات"],["المواعيد","5 أيام شغل + يومين إجازة بالتبادل، 8 ساعات + ساعة راحة، شيفتات بالتبادل"]],
+    postedAt: "2026-11-26", expires: "2026-12-08",
+    posted: "إعلان رسمي على موقع التوظيف بتاع Air Arabia (نزل 2 نوفمبر 2026)",
+    cta: "قدّم على موقع Air Arabia", href: "https://jobs.airarabiagroupcareers.com/job/Cairo-Call-Center-Egypt/733614422/" },
   { title: "Customer Service Representative (مجال السفر)", company: "The HR Game", field: "sales", fieldLabel: "خدمة عملاء ومبيعات",
     city: "Giza", source: ["LinkedIn", "https://eg.linkedin.com/jobs/view/customer-service-representative-travel-industry-at-the-hr-game-4493366307"],
     facts: [["المكان","6 أكتوبر، الجيزة"],["المجال","خدمة عملاء في السياحة والسفر"]],
