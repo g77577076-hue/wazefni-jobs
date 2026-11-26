@@ -1,5 +1,5 @@
 /* وظفني: service worker. بيخزن الصفحات وأدوات قراءة الملفات عشان تشتغل بدون نت بعد أول زيارة. مفيش بيانات مستخدم بتتخزن. */
-var V='wz-v4', BASE=self.registration.scope;
+var V='wz-v5', BASE=self.registration.scope;
 var PAGES=['','index.html','cv.html','cover.html','tracker.html','track.js','scam.html','cvcheck.html','tools.html','style.css','tools.css','app.js','jobs.js','fmt.js'];
 var VENDOR=['1-mammoth.min.js','2-pdf.min.js','3-pdf.worker.min.js','4-tesseract.min.js','5-worker.min.js','6-core-simd-lstm.wasm.js','7-core-lstm.wasm.js','8-ara.traineddata.gz','9-eng.traineddata.gz','vendor/tesseract-core-simd-lstm.wasm.js','vendor/tesseract-core-lstm.wasm.js'].map(function(f){return 'vendor/'+f});
 var ALIAS={'vendor/vendor/ara.traineddata.gz':'vendor/8-ara.traineddata.gz','vendor/vendor/eng.traineddata.gz':'vendor/9-eng.traineddata.gz'};
