@@ -103,7 +103,7 @@
   var f=document.getElementById('leadform'); if(!f) return;
   f.addEventListener('submit',function(e){
     e.preventDefault(); var m=document.getElementById('leadMsg'), d=new FormData(f);
-    var n=d.get('n').trim(), p=d.get('p').trim(), j=d.get('j').trim();
+    var n=String(d.get('n')).trim().slice(0,80), p=String(d.get('p')).trim().slice(0,30), j=String(d.get('j')).trim().slice(0,80);
     m.hidden=false;
     if(!n||p.replace(/\D/g,'').length<8||!j){ m.textContent='من فضلك املا الاسم ورقم صحيح والمجال.'; return; }
     var b=new URLSearchParams(); b.append('entry.24709502',n); b.append('entry.1952334928',p); b.append('entry.1355532484',j);
