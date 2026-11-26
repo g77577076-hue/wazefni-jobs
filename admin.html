@@ -1,0 +1,77 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>لوحة تحكم وظفني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--b:#7a1530;--b2:#a3173f;--a:#f4a21b;--ink:#2a1218;--m:#6b5560;--bg:#fbf6ef;--r:18px}
+*{box-sizing:border-box}body{margin:0;font-family:Cairo,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+.top{background:linear-gradient(135deg,var(--b),var(--b2));color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:5}
+.top h1{font-size:18px;margin:0;flex:1}.top button{background:rgba(255,255,255,.18);color:#fff;border:0;border-radius:10px;padding:6px 12px;font:inherit;font-size:13px}
+.wrap{max-width:980px;margin:0 auto;padding:14px}
+.login{text-align:center;padding:60px 20px}.login h2{color:var(--b)}
+.btn{background:var(--b);color:#fff;border:0;border-radius:14px;padding:12px 22px;font:inherit;font-weight:700;font-size:16px;cursor:pointer}
+.err{color:#b00020;margin-top:12px;font-size:14px}
+.rng{display:flex;gap:8px;margin-bottom:12px;overflow-x:auto}.rng button{flex:1;min-width:70px;border:1.5px solid #e8d5c4;background:#fff;border-radius:12px;padding:8px;font:inherit;font-weight:600;color:var(--m)}.rng button.on{background:var(--a);border-color:var(--a);color:#3a1a00}
+.kp{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+@media(min-width:700px){.kp{grid-template-columns:repeat(5,1fr)}.g{grid-template-columns:repeat(2,1fr)!important}}
+.k{background:#fff;border-radius:var(--r);padding:12px 14px;box-shadow:0 2px 10px rgba(122,21,48,.07)}.k b{display:block;font-size:26px;color:var(--b);line-height:1.2}.k span{font-size:12.5px;color:var(--m)}
+.k.live b{color:#1a8f4c}.k.live b:before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:#1a8f4c;margin-inline-end:6px;animation:p 1.4s infinite}@keyframes p{50%{opacity:.25}}
+.g{display:grid;gap:12px;grid-template-columns:1fr}
+.c{background:#fff;border-radius:var(--r);padding:14px;box-shadow:0 2px 10px rgba(122,21,48,.07);min-width:0}.c h3{margin:0 0 10px;font-size:15px;color:var(--b)}
+.row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:13.5px}.row .n{flex:0 0 38%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}.row .bar{flex:1;height:9px;background:#f5e7d8;border-radius:6px;overflow:hidden}.row .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--b2))}.row .v{flex:0 0 36px;text-align:left;font-weight:700}
+.full{grid-column:1/-1}svg{width:100%;height:150px;display:block}
+.lst{font-size:12.5px;max-height:320px;overflow:auto}.lst div{display:flex;gap:6px;padding:5px 0;border-bottom:1px solid #f3e6d8}.lst .t{color:var(--m);flex:0 0 52px}.lst .x{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}
+.lk{display:flex;flex-wrap:wrap;gap:8px}.lk a{background:#fff;border:1.5px solid var(--a);border-radius:12px;padding:8px 14px;text-decoration:none;color:var(--b);font-weight:700;font-size:14px}
+.mut{color:var(--m);font-size:12.5px;text-align:center;margin:14px 0}
+</style></head><body>
+<div class="top"><h1>لوحة تحكم وظفني</h1><span id="who" style="font-size:12px"></span><button id="out" hidden>خروج</button></div>
+<div class="wrap" id="app"><div class="login"><h2>دخول المشرف</h2><p style="color:var(--m)">سجّل دخولك بحساب Gmail الخاص بالموقع</p><button class="btn" id="in">الدخول بحساب Google</button><div class="err" id="err"></div></div></div>
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getAuth,GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import{getFirestore,collection,query,where,orderBy,limit,getDocs}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const app=initializeApp({apiKey:"AIzaSyD1z3KsqFExfLkn9HKHoCxSl8omjFK42EI",authDomain:"wazefni-jobs.firebaseapp.com",projectId:"wazefni-jobs",messagingSenderId:"829929004768",appId:"1:829929004768:web:665518f19388c70c1d3a85"});
+const auth=getAuth(app),db=getFirestore(app),OWNER="g77577076@gmail.com",$=id=>document.getElementById(id);
+$("in").onclick=async()=>{$("err").textContent="";try{await signInWithPopup(auth,new GoogleAuthProvider())}catch(e){$("err").textContent="تعذّر الدخول: "+(e.code||e.message)}};
+$("out").onclick=()=>signOut(auth);
+let days=7,docs=[];
+onAuthStateChanged(auth,u=>{
+ if(!u){$("out").hidden=true;$("who").textContent="";return}
+ if(u.email!==OWNER||!u.emailVerified){signOut(auth);$("err").textContent="هذا الحساب غير مصرّح له";return}
+ $("who").textContent=u.email;$("out").hidden=false;load()});
+const e=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function load(){
+ $("app").innerHTML='<div class="mut">جاري تحميل البيانات…</div>';
+ const since=days===1?new Date().setHours(0,0,0,0):Date.now()-days*864e5;
+ try{const s=await getDocs(query(collection(db,"hits"),where("ts",">=",since),orderBy("ts","desc"),limit(8000)));docs=s.docs.map(d=>d.data())}
+ catch(x){$("app").innerHTML='<div class="err">تعذّر تحميل البيانات: '+e(x.code||x.message)+'</div>';return}
+ draw(since)}
+const top=(arr,f,n=8)=>{const m={};arr.forEach(d=>{const k=f(d);if(k)m[k]=(m[k]||0)+1});return Object.entries(m).sort((a,b)=>b[1]-a[1]).slice(0,n)};
+const bars=(t,list)=>{const mx=list[0]?list[0][1]:1;return'<div class="c"><h3>'+t+'</h3>'+(list.length?list.map(([k,v])=>'<div class="row"><span class="n">'+e(k)+'</span><span class="bar"><i style="width:'+Math.max(4,v/mx*100)+'%"></i></span><span class="v">'+v+'</span></div>').join(""):'<div class="mut">لا بيانات بعد</div>')+'</div>'};
+function draw(since){
+ const pv=docs.filter(d=>d.ev==="pv"),ev=docs.filter(d=>d.ev!=="pv");
+ const vis=new Set(pv.map(d=>d.vid)),ses=new Set(pv.map(d=>d.sid));
+ const live=new Set(docs.filter(d=>d.ts>Date.now()-3e5).map(d=>d.vid)).size;
+ const newV=new Set(pv.filter(d=>d.nv==="new").map(d=>d.vid)).size;
+ const k=(n,l,c)=>'<div class="k '+(c||"")+'"><b>'+n+'</b><span>'+l+'</span></div>';
+ // daily chart
+ const nd=days===1?24:days,b=Array(nd).fill(0).map(()=>({p:0,v:new Set()}));
+ pv.forEach(d=>{let i=days===1?new Date(d.ts).getHours():Math.min(nd-1,Math.floor((d.ts-since)/864e5));if(i>=0&&b[i]){b[i].p++;b[i].v.add(d.vid)}});
+ const mx=Math.max(1,...b.map(x=>x.p)),w=300,h=120,bw=w/nd;
+ const svg='<svg viewBox="0 0 300 140" preserveAspectRatio="none">'+b.map((x,i)=>{const hh=x.p/mx*h,hv=x.v.size/mx*h;return'<rect x="'+(i*bw+.6)+'" y="'+(h-hh)+'" width="'+Math.max(1,bw-1.2)+'" height="'+hh+'" fill="#f4a21b" rx="1.5"/><rect x="'+(i*bw+.6)+'" y="'+(h-hv)+'" width="'+Math.max(1,bw-1.2)+'" height="'+hv+'" fill="#a3173f" rx="1.5"/>'}).join("")+'<text x="2" y="136" font-size="9" fill="#6b5560">'+(days===1?"00:00":new Date(since).toLocaleDateString("ar-EG",{day:"numeric",month:"short"}))+'</text><text x="298" y="136" font-size="9" text-anchor="end" fill="#6b5560">'+(days===1?"23:00":"اليوم")+'</text></svg>';
+ const hrs=Array(24).fill(0);pv.forEach(d=>hrs[new Date(d.ts).getHours()]++);
+ const hl=hrs.map((v,i)=>[String(i).padStart(2,"0")+":00",v]).sort((a,b)=>b[1]-a[1]).slice(0,6);
+ const dn={mobile:"موبايل",desktop:"كمبيوتر",tablet:"تابلت"};
+ const src=top(pv,d=>d.ref||"مباشر / غير معروف");
+ const recent=docs.slice(0,40).map(d=>{const t=new Date(d.ts);return'<div><span class="t">'+t.toLocaleTimeString("ar-EG",{hour:"2-digit",minute:"2-digit"})+'</span><span class="x">'+e(d.ev==="pv"?d.p:d.ev+" "+(d.lb||""))+' · '+e(d.co||"?")+(d.ci?"/"+e(d.ci):"")+' · '+e(d.os)+'</span></div>'}).join("");
+ $("app").innerHTML='<div class="rng">'+[[1,"اليوم"],[7,"7 أيام"],[30,"30 يوم"],[90,"90 يوم"]].map(([d,l])=>'<button data-d="'+d+'" class="'+(d===days?"on":"")+'">'+l+'</button>').join("")+'</div>'+
+ '<div class="kp">'+k(live,"متصلين الآن (5 دقايق)","live")+k(vis.size,"زوّار فريدين")+k(pv.length,"مشاهدات الصفحات")+k(ses.size,"جلسات")+k(newV,"زوّار جدد")+'</div>'+
+ '<div class="g"><div class="c full"><h3>الزيارات يوميًا <small style="color:#6b5560;font-weight:400">(برتقالي: مشاهدات، عنابي: زوّار)</small></h3>'+svg+'</div>'+
+ bars("مصادر الزيارات",src)+bars("أكثر الصفحات زيارة",top(pv,d=>d.p))+
+ bars("الدول",top(pv.filter(d=>d.co),d=>d.co))+bars("المدن",top(pv.filter(d=>d.ci),d=>d.ci))+
+ bars("الأجهزة",top(pv,d=>dn[d.dev]||d.dev))+bars("أنظمة التشغيل",top(pv,d=>d.os))+bars("المتصفحات",top(pv,d=>d.br))+bars("اللغة",top(pv,d=>d.lg))+
+ bars("الأحداث والنقرات",top(ev,d=>d.ev+(d.lb?" · "+d.lb:""),10))+bars("أوقات الذروة",hl)+
+ '<div class="c full"><h3>آخر النشاط</h3><div class="lst">'+(recent||'<div class="mut">لا نشاط في هذه الفترة</div>')+'</div></div>'+
+ '<div class="c full"><h3>أدوات تحليل إضافية (مجانية)</h3><div class="lk"><a target="_blank" rel="noopener" href="https://analytics.google.com/">Google Analytics 4</a><a target="_blank" rel="noopener" href="https://search.google.com/search-console?resource_id=https%3A%2F%2Fg77577076-hue.github.io%2Fwazefni-jobs%2F">Search Console</a><a target="_blank" rel="noopener" href="https://wazefni.goatcounter.com/">GoatCounter</a></div></div></div>'+
+ '<div class="mut">'+docs.length+' سجل · البيانات من تتبّع الموقع نفسه (بدون حفظ IP)'+(docs.length>=8000?' · عرض أحدث 8000 فقط':'')+'</div>';
+ document.querySelectorAll(".rng button").forEach(b=>b.onclick=()=>{days=+b.dataset.d;load()})}
+setInterval(()=>{if(auth.currentUser&&!document.hidden)load()},300000);
+</script></body></html>

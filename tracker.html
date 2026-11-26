@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><script async src="https://www.googletagmanager.com/gtag/js?id=G-YZT9TVH99Z"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-YZT9TVH99Z",{allow_google_signals:false,allow_ad_personalization_signals:false});</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ar" dir="rtl"><head><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-YZT9TVH99Z",{allow_google_signals:false,allow_ad_personalization_signals:false});</script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>متابعة التقديمات: سجّل كل وظيفة قدمت عليها مجانًا | وظفني</title>
 <meta name="description" content="سجّل الوظايف اللي قدمت عليها، حدد ميعاد المتابعة، وغيّر الحالة (قدمت، مقابلة، عرض، رفض). كل بياناتك على جهازك بس. مجاني من وظفني.">
 <link rel="canonical" href="https://g77577076-hue.github.io/wazefni-jobs/tracker.html"><meta name="robots" content="index,follow,max-snippet:-1"><meta name="theme-color" content="#7a1530">
@@ -53,4 +53,4 @@ $('ex').onclick=function(){var u=URL.createObjectURL(new Blob([JSON.stringify(lo
 $('im').onclick=function(){$('file').click()};
 $('file').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var a=JSON.parse(r.result);if(!Array.isArray(a))throw 0;a=a.filter(function(x){return x&&typeof x.t==='string'}).map(function(x){return{id:String(x.id||Date.now()+Math.random()),t:String(x.t).slice(0,120),c:String(x.c||'').slice(0,120),d:String(x.d||''),f:String(x.f||''),l:String(x.l||'').slice(0,300),n:String(x.n||'').slice(0,500),s:S.some(function(s){return s[0]===x.s})?x.s:'applied'}});save(a);render()}catch(e){alert('الملف مش صالح')}};r.readAsText(f)};
 render();})();
-</script><script src="nav.js?v=1" defer></script></body></html>
+</script><script src="nav.js?v=1" defer></script><script defer src="track.js?v=1"></script></body></html>
