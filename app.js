@@ -128,7 +128,7 @@
         'hiringOrganization':{'@type':'Organization','name':j.company},
         'jobLocation':{'@type':'Place','address':{'@type':'PostalAddress','addressLocality':j.city||'Cairo','addressCountry':'EG'}}};
       if(j.remote){ o.jobLocationType='TELECOMMUTE'; o.applicantLocationRequirements={'@type':'Country','name':'EG'}; if(j.remote==='only') delete o.jobLocation; }
-      if(j.source){ o.identifier={'@type':'PropertyValue','name':'Reddit','value':j.source[1]}; }
+      if(j.source){ o.identifier={'@type':'PropertyValue','name':String(j.source[0]).split(':')[0],'value':j.source[1]}; }
       return o; });
     if(list.length){ var s=document.createElement('script'); s.type='application/ld+json'; s.text=JSON.stringify(list); document.head.appendChild(s); }
   }catch(e){}

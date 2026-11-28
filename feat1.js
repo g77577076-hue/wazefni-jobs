@@ -4,6 +4,9 @@
   function trust(j){
     var r=(j.routes||[[j.cta,j.href]]).map(function(x){return x[1]}), s=(j.source&&j.source[0]||'').toLowerCase();
     var wz=r.some(function(h){return /wuzzuf\.net/.test(h)}), li=r.some(function(h){return /linkedin\.com/.test(h)}), ml=r.some(function(h){return /^mailto:/.test(h)}), rd=/reddit/.test(s)||r.some(function(h){return /reddit\.com/.test(h)});
+    var soc=/facebook|instagram|telegram/.test(s);
+    if(soc){var nm=/facebook/.test(s)?'Facebook':/instagram/.test(s)?'Instagram':'Telegram';
+      return {k:'warn',label:'منشور على '+nm+': اتأكد بنفسك',why:['الإعلان منشور على '+nm+' بشكل عام ومش من موقع توظيف رسمي','طريقة التواصل مكتوبة في الإعلان نفسه، ونقلناها زي ما هي من غير تعديل','لينك البوست الأصلي تحت للتأكد، والراتب بنذكره "حسب الإعلان" من غير وعود'],note:'ما تدفعش أي مبلغ ولا تبعت صورة بطاقة أو بيانات بنك. اسأل عن الشركة وعنوانها، واعمل فحص سريع من صفحة فاحص الوظايف المشبوهة.'};}
     if(wz||li||(ml&&!rd)){
       var why=[]; if(wz) why.push('رابط التقديم على Wuzzuf، وهو موقع توظيف معروف'); if(li) why.push('رابط التقديم على LinkedIn'); if(ml&&!wz&&!li) why.push('التقديم بإيميل معلن في إعلان الشركة نفسها');
       why.push('طريقة التقديم زي ما هي في الإعلان الأصلي، من غير تعديل'); why.push('مفيش أي رسوم على المتقدم، وبنذكر الراتب "حسب الإعلان" من غير وعود');
