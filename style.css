@@ -108,3 +108,13 @@ details.note summary{cursor:pointer;font-weight:700;color:var(--navy)}details.no
 .card{content-visibility:auto;contain-intrinsic-size:auto 420px}
 
 .copy-link{display:block;width:100%;margin-top:8px;font:inherit;font-size:14px;font-weight:700;padding:10px 14px;border-radius:999px;border:1px solid #7a1530;background:#fff;color:#7a1530;cursor:pointer}.copy-link:active{background:#f6e6ea}.card.hl{box-shadow:0 0 0 3px #f4a21b,0 8px 30px rgba(122,21,48,.18)}.card{scroll-margin-top:90px}
+.views{max-width:980px;margin:0 auto 14px;padding:0 4px;display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.views a.chip{display:inline-flex;align-items:center;text-decoration:none}
+.views .chip.fresh{align-self:flex-start;border-color:#e8a317;background:#fff7e0;font-weight:800}
+.views .chip.fresh.on{background:#7a1530;border-color:#7a1530;color:#fff}
+.fnote{margin:0;color:#6b5a4a}
+.govrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.govlab{font:700 14px 'Cairo',sans-serif;color:var(--navy)}
+.viewshare{display:flex;flex-wrap:wrap;gap:8px}
+.viewshare .copy-link{display:inline-flex;align-items:center;text-decoration:none}
+.viewshare .copy-link{width:auto;flex:0 0 auto;padding:0 18px}
