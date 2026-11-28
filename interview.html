@@ -61,4 +61,4 @@ Object.keys(D).forEach(function(k){var b=document.createElement('button');b.type
 function fmt(n){var m=Math.floor(n/60),s=n%60;return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
 document.getElementById('rnd').onclick=function(){var l=D[cur].q;cq=l[Math.floor(Math.random()*l.length)];pq.textContent=cq[0];ptip.hidden=true;clearInterval(iv);t0=Date.now();tm.textContent='00:00';iv=setInterval(function(){tm.textContent=fmt(Math.floor((Date.now()-t0)/1000));},500);};
 document.getElementById('tip').onclick=function(){if(!cq)return;ptip.textContent=cq[1];ptip.hidden=false;clearInterval(iv);};
-show();})();</script><script src="nav.js?v=1" defer></script><script defer src="track.js?v=1"></script></body></html>
+show();})();</script><script src="nav.js?v=2" defer></script><script defer src="track.js?v=1"></script></body></html>

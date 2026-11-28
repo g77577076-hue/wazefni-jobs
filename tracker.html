@@ -53,4 +53,4 @@ $('ex').onclick=function(){var u=URL.createObjectURL(new Blob([JSON.stringify(lo
 $('im').onclick=function(){$('file').click()};
 $('file').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var a=JSON.parse(r.result);if(!Array.isArray(a))throw 0;a=a.filter(function(x){return x&&typeof x.t==='string'}).map(function(x){return{id:String(x.id||Date.now()+Math.random()),t:String(x.t).slice(0,120),c:String(x.c||'').slice(0,120),d:String(x.d||''),f:String(x.f||''),l:String(x.l||'').slice(0,300),n:String(x.n||'').slice(0,500),s:S.some(function(s){return s[0]===x.s})?x.s:'applied'}});save(a);render()}catch(e){alert('الملف مش صالح')}};r.readAsText(f)};
 render();})();
-</script><script src="nav.js?v=1" defer></script><script defer src="track.js?v=1"></script></body></html>
+</script><script src="nav.js?v=2" defer></script><script defer src="track.js?v=1"></script></body></html>

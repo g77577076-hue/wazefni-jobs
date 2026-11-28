@@ -102,4 +102,4 @@ navigator.serviceWorker.register('sw.js').then(function(){return navigator.servi
  w.postMessage({type:'warm'})}).catch(function(){set('مقدرناش نفعّل الأوفلاين على المتصفح ده.','#b45309')});})();
 $('go').onclick=function(){var v=$('cv').value;if(v.trim().length<30){$('cv').focus();return}var r=check(v);ev('cvcheck '+(r.pts>=80?'high':r.pts>=55?'mid':'low'));show(r)};
 })();
-</script><script src="nav.js?v=1" defer></script><script defer src="track.js?v=1"></script></body></html>
+</script><script src="nav.js?v=2" defer></script><script defer src="track.js?v=1"></script></body></html>
