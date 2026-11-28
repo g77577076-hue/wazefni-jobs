@@ -22,7 +22,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"وظفني: منشئ السيرة الذاتية","alternateName":"Wazefni CV Builder","url":"https://g77577076-hue.github.io/wazefni-jobs/cv.html","applicationCategory":"BusinessApplication","operatingSystem":"Any","inLanguage":["ar-EG","en"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EGP"},"publisher":{"@id":"https://g77577076-hue.github.io/wazefni-jobs/#org"},"description":"أداة مجانية لعمل سيرة ذاتية بالعربي أو الإنجليزي وتنزيلها PDF، شغالة بالكامل في المتصفح من غير ما بياناتك تتبعت لأي سيرفر."}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"هل عمل الـ CV على وظفني مجاني؟","acceptedAnswer":{"@type":"Answer","text":"أيوه، مجاني بالكامل ومن غير تسجيل ولا علامة مائية."}},
-{"@type":"Question","name":"بياناتي بتتخزن ولا بتتبعت لأي مكان؟","acceptedAnswer":{"@type":"Answer","text":"لا. السيرة بتتعمل جوه المتصفح بتاعك بس، ووظفني مش بتحفظ ولا بتستقبل أي بيانات منك. لما تقفل الصفحة البيانات بتتمسح."}},
+{"@type":"Question","name":"بياناتي بتتخزن ولا بتتبعت لأي مكان؟","acceptedAnswer":{"@type":"Answer","text":"لا. السيرة بتتعمل جوه المتصفح بتاعك بس، ووظفني مش بتستقبل ولا بتحفظ أي بيانات منك على سيرفر. بياناتك بتتحفظ على جهازك أنت بس (في المتصفح) عشان تكمل بعدين، وتقدر تمسحها في أي وقت بزرار "امسح بياناتي"."}},
 {"@type":"Question","name":"الـ CV متوافق مع أنظمة ATS؟","acceptedAnswer":{"@type":"Answer","text":"أيوه. التصميم عمود واحد بعناوين واضحة ونص عادي من غير جداول أو صور، عشان أنظمة فرز السير الذاتية تقراه صح."}},
 {"@type":"Question","name":"أنزّل الـ CV إزاي؟","acceptedAnswer":{"@type":"Answer","text":"دوس تحميل PDF واختار Save as PDF أو حفظ كـ PDF من نافذة الطباعة."}}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,7 +69,7 @@ textarea{min-height:84px;resize:vertical}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:999px;background:var(--navy);color:#fff;font:700 16px 'Cairo',sans-serif;border:2px solid var(--navy);cursor:pointer;text-decoration:none}
 .btn:hover{background:var(--navy2)}
 .btn.amber{background:var(--amber);border-color:var(--amber);color:var(--navy)}
-.note{font-size:13px;color:var(--mut)}
+.note{font-size:13px;color:var(--mut)}.savebox{background:#fff;border:1px solid #e3cfd3;border-radius:14px;padding:12px 14px;margin:0 0 12px;font-size:14px}.savebox label{display:flex;gap:8px;align-items:flex-start;font-weight:700;margin:0}.savebox small{display:block;color:var(--mut);font-size:12.5px;margin:4px 0 8px}.savebox .row{display:flex;gap:8px;flex-wrap:wrap}.savebox button{font:inherit;font-size:13px;font-weight:700;padding:8px 14px;border-radius:999px;border:1px solid #7a1530;background:#fff;color:#7a1530;cursor:pointer}.savebox button.warn{border-color:#c0392b;color:#c0392b}.savebox .st{font-size:12.5px;color:#2e7d32;margin-top:6px;min-height:1em}
 .pvhost{direction:ltr;background:#f3ebe0;border-radius:14px;padding:10px;overflow:hidden}
 .pvscale{transform-origin:top left}
 /* paper */
@@ -155,6 +155,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
     <a class="btn ghost" href="cover.html">اعمل خطاب تقديمي</a>
     <a class="btn" href="./#jobs">شوف الوظايف وقدّم</a>
   </div>
+  <div class="savebox" id="savebox"><label><input type="checkbox" id="saveOn" checked> احفظ بياناتي على جهازي عشان أكمل بعدين</label><small>بتتحفظ في متصفحك أنت بس. مفيش حاجة بتتبعت لوظفني ولا لأي سيرفر.</small><div class="row"><button type="button" id="copyCv">انسخ الـ CV كنص</button><button type="button" class="warn" id="clearCv">امسح بياناتي</button></div><div class="st" id="saveSt" role="status"></div></div>
   <p class="note">دوس تحميل PDF واختار "Save as PDF" أو "حفظ كـ PDF" من نافذة الطباعة. الخلفيات والألوان بتتحفظ تلقائي.</p>
   <div class="pvhost" id="pvhost"><div class="pvscale" id="pvscale"><div class="paper ar t-cs" id="paper"></div></div></div>
 </div>
@@ -162,7 +163,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
 <section class="faq">
   <h2>أسئلة شائعة</h2>
   <details><summary>هل عمل الـ CV مجاني؟</summary><p>أيوه، مجاني بالكامل ومن غير تسجيل ولا علامة مائية.</p></details>
-  <details><summary>بياناتي بتتخزن ولا بتتبعت لأي مكان؟</summary><p>لا. السيرة بتتعمل جوه المتصفح بتاعك بس. وظفني مش بتحفظ ولا بتستقبل أي بيانات منك، وبتتمسح لما تقفل الصفحة. فكّر تنزّل الـ PDF قبل ما تقفل.</p></details>
+  <details><summary>بياناتي بتتخزن ولا بتتبعت لأي مكان؟</summary><p>لا. السيرة بتتعمل جوه المتصفح بتاعك بس، ووظفني مش بتستقبل ولا بتحفظ أي بيانات منك على سيرفر. بياناتك بتتحفظ على جهازك أنت بس (في المتصفح) عشان لما ترجع تلاقيها، وتقدر تمسحها في أي وقت بزرار "امسح بياناتي". لو بتستخدم جهاز مش بتاعك، امسحها أو ألغي الحفظ.</p></details>
   <details><summary>الـ CV متوافق مع أنظمة ATS؟</summary><p>أيوه. عمود واحد، عناوين واضحة، ونص عادي من غير جداول أو صور أو أيقونات.</p></details>
   <details><summary>أنزّل الـ CV إزاي؟</summary><p>دوس تحميل PDF واختار Save as PDF من نافذة الطباعة.</p></details>
 </section>
@@ -256,6 +257,7 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
   }
   function sec(title,html){ return html?'<h2>'+esc(title)+'</h2>'+html:''; }
   function render(){
+    try{ save(); }catch(e){}
     var l=S.lang, D=L[l], t=T[S.tpl], paper=$('paper');
     paper.className='paper '+l+' t-'+S.tpl;
     var name=$('name').value.trim(), role=$('role').value.trim();
@@ -291,7 +293,34 @@ footer{padding:20px;text-align:center;color:var(--mut);font-size:14px}
   ['name','role','phone','email','city','link','summary','skills','extra','certs','credit'].forEach(function(i){ $(i).addEventListener('input',function(){start();render();}); $(i).addEventListener('change',render); });
   $('dl').onclick=function(){ ev('cv-download '+S.tpl+' '+S.lang); render(); setTimeout(function(){ window.print(); },60); };
   $('tplSearch').addEventListener('input',function(){ var q=this.value.trim().toLowerCase(),n=0; [].forEach.call(tpls.children,function(b){ var ok=!q||b.dataset.q.indexOf(q)>-1; b.style.display=ok?'':'none'; if(ok) n++; }); $('tplNone').hidden=n>0; });
+  var KEY='wzcv_saved_v1', IDS=['name','role','phone','email','city','link','summary','skills','extra','certs'];
+  function stMsg(t){ var e=$('saveSt'); if(e){ e.textContent=t; clearTimeout(stMsg.t); stMsg.t=setTimeout(function(){e.textContent='';},2500); } }
+  function save(){
+    if(!$('saveOn')) return;
+    if(!$('saveOn').checked){ try{ localStorage.removeItem(KEY); }catch(e){} return; }
+    var d={v:1,tpl:S.tpl,lang:S.lang,exp:S.exp,edu:S.edu,lng:S.lng,credit:$('credit').checked,f:{}};
+    IDS.forEach(function(i){ d.f[i]=$(i).value; });
+    var any=Object.keys(d.f).some(function(k){return d.f[k].trim()})||S.exp.concat(S.edu,S.lng).some(function(o){return Object.keys(o).some(function(k){return (o[k]||'').trim()})});
+    try{ if(any){ localStorage.setItem(KEY,JSON.stringify(d)); stMsg('اتحفظ على جهازك'); } else localStorage.removeItem(KEY); }catch(e){}
+  }
+  function load(){
+    try{ var raw=localStorage.getItem(KEY); if(!raw) return false; var d=JSON.parse(raw); if(!d||d.v!==1) return false;
+      IDS.forEach(function(i){ if(d.f&&typeof d.f[i]==='string') $(i).value=d.f[i]; });
+      if(Array.isArray(d.exp)&&d.exp.length) S.exp=d.exp.slice(0,20); if(Array.isArray(d.edu)&&d.edu.length) S.edu=d.edu.slice(0,20); if(Array.isArray(d.lng)&&d.lng.length) S.lng=d.lng.slice(0,20);
+      if(T[d.tpl]) S.tpl=d.tpl; if(d.lang==='ar'||d.lang==='en') S.lang=d.lang;
+      [].forEach.call($('langSeg').children,function(x){x.classList.toggle('on',x.dataset.l===S.lang)});
+      $('credit').checked=d.credit!==false; S.started=true; return true; }catch(e){ return false; }
+  }
+  $('saveOn').addEventListener('change',function(){ if(this.checked){ save(); } else { try{localStorage.removeItem(KEY);}catch(e){} stMsg('اتمسح الحفظ من جهازك'); } });
+  $('clearCv').onclick=function(){ if(!confirm('تمسح كل بياناتك المحفوظة وتفضي الفورم؟')) return; try{ localStorage.removeItem(KEY); sessionStorage.removeItem('wzcv'); sessionStorage.removeItem('wzcvtext'); }catch(e){}
+    IDS.forEach(function(i){ $(i).value=''; }); S.exp=[{}]; S.edu=[{}]; S.lng=[{}]; $('saveOn').checked=false; buildLists(); applyTpl(); render(); stMsg('اتمسحت بياناتك من الجهاز'); $('saveOn').checked=true; };
+  $('copyCv').onclick=function(){ render(); var t=($('paper').innerText||'').trim(); if(!t||$('paper').querySelector('.empty')){ stMsg('اكتب بياناتك الأول'); return; }
+    function ok(){ stMsg('الـ CV اتنسخ'); ev('cv-copy'); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(ok,fb); } else fb();
+    function fb(){ var ta=document.createElement('textarea'); ta.value=t; ta.style.cssText='position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); var r=false; try{ r=document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); if(r) ok(); else stMsg('النسخ مش متاح، حدد النص بإيدك'); } };
+  var restored=load();
   buildLists(); applyTpl(); render();
+  if(restored) stMsg('رجّعنا بياناتك المحفوظة على جهازك');
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(render);
 })();
 </script>
