@@ -15,3 +15,20 @@
   sh.addEventListener('click',function(e){if(e.target.closest('a'))w.classList.remove('open');});
   document.addEventListener('click',function(e){if(!w.contains(e.target))w.classList.remove('open');});
 })();
+/* عداد زوار النهاردة: رقم حقيقي من GoatCounter (زوار فريدين، بتوقيت القاهرة). لو الطلب فشل بنخفيه، مفيش رقم مزيف. */
+(function(){
+  function go(){
+    var ft=document.querySelector('footer'); if(!ft||document.getElementById('wzVis')) return;
+    var d; try{ d=new Intl.DateTimeFormat('en-CA',{timeZone:'Africa/Cairo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()); }catch(e){ return; }
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(d)) return;
+    var u='https://wazefni.goatcounter.com/counter/TOTAL.json?start='+d+'&t='+Math.floor(Date.now()/300000);
+    fetch(u,{mode:'cors'}).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(j){
+      var n=parseInt(j&&j.count_unique,10); if(!(n>0)) return;
+      var p=document.createElement('p'); p.id='wzVis'; p.style.cssText='margin:10px 0 0;font:600 13px Cairo,system-ui,sans-serif;opacity:.85';
+      p.textContent='👥 زوار النهاردة: '+n.toLocaleString('ar-EG'); p.title='عدد الزوار الفعليين النهاردة (بتوقيت القاهرة)، من غير أي بيانات شخصية';
+      ft.appendChild(p);
+    }).catch(function(){});
+  }
+  function start(){ setTimeout(go,2500); }
+  if(document.readyState==='complete') start(); else addEventListener('load',start);
+})();

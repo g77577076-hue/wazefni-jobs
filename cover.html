@@ -64,4 +64,4 @@ $('lAr').onclick=function(){setL('ar')};$('lEn').onclick=function(){setL('en')};
 $('cp').onclick=function(){var t=gen();var d=function(){var m=document.createElement('div');m.textContent='اتنسخ الخطاب';m.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#7a1530;color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:9';document.body.appendChild(m);setTimeout(function(){m.remove()},2500)};ev('cover-copy');if(navigator.clipboard)navigator.clipboard.writeText(t).then(d,function(){prompt('انسخ الخطاب:',t)});else prompt('انسخ الخطاب:',t)};
 $('pr').onclick=function(){ev('cover-print');window.print()};
 render();})();
-</script><script src="nav.js?v=1" defer></script><script defer src="track.js?v=1"></script></body></html>
+</script><script src="nav.js?v=2" defer></script><script defer src="track.js?v=1"></script></body></html>
