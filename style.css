@@ -118,3 +118,4 @@ details.note summary{cursor:pointer;font-weight:700;color:var(--navy)}details.no
 .viewshare{display:flex;flex-wrap:wrap;gap:8px}
 .viewshare .copy-link{display:inline-flex;align-items:center;text-decoration:none}
 .viewshare .copy-link{width:auto;flex:0 0 auto;padding:0 18px}
+.chip.zero{opacity:.5}

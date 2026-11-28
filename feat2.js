@@ -36,6 +36,9 @@
   cp.onclick=function(){ var url=location.href.split('#')[0].split('?')[0]+viewHash(); function ok(){ cp.textContent='اتنسخ ✓'; setTimeout(function(){cp.textContent='انسخ رابط العرض ده';},1800); }
     if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(ok,function(){}); } else { var ta=el('textarea'); ta.value=url; ta.style.cssText='position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');ok();}catch(x){} document.body.removeChild(ta); } };
   function apply(){
+    [].forEach.call(filters.querySelectorAll('.chip[data-f]'),function(ch){ var fk=ch.dataset.f, n=live.filter(function(j){ var m=place(j);
+      if(fresh&&!m.fresh) return false; if(mode==='remote'&&!m.r) return false; if(mode!=='all'&&mode!=='remote'&&m.g!==mode) return false;
+      return fk==='all'||j.field===fk; }).length; ch.textContent=ch.dataset.l+' ('+n+')'; ch.classList.toggle('zero',n===0); });
     var shown=0, cards=grid.querySelectorAll('article.card');
     [].forEach.call(cards,function(c){ var h=c.querySelector('h3'); if(!h) return; var t=h.textContent, m=map[t]||{}, ok=true;
       if(mode==='remote') ok=!!m.r; else if(mode!=='all') ok=m.g===mode;
