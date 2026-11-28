@@ -1,7 +1,7 @@
 // لإضافة وظيفة: انسخ أي كارت، وغيّر البيانات. لو الوظيفة ليها أكتر من طريقة تقديم، ضيفها في routes:
 // routes: [["كلمهم على واتساب","https://wa.me/20XXXXXXXXXX"],["ابعت إيميل","mailto:hr@example.com?subject=Job"],["قدّم من الموقع","https://..."]]
 // واتساب = wa.me ، إيميل = mailto ، لينك = رابط مباشر ، Reddit = لينك البوست. من غير routes بيتعمل زر واحد من cta وhref.
-window.WZ_UPDATED = "الخميس 26 نوفمبر 2026";
+window.WZ_UPDATED = "السبت 28 نوفمبر 2026";
 window.WZ_JOBS = [
   { title: "Appointment Setter / Cold Caller", company: "فريق مبيعات لشركات أونلاين أمريكية (نشر u/Big_Potential_1213)", field: "sales", fieldLabel: "مبيعات وكول سنتر",
     remote: "only", source: ["Reddit", "https://www.reddit.com/r/EgyptCareers/comments/1y3jads/"],
@@ -79,6 +79,24 @@ window.WZ_JOBS = [
     postedAt: "2026-11-26", expires: "2026-12-08",
     posted: "إعلان رسمي على موقع التوظيف بتاع Air Arabia (نزل 2 نوفمبر 2026)",
     cta: "قدّم على موقع Air Arabia", href: "https://jobs.airarabiagroupcareers.com/job/Cairo-Call-Center-Egypt/733614422/" },
+  { title: "Reception Agent (موظف استقبال فندق)", company: "Accor (فندق من شبكة Accor)", field: "hospitality", fieldLabel: "فنادق وضيافة",
+    city: "Cairo", source: ["صفحة التوظيف الرسمية لـ Accor", "https://jobs.smartrecruiters.com/accorhotel/744000161675799"],
+    facts: [["المكان","القاهرة"],["المطلوب","شخصية مهتمة بخدمة الضيوف، وإنجليزي بطلاقة. الخبرة ميزة مش شرط، وخبرة نظام Opera ميزة"],["المهام","استقبال الضيوف وتسجيل الدخول والمغادرة والرد على الطلبات وتسوية الحسابات"],["مميزات (حسب الإعلان)","كارت خصومات على فنادق Accor حول العالم وبرامج تدريب"]],
+    postedAt: "2026-11-15", expires: "2026-12-05",
+    posted: "نزلت يوم الأحد 15 نوفمبر 2026 على صفحة التوظيف الرسمية لـ Accor",
+    cta: "قدّم على صفحة Accor الرسمية", href: "https://jobs.smartrecruiters.com/accorhotel/744000161675799" },
+  { title: "Receptionist (استقبال وخط ساخن)", company: "Hilton Cairo Zamalek Residences (عبر TourismEGY)", field: "hospitality", fieldLabel: "فنادق وضيافة",
+    city: "Cairo", source: ["TourismEGY (بوابة وظائف الفنادق)", "https://career.tourismegy.com/job_view.php?id=153"],
+    facts: [["المكان","هيلتون الزمالك ريزيدنس، القاهرة"],["النوع","عقد (Contract)"],["المهام","استقبال وخط ساخن للضيوف (التفاصيل الكاملة في صفحة الإعلان)"]],
+    postedAt: "2026-11-27", expires: "2026-12-11",
+    posted: "نزلت يوم الجمعة 27 نوفمبر 2026 على TourismEGY",
+    cta: "قدّم على TourismEGY", href: "https://career.tourismegy.com/job_view.php?id=153" },
+  { title: "Guest Relation (علاقات النزلاء)", company: "Marriott Hotels & Resorts، شرم الشيخ", field: "hospitality", fieldLabel: "فنادق وضيافة",
+    city: "South Sinai", source: ["د.جوب (إعلان منقول عن ماريوت)", "https://www.drjobpro.com/ar/egypt/jobs/guest-relation-sharm-el-sheikh-marriott-hotels-resorts-MWR1JPLR27T0RA1"],
+    facts: [["المكان","شرم الشيخ"],["المطلوب","ثانوية عامة أو ما يعادلها، ومفيش خبرة مطلوبة (حسب الإعلان)"],["النوع","دوام كامل"],["ملحوظة","المرتب مش مكتوب في الإعلان"]],
+    postedAt: "2026-11-21", expires: "2026-12-08",
+    posted: "نزلت يوم السبت 21 نوفمبر 2026 على د.جوب",
+    cta: "افتح الإعلان وقدّم", href: "https://www.drjobpro.com/ar/egypt/jobs/guest-relation-sharm-el-sheikh-marriott-hotels-resorts-MWR1JPLR27T0RA1" },
   { title: "Customer Service Representative (مجال السفر)", company: "The HR Game", field: "sales", fieldLabel: "خدمة عملاء ومبيعات",
     city: "Giza", source: ["LinkedIn", "https://eg.linkedin.com/jobs/view/customer-service-representative-travel-industry-at-the-hr-game-4493366307"],
     facts: [["المكان","6 أكتوبر، الجيزة"],["المجال","خدمة عملاء في السياحة والسفر"]],
