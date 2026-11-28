@@ -12,6 +12,7 @@
     return 'أنا شخص ملتزم وبتعلم بسرعة ومسؤول عن شغلي، ومستعد أبدأ بأسرع وقت وأقدم أفضل ما عندي.'; }
   function msgFor(j){ var n=NAME||'[اكتب اسمك هنا]';
     return 'السلام عليكم ورحمة الله وبركاته،\n\nأنا '+n+'، وبتقدم لوظيفة «'+j.title+'» عندكم، وشايف إني مناسب ليها وهكون إضافة حقيقية للفريق.\n\n'+lineFor(j)+'\n\nمتاح أبدأ فورًا وأحضر مقابلة في أي وقت يناسبكم، وجاهز أبعتلك الـ CV حالًا. هسعد جدًا لو أخدت فرصة أثبتلكم نفسي.\n\nمنتظر ردكم، وشكرًا لوقتكم.\n'+n; }
+  function jobId(j){ var k=(j.source&&j.source[1])||j.href||j.title, h=5381; k=k+'|'+j.title; for(var i=0;i<k.length;i++) h=((h<<5)+h+k.charCodeAt(i))>>>0; return 'job-'+h.toString(36); }
   function toast(t){ var d=document.getElementById('wzToast'); if(!d){ d=document.createElement('div'); d.id='wzToast'; d.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#7a1530;color:#fff;padding:10px 18px;border-radius:999px;font:700 14px Cairo,sans-serif;z-index:99;max-width:90vw;text-align:center;box-shadow:0 6px 20px rgba(0,0,0,.3)'; document.body.appendChild(d);} d.textContent=t; d.style.display='block'; clearTimeout(d._t); d._t=setTimeout(function(){d.style.display='none';},4500); }
   function copyText(m,cb){ function fb(){ var ta=document.createElement('textarea'); ta.value=m; ta.style.cssText='position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); var ok=false; try{ok=document.execCommand('copy');}catch(e){} document.body.removeChild(ta); cb&&cb(ok); }
     if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(m).then(function(){cb&&cb(true);},fb); } else fb(); }
@@ -26,7 +27,7 @@
   function render(f){
     grid.innerHTML='';
     jobs.filter(function(j){return f==='all'||j.field===f;}).forEach(function(j,i){
-      var c = el('article','card reveal'); c.style.transitionDelay=(Math.min(i,4)*70)+'ms';
+      var c = el('article','card reveal'); c.id=jobId(j); c.style.transitionDelay=(Math.min(i,4)*70)+'ms';
       c.appendChild(el('span','tag',j.fieldLabel));
       c.appendChild(el('h3','',j.title));
       c.appendChild(el('p','co',j.company));
@@ -49,6 +50,7 @@
       if(hasRd){ var cb=el('button','copy-one','انسخ رسالة التقديم'); cb.type='button'; cb.addEventListener('click',function(){ copyText(msgFor(j),function(ok){ if(ok) toast('الرسالة اتنسخت'); }); }); rs.appendChild(cb); }
       c.appendChild(rs);
       (function(){ var sb=el('a','btn btn-ghost share','شارك على واتساب'); sb.href='https://api.whatsapp.com/send?text='+encodeURIComponent(window.WZ_fmt(j)); sb.target='_blank'; sb.rel='noopener'; sb.className='share-sec'; sb.dataset.share='1'; sb.textContent='شارك الوظيفة على واتساب'; c.appendChild(sb); })();
+      (function(){ var lb=el('button','copy-link','انسخ رابط الوظيفة'); lb.type='button'; lb.addEventListener('click',function(){ copyText(location.href.split('#')[0].split('?')[0]+'#'+jobId(j),function(ok){ if(ok){ toast('رابط الوظيفة اتنسخ'); lb.textContent='اتنسخ ✓'; setTimeout(function(){lb.textContent='انسخ رابط الوظيفة';},1800);} }); }); c.appendChild(lb); })();
       grid.appendChild(c); observe(c);
     });
   }
@@ -132,3 +134,4 @@
   }catch(e){}
 })();
 ;(function(){var n=0,t;var f=document.querySelector(".foot>span");if(!f)return;f.addEventListener("click",function(){n++;clearTimeout(t);t=setTimeout(function(){n=0},1500);if(n>=5)location.href="admin.html"})})();
+;(function(){function go(){var h=location.hash;if(h.indexOf('#job-')!==0)return;var t=document.getElementById(h.slice(1));if(!t)return;t.classList.add('in','hl');setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'center'})},250);setTimeout(function(){t.classList.remove('hl')},4000)}if(document.readyState!=='loading')setTimeout(go,300);else addEventListener('DOMContentLoaded',function(){setTimeout(go,300)});addEventListener('hashchange',go)})();
